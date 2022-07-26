@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "964326768267",
+    "project_id": "appdoptame-d79fc",
+    "storage_bucket": "appdoptame-d79fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964326768267:android:3035320f8e6141f5761e8e",
+        "android_client_info": {
+          "package_name": "com.appdoptame.appdoptame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "964326768267-3lsmip9vsc95n3srrekiihtb6qvc86b0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuUX3jRs727Z6qMf-2aj0mwn4yZiApmUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "964326768267-3lsmip9vsc95n3srrekiihtb6qvc86b0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
