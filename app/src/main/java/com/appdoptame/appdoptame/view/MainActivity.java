@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //addsfsf
+        //addsfsfd
 
 
      //   PRUEBA FIRESTORE (LA BASE DE DATOS)
