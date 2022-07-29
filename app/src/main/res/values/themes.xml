@@ -12,8 +12,8 @@
         <!-- Background colors-->
         <item name="backgroundColor">@color/orange</item>
         <!-- Text Colors -->
-        <item name="titleTextColor">@color/white</item>
-        <item name="subtitleTextColor">@color/light_gray</item>
+        <item name="titleTextColor">@color/black</item>
+        <item name="subtitleTextColor">@color/gray_dark</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="cardBackgroundColor">@color/orange_dark</item>
