@@ -9,7 +9,23 @@ import java.util.concurrent.TimeUnit;
 import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
 
+/**
+ * Esta clase se encarga de convertir datos de tipo Date a texto en donde se puede apreciar
+ * cuanto tiempo lleva la fecha hasta este mismo momento (Similar a Facebook).
+ * Por ejemplo retorna los siguientes valores:
+ *      - Hace 5 horas
+ *      - Hace 2 dias
+ *      - Hace pocos momentos
+ *      - Hace 22 minutos
+ *
+ * @author: Juan Manuel Muñoz
+ */
 public class DateTextGetter {
+    /**
+     * Método que se encarga del objetivo de la clase.
+     * @param date dato tipo Date al que se busca convertir a texto
+     * @return conversión de date a texto
+     */
     @SuppressLint("StringFormatMatches")
     public static String getDateText(Date date){
         Date currentTime = Calendar.getInstance().getTime();
@@ -20,7 +36,7 @@ public class DateTextGetter {
 
         if(difference >= 7){
             return date.toString();
-        } else if(difference < 7 && difference >= 1) {
+        } else if(difference >= 1) {
             return String.format(
                     AppDoptameApp.getContext().getString(R.string.days_ago),
                     difference);
