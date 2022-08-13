@@ -2,6 +2,7 @@ package com.appdoptame.appdoptame.util;
 
 import android.annotation.SuppressLint;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +36,9 @@ public class DateTextGetter {
         long difference = timeDays.convert(diff, TimeUnit.MILLISECONDS);
 
         if(difference >= 7){
-            return date.toString();
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+            return formatter.format(date);
         } else if(difference >= 1) {
             return String.format(
                     AppDoptameApp.getContext().getString(R.string.days_ago),
