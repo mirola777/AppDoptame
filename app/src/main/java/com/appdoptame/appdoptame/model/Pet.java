@@ -1,5 +1,7 @@
 package com.appdoptame.appdoptame.model;
 
+import java.util.List;
+
 public class Pet {
     private final String ID;
     private final String name;
@@ -12,9 +14,10 @@ public class Pet {
     private final boolean stray;
     private final boolean sterilized;
     private final boolean adopted;
-    private final int age;
-    private final int size;
-    private final int weight;
+    private final long age;
+    private final long size;
+    private final long weight;
+    private final List<String> images;
 
     public Pet(String ID,
                String name,
@@ -27,9 +30,10 @@ public class Pet {
                boolean stray,
                boolean sterilized,
                boolean adopted,
-               int age,
-               int size,
-               int weight){
+               long age,
+               long size,
+               long weight,
+               List<String> images){
         this.ID = ID;
         this.name = name;
         this.type = type;
@@ -41,9 +45,14 @@ public class Pet {
         this.stray = stray;
         this.sterilized = sterilized;
         this.adopted = adopted;
-        this.age = age;
-        this.size = size;
+        this.age    = age;
+        this.size   = size;
         this.weight = weight;
+        this.images = images;
+    }
+
+    public List<String> getImages() {
+        return images;
     }
 
     public boolean isAdopted() {
@@ -70,15 +79,15 @@ public class Pet {
         return ID;
     }
 
-    public int getAge() {
+    public long getAge() {
         return age;
     }
 
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
-    public int getWeight() {
+    public long getWeight() {
         return weight;
     }
 

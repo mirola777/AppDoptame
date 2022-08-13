@@ -7,7 +7,8 @@ public class User {
     private final String phone;
     private final String city;
     private final String department;
-    private final int age;
+    private final String image;
+    private final long age;
 
     public User(String ID,
                String identification,
@@ -15,7 +16,8 @@ public class User {
                String phone,
                String city,
                String department,
-               int age){
+               String image,
+               long age){
         this.ID = ID;
         this.identification = identification;
         this.name = name;
@@ -23,6 +25,11 @@ public class User {
         this.city = city;
         this.department = department;
         this.age = age;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public String getDepartment() {
@@ -33,7 +40,7 @@ public class User {
         return city;
     }
 
-    public int getAge() {
+    public long getAge() {
         return age;
     }
 

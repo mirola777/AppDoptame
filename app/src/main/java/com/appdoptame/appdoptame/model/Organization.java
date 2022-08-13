@@ -11,9 +11,10 @@ public class Organization extends User {
                   String address,
                   String city,
                   String department,
+                  String image,
                   String website,
-                  int age) {
-        super(ID, identification, name, phone, city, department, age);
+                        long age) {
+        super(ID, identification, name, phone, city, department, image, age);
         this.address = address;
         this.website = website;
     }

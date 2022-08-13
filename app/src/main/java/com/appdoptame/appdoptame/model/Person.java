@@ -10,8 +10,9 @@ public class Person extends User {
                   String phone,
                   String city,
                   String department,
-                  int age) {
-        super(ID, identification, name, phone, city, department, age);
+                  String image,
+                  long age) {
+        super(ID, identification, name, phone, city, department, image, age);
         this.lastName = lastName;
     }
 
