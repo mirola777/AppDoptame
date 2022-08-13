@@ -2,4 +2,16 @@
     <string name="app_name">AppDoptame</string>
     <string name="app_about">AppDoptame, proyecto del curso Proyecto Integrador I (2022-2). Desarrollado
         por Juan Manuel Muñoz Arias, Santiago Puerta Florez y Andres Guerra Montoya. </string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="confirm_password">Confirmar constraseña</string>
+    <string name="login">Ingresar</string>
+    <string name="age">Edad</string>
+    <string name="sing_up">Regístrate</string>
+    <string name="remember_me">Mantener sesión iniciada</string>
+    <string name="name">Nombre</string>
+    <string name="identification">C.C.</string>
+    <string name="last_name">Apellidos</string>
+    <string name="or_login_with">O ingresa con</string>
+    <string name="dont_you_have_an_account">¿No tienes una cuenta?</string>
 </resources>

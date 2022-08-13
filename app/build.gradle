@@ -43,4 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database:20.0.5'
     implementation 'com.google.firebase:firebase-firestore:24.2.1'
+
+    // Circular imageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }
