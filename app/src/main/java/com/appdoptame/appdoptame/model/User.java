@@ -4,7 +4,6 @@ public class User {
     private final String ID;
     private final String identification;
     private final String name;
-    private final String lastName;
     private final String phone;
     private final String city;
     private final String department;
@@ -13,7 +12,6 @@ public class User {
     public User(String ID,
                String identification,
                String name,
-               String lastName,
                String phone,
                String city,
                String department,
@@ -21,7 +19,6 @@ public class User {
         this.ID = ID;
         this.identification = identification;
         this.name = name;
-        this.lastName = lastName;
         this.phone = phone;
         this.city = city;
         this.department = department;
@@ -50,10 +47,6 @@ public class User {
 
     public String getIdentification() {
         return identification;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public String getPhone() {

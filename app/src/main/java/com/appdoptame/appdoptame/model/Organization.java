@@ -7,14 +7,13 @@ public class Organization extends User {
     public Organization(String ID,
                   String identification,
                   String name,
-                  String lastName,
                   String phone,
                   String address,
                   String city,
                   String department,
                   String website,
                   int age) {
-        super(ID, identification, name, lastName, phone, city, department, age);
+        super(ID, identification, name, phone, city, department, age);
         this.address = address;
         this.website = website;
     }
