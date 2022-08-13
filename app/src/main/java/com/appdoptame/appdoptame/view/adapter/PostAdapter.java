@@ -1,5 +1,6 @@
 package com.appdoptame.appdoptame.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -49,15 +49,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
-    @Override
+    @SuppressLint("SetTextI18n") @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
-
         holder.userName.setText(post.getUser().getName());
-        holder.time.setText(DateTextGetter.getDateText(post.getDate()));
+        holder.time.setText(
+                        DateTextGetter.getDateText(post.getDate()) +
+                        " ● " +
+                        post.getPet().getCity() +
+                        ", " +
+                        post.getPet().getDepartment());
         holder.description.setText(post.getPet().getDescription());
-        holder.imageAdapter = new PostImageAdapter(context, post.getPet().getImages());
-        holder.imageView.setAdapter(holder.imageAdapter);
+        if(holder.imageAdapter == null){
+            holder.imageAdapter = new PostImageAdapter(context, post.getPet().getImages());
+            holder.imageView.setAdapter(holder.imageAdapter);
+            holder.imageView.setPageTransformer(new ViewPager2.PageTransformer() {
+                private static final float MIN_SCALE = 0.85f;
+                private static final float MIN_ALPHA = 0.6f;
+
+                @Override
+                public void transformPage(@NonNull View page, float position) {
+                    if (position <-1) page.setAlpha(0);
+                    else if (position <=1){ // [-1,1]
+                        page.setScaleX(Math.max(MIN_SCALE,1-Math.abs(position)));
+                        page.setScaleY(Math.max(MIN_SCALE,1-Math.abs(position)));
+                        page.setAlpha(Math.max(MIN_ALPHA,1-Math.abs(position)));
+                    }
+                    else page.setAlpha(0);
+                }
+            });
+        }
         holder.likeCount.setText(LikesTextGetter.getDateText(post.getLikes().size()));
 
         holder.userImage.setImageBitmap(null);

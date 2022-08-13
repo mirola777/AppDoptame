@@ -52,7 +52,7 @@
                 android:maxLines="1"
                 android:text="Hace 30 minutos"
                 android:textColor="?attr/subtitleTextColor"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
         </LinearLayout>
     </LinearLayout>
@@ -60,7 +60,8 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/post_item_image_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        app:layout_constraintDimensionRatio="1:1"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
     </androidx.viewpager2.widget.ViewPager2>
 
