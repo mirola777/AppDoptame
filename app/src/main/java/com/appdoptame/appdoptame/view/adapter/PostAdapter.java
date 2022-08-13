@@ -11,9 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.util.DateTextGetter;
+import com.appdoptame.appdoptame.util.LikesTextGetter;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +31,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private List<Post> posts;
     private final Context context;
 
-    public PostAdapter(Context context){
+    public PostAdapter(Context context, List<Post> posts){
         this.inflater = LayoutInflater.from(context);
         this.context  = context;
-        this.posts    = new ArrayList<>();
+        this.posts    = posts;
+    }
+
+    public void setPosts(List<Post> posts){
+        this.posts = posts;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -46,6 +56,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.userName.setText(post.getUser().getName());
         holder.time.setText(DateTextGetter.getDateText(post.getDate()));
         holder.description.setText(post.getPet().getDescription());
+        holder.imageAdapter = new PostImageAdapter(context, post.getPet().getImages());
+        holder.imageView.setAdapter(holder.imageAdapter);
+        holder.likeCount.setText(LikesTextGetter.getDateText(post.getLikes().size()));
+
+        holder.userImage.setImageBitmap(null);
+        Glide.with(AppDoptameApp.getContext())
+                .load(post.getUser().getImage())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .placeholder(R.drawable.user_icon_orange)
+                .error(R.drawable.user_icon_orange)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(holder.userImage);
     }
 
     @Override
@@ -55,18 +77,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
-        TextView        userName;
-        TextView        time;
-        TextView        description;
-        TextView        adoptButton;
-        LinearLayout    likeButton;
-        TextView        likeCount;
-        LinearLayout    commentButton;
-        TextView        commentCount;
-        LinearLayout    shareButton;
-        TextView        shareCount;
-        CircleImageView userImage;
-        ViewPager2      imageView;
+        TextView         userName;
+        TextView         time;
+        TextView         description;
+        TextView         adoptButton;
+        LinearLayout     likeButton;
+        TextView         likeCount;
+        LinearLayout     commentButton;
+        TextView         commentCount;
+        LinearLayout     shareButton;
+        TextView         shareCount;
+        CircleImageView  userImage;
+        ViewPager2       imageView;
+        PostImageAdapter imageAdapter;
 
         ViewHolder(View itemView) {
             super(itemView);
