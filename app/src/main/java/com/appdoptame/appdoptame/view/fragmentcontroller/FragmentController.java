@@ -5,10 +5,12 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.transition.Fade;
+import androidx.transition.Transition;
 
 import com.appdoptame.appdoptame.view.MainActivity;
 
 import com.appdoptame.appdoptame.R;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 public class FragmentController {
     private static MainActivity activityInstance;
@@ -18,8 +20,7 @@ public class FragmentController {
         activityInstance = (MainActivity) context;
         fragmentManager  = activityInstance.getSupportFragmentManager();
 
-        //SetFragmentLogin.set();
-        SetFragmentMain.set();
+        SetFragmentLogin.set();
     }
 
     public static void init(Context context){
@@ -42,6 +43,25 @@ public class FragmentController {
 
         fragment.setEnterTransition(fade);
         fragment.setReturnTransition(fade);
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public static void addFragmentUp(Fragment fragment){
+        Fragment topFragment = getTopFragment();
+
+        Transition upTransition = new MaterialSharedAxis(MaterialSharedAxis.X, true).setDuration(500);
+        Transition downTransition = new MaterialSharedAxis(MaterialSharedAxis.X, false).setDuration(500);
+        if(topFragment != null){
+            topFragment.setExitTransition(upTransition);
+            topFragment.setReenterTransition(downTransition);
+        }
+        fragment.setEnterTransition(upTransition);
+        fragment.setReturnTransition(downTransition);
 
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)

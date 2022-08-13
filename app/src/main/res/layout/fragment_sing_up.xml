@@ -7,26 +7,53 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:fitsSystemWindows="true"
         android:splitMotionEvents="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/sing_up_back_button"
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize"
-            android:maxHeight="200dp"
-            android:layout_marginTop="0dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/ic_round_keyboard_backspace_24"
-            android:tint="?attr/colorSecondary"
-            android:background="?android:selectableItemBackgroundBorderless"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSecondary"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sing_up_status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/sing_up_back_button"
+                    android:layout_width="?actionBarSize"
+                    android:layout_height="?actionBarSize"
+                    android:adjustViewBounds="true"
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:maxHeight="200dp"
+                    android:src="@drawable/ic_round_keyboard_backspace_24"
+                    android:tint="?attr/colorOnPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/sing_up"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -36,7 +63,7 @@
             android:tint="?attr/colorSecondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sing_up_back_button"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
             app:layout_constraintWidth_percent="0.5" />
 
         <LinearLayout
@@ -157,7 +184,6 @@
                 android:textSize="12sp" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/sing_up_sing_up_button"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="150dp"
@@ -171,6 +197,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/sing_up_sing_up_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"
@@ -182,7 +209,6 @@
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="12sp" />
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
