@@ -13,10 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.util.concurrent.TimeUnit;
-
 import com.appdoptame.appdoptame.R;
+import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
+import com.appdoptame.appdoptame.data.listener.CompleteListener;
+import com.appdoptame.appdoptame.util.EditTextExtractor;
+import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
+import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentMain;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentSingUp;
+
+import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -60,7 +65,21 @@ public class FragmentLogin extends Fragment {
 
     private void loadLoginButton(){
         loginButton.setOnClickListener(v -> {
-            // Do something
+            String email    = EditTextExtractor.get(emailField);
+            String password = EditTextExtractor.get(passwordField);
+
+            UserRepositoryFS.getInstance().login(email, password, new CompleteListener() {
+                @Override
+                public void onSuccess() {
+                    FragmentController.onBackPressed();
+                    SetFragmentMain.set();
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
         });
     }
 

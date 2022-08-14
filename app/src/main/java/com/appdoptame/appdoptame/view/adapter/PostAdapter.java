@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -35,6 +36,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.inflater = LayoutInflater.from(context);
         this.context  = context;
         this.posts    = posts;
+    }
+
+    public PostAdapter(Context context){
+        this.inflater = LayoutInflater.from(context);
+        this.context  = context;
+        this.posts    = new ArrayList<>();
     }
 
     public void setPosts(List<Post> posts){

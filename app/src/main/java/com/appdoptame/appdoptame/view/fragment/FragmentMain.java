@@ -18,7 +18,6 @@ import com.appdoptame.appdoptame.data.listener.PostListLoaderListener;
 import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.view.adapter.PostAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -41,18 +40,10 @@ public class FragmentMain extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadComponents(savedInstanceState);
+        loadComponents();
     }
 
-    private void setListFunction(){
-        feedAdapter = new PostAdapter(requireContext(), new ArrayList<>());
-        feedRecyclerView.setLayoutManager(new LinearLayoutManager(
-                getContext(), LinearLayoutManager.VERTICAL, false)
-        );
-        feedRecyclerView.setAdapter(feedAdapter);
-    }
-
-    private void loadComponents(Bundle savedState){
+    private void loadComponents(){
         feedRecyclerView = requireView().findViewById(R.id.feed_list);
 
         setListFunction();
@@ -69,4 +60,13 @@ public class FragmentMain extends Fragment {
             }
         });
     }
+
+    private void setListFunction(){
+        feedAdapter = new PostAdapter(requireContext());
+        feedRecyclerView.setLayoutManager(new LinearLayoutManager(
+                getContext(), LinearLayoutManager.VERTICAL, false)
+        );
+        feedRecyclerView.setAdapter(feedAdapter);
+    }
+
 }
