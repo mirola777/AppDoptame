@@ -5,6 +5,7 @@ import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.model.User;
 import com.google.firebase.Timestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,6 @@ public class ParsePost {
         Pet          pet    = ParsePet.parse((Map<String, Object>) doc.get("PET"));
         User         person = ParsePerson.parse((Map<String, Object>) doc.get("PERSON"));
 
-        return new Post(ID, date, likes, person, pet);
+        return new Post(ID, date, likes, new ArrayList<>(), person, pet);
     }
 }

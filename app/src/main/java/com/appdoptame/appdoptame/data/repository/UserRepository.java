@@ -5,6 +5,7 @@ import com.appdoptame.appdoptame.model.User;
 
 public interface UserRepository {
     void login(String email, String password, CompleteListener listener);
+    void loginGoogle(CompleteListener listener);
     void singOut(CompleteListener listener);
     void singUp(String email, String password, User user, CompleteListener listener);
 }

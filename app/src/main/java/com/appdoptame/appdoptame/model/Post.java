@@ -7,15 +7,21 @@ public class Post {
     private final Date date;
     private final String ID;
     private final List<String> likes;
+    private final List<Comment> comments;
     private final User user;
     private final Pet pet;
 
-    public Post(String ID, Date date, List<String> likes, User user, Pet pet){
+    public Post(String ID, Date date, List<String> likes, List<Comment> comments, User user, Pet pet){
         this.date = date;
         this.likes = likes;
         this.user = user;
         this.pet = pet;
         this.ID = ID;
+        this.comments = comments;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 
     public String getID() {

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
+import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
@@ -69,6 +70,7 @@ public class FragmentSingUp extends Fragment {
         registerButton.setOnClickListener(v -> {
             String email           = EditTextExtractor.get(emailField);
             String password        = EditTextExtractor.get(passwordField);
+            /*
             String confirmPassword = EditTextExtractor.get(passwordConfirmField);
             String name            = EditTextExtractor.get(nameField);
             String lastName        = EditTextExtractor.get(lastNameField);
@@ -77,7 +79,19 @@ public class FragmentSingUp extends Fragment {
             String city            = "Medellin";
             String department      = "Antioquia";
 
-            //UserRepositoryFS.getInstance().singUp(email, password, confirmPassword, );
+             */
+
+            UserRepositoryFS.getInstance().singUp(email, password, null, new CompleteListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
         });
     }
 

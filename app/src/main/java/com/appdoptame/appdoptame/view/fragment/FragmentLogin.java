@@ -89,7 +89,17 @@ public class FragmentLogin extends Fragment {
 
     private void loadGoogleButton(){
         googleButton.setOnClickListener(v -> {
-            // Do something
+            UserRepositoryFS.getInstance().loginGoogle(new CompleteListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
         });
     }
 
