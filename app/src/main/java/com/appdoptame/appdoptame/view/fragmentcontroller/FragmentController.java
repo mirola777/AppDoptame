@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.Fade;
 import androidx.transition.Transition;
 
@@ -69,6 +70,13 @@ public class FragmentController {
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    public static void removeFragment(Fragment fragment){
+        fragmentManager.beginTransaction()
+                .remove(fragment)
+                .commit();
+        fragmentManager.popBackStack();
     }
 
     private static Fragment getTopFragment(){

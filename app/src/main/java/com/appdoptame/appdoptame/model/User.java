@@ -1,7 +1,7 @@
 package com.appdoptame.appdoptame.model;
 
 public class User {
-    private final String ID;
+    private String ID;
     private final String identification;
     private final String name;
     private final String phone;
@@ -26,6 +26,10 @@ public class User {
         this.department = department;
         this.age = age;
         this.image = image;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public String getImage() {

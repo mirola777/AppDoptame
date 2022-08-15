@@ -19,13 +19,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/sing_up_status_bar"
+                android:id="@+id/create_user_status_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageButton
-                    android:id="@+id/sing_up_back_button"
+                    android:id="@+id/create_user_back_button"
                     android:layout_width="?actionBarSize"
                     android:layout_height="?actionBarSize"
                     android:adjustViewBounds="true"
@@ -43,13 +43,12 @@
                     android:fontFamily="@font/poppins_bold"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="@string/sing_up"
+                    android:text="@string/create_user"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
@@ -79,46 +78,76 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView">
 
             <EditText
-                android:id="@+id/sing_up_email_field"
-                android:layout_width="match_parent"
                 android:layout_marginTop="50dp"
+                android:id="@+id/create_user_name_field"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/custom_edit_text_rounded_secondary"
-                android:drawableStart="@drawable/ic_baseline_mail_24"
+                android:drawableStart="@drawable/ic_round_person_24"
                 android:drawablePadding="12dp"
                 android:fontFamily="@font/poppins_regular"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
                 android:textSize="12sp" />
 
             <EditText
-                android:id="@+id/sing_up_password_field"
+                android:id="@+id/create_user_last_name_field"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_edit_text_rounded_secondary"
-                android:drawableStart="@drawable/ic_baseline_password_24"
+                android:drawableStart="@drawable/ic_round_person_24"
                 android:drawablePadding="12dp"
                 android:fontFamily="@font/poppins_regular"
-                android:hint="@string/password"
-                android:inputType="textPassword"
+                android:hint="@string/last_name"
+                android:inputType="textPersonName"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
                 android:textSize="12sp" />
 
             <EditText
-                android:id="@+id/sing_up_confirm_password_field"
+                android:id="@+id/create_user_age_field"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_edit_text_rounded_secondary"
-                android:drawableStart="@drawable/ic_baseline_password_24"
+                android:drawableStart="@drawable/ic_round_person_24"
                 android:drawablePadding="12dp"
                 android:fontFamily="@font/poppins_regular"
-                android:hint="@string/confirm_password"
-                android:inputType="textPassword"
+                android:hint="@string/age"
+                android:inputType="number"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/create_user_identification_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_edit_text_rounded_secondary"
+                android:drawableStart="@drawable/ic_baseline_credit_card_24"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/identification"
+                android:inputType="number"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/create_user_phone_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_edit_text_rounded_secondary"
+                android:drawableStart="@drawable/ic_round_local_phone_24"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/phone"
+                android:inputType="number"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
                 android:textSize="12sp" />
@@ -137,7 +166,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/sing_up_sing_up_button"
+                    android:id="@+id/create_user_create_user_button"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"
@@ -145,7 +174,7 @@
                     android:foreground="?android:selectableItemBackgroundBorderless"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:text="@string/sing_up"
+                    android:text="@string/create_user"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="12sp" />
             </androidx.cardview.widget.CardView>

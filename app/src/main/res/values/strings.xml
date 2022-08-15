@@ -11,6 +11,8 @@
     <string name="login">Ingresar</string>
     <string name="age">Edad</string>
     <string name="sing_up">Regístrate</string>
+    <string name="create_user">Crear usuario</string>
+    <string name="phone">Número de teléfono</string>
     <string name="remember_me">Mantener sesión iniciada</string>
     <string name="name">Nombre</string>
     <string name="identification">C.C.</string>

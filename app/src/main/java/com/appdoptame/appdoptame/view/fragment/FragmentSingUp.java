@@ -21,7 +21,6 @@ import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentLogin;
-import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentMain;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,10 +30,6 @@ public class FragmentSingUp extends Fragment {
     private EditText         emailField;
     private EditText         passwordField;
     private EditText         passwordConfirmField;
-    private EditText         nameField;
-    private EditText         lastNameField;
-    private EditText         ageField;
-    private EditText         CCField;
     private TextView         registerButton;
 
     @SuppressLint("InflateParams") @Nullable @Override
@@ -57,10 +52,6 @@ public class FragmentSingUp extends Fragment {
         emailField           = requireView().findViewById(R.id.sing_up_email_field);
         passwordField        = requireView().findViewById(R.id.sing_up_password_field);
         passwordConfirmField = requireView().findViewById(R.id.sing_up_confirm_password_field);
-        nameField            = requireView().findViewById(R.id.sing_up_name_field);
-        lastNameField        = requireView().findViewById(R.id.sing_up_last_name_field);
-        ageField             = requireView().findViewById(R.id.sing_up_age_field);
-        CCField              = requireView().findViewById(R.id.sing_up_identification_field);
         registerButton       = requireView().findViewById(R.id.sing_up_sing_up_button);
 
         loadStatusBar();
@@ -72,17 +63,7 @@ public class FragmentSingUp extends Fragment {
         registerButton.setOnClickListener(v -> {
             String email           = EditTextExtractor.get(emailField);
             String password        = EditTextExtractor.get(passwordField);
-
             String confirmPassword = EditTextExtractor.get(passwordConfirmField);
-            /*
-            String name            = EditTextExtractor.get(nameField);
-            String lastName        = EditTextExtractor.get(lastNameField);
-            long   age             = Long.parseLong(EditTextExtractor.get(ageField));
-            String identification  = EditTextExtractor.get(CCField);
-            String city            = "Medellin";
-            String department      = "Antioquia";
-
-             */
 
             UserRepositoryFS.getInstance().singUp(email, password, confirmPassword, null, new CompleteListener() {
                 @Override

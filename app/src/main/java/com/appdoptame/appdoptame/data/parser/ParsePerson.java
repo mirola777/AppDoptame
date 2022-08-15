@@ -3,6 +3,7 @@ package com.appdoptame.appdoptame.data.parser;
 import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.User;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ParsePerson {
@@ -18,5 +19,20 @@ public class ParsePerson {
         String ID             = (String) doc.get("ID");
 
         return new Person(ID, identification, name, lastName, phone, city, department, image, age);
+    }
+
+    public static Map<String, Object> parse(Person person){
+        Map<String, Object> doc  = new HashMap<>();
+        doc.put("AGE",        person.getAge());
+        doc.put("DEPARTMENT", person.getDepartment());
+        doc.put("PHONE",      person.getPhone());
+        doc.put("CITY",       person.getCity());
+        doc.put("NAME",       person.getName());
+        doc.put("IMAGE",      person.getImage());
+        doc.put("LAST_NAME",  person.getLastName());
+        doc.put("CC",         person.getIdentification());
+        doc.put("ID",         person.getID());
+
+        return doc;
     }
 }
