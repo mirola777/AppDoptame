@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/andre/AndroidStudioProjects/AppDoptame/app/src/main/res/layout/activity_main.xml" value="0.26766304347826086" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/AppDoptame/app/src/main/res/layout/fragment_feed.xml" value="0.15081521739130435" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/AppDoptame/app/src/main/res/layout/fragment_login.xml" value="0.26766304347826086" />
+        <entry key="..\:/Users/andre/AndroidStudioProjects/AppDoptame/app/src/main/res/layout/fragment_sing_up.xml" value="0.26766304347826086" />
+        <entry key="..\:/Users/andre/OneDrive/Desktop/Trabajos Eafit/Universidad semestre 5/Proyecto integrador/AppDoptame/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/andre/OneDrive/Desktop/Trabajos Eafit/Universidad semestre 5/Proyecto integrador/AppDoptame/app/src/main/res/layout/fragment_feed.xml" value="0.25" />
+        <entry key="..\:/Users/andre/OneDrive/Desktop/Trabajos Eafit/Universidad semestre 5/Proyecto integrador/AppDoptame/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Users/andre/OneDrive/Desktop/Trabajos Eafit/Universidad semestre 5/Proyecto integrador/AppDoptame/app/src/main/res/layout/fragment_sing_up.xml" value="0.25" />
+        <entry key="..\:/Users/andre/OneDrive/Desktop/Trabajos Eafit/Universidad semestre 5/Proyecto integrador/AppDoptame/app/src/main/res/layout/post_item.xml" value="0.25" />
+        <entry key="..\:/Users/andre/OneDrive/Desktop/Trabajos Eafit/Universidad semestre 5/Proyecto integrador/AppDoptame/app/src/main/res/layout/post_item_image.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="org.jetbrains.annotations.Nullable" />
     <option name="myDefaultNotNull" value="androidx.annotation.NonNull" />

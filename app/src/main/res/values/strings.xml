@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">AppDoptame</string>
+    <string name="facebook_app_id">1300026347405572</string>
+    <string name="fb_login_protocol_scheme">fb1300026347405572</string>
+    <string name="facebook_client_token">4be03805fe39a10416e9d19d7c306280</string>
     <string name="app_about">AppDoptame, proyecto del curso Proyecto Integrador I (2022-2). Desarrollado
         por Juan Manuel Muñoz Arias, Santiago Puerta Florez y Andres Guerra Montoya. </string>
     <string name="email">Correo electrónico</string>

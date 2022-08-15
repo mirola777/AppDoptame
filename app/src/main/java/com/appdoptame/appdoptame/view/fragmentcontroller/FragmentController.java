@@ -21,6 +21,7 @@ public class FragmentController {
         fragmentManager  = activityInstance.getSupportFragmentManager();
 
         SetFragmentLogin.set();
+        //SetFragmentMain.set();
     }
 
     public static void init(Context context){
