@@ -20,6 +20,8 @@ import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
+import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentLogin;
+import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentMain;
 
 import java.util.concurrent.TimeUnit;
 
@@ -85,7 +87,7 @@ public class FragmentSingUp extends Fragment {
             UserRepositoryFS.getInstance().singUp(email, password, confirmPassword, null, new CompleteListener() {
                 @Override
                 public void onSuccess() {
-
+                    SetFragmentLogin.set();
                 }
 
                 @Override

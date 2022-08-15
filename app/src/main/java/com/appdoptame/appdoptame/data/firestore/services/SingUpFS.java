@@ -17,7 +17,6 @@ public class SingUpFS implements ISingUp {
                     // Meter user en la base de datos
                     CollectionReference collectionUser = FirestoreDB.getCollectionUser();
                     String userID=task.getResult().getUser().getUid();
-                    System.out.println("hola");
                     listener.onSuccess();
                 } else {
                     listener.onFailure();

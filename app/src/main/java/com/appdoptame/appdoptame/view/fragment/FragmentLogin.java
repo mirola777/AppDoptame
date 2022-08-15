@@ -71,7 +71,7 @@ public class FragmentLogin extends Fragment {
             UserRepositoryFS.getInstance().login(email, password, new CompleteListener() {
                 @Override
                 public void onSuccess() {
-                    FragmentController.onBackPressed();
+                    //FragmentController.onBackPressed();
                     SetFragmentMain.set();
                 }
 
@@ -92,7 +92,7 @@ public class FragmentLogin extends Fragment {
             UserRepositoryFS.getInstance().loginGoogle(new CompleteListener() {
                 @Override
                 public void onSuccess() {
-
+                    System.out.println("hola");
                 }
 
                 @Override
