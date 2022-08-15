@@ -4,5 +4,5 @@ import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.model.User;
 
 public interface ISingUp {
-    void singUp(String email, String password, User user, CompleteListener listener);
+    void singUp(String email, String password, String confirmPassword, User user, CompleteListener listener);
 }

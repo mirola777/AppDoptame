@@ -70,8 +70,9 @@ public class FragmentSingUp extends Fragment {
         registerButton.setOnClickListener(v -> {
             String email           = EditTextExtractor.get(emailField);
             String password        = EditTextExtractor.get(passwordField);
-            /*
+
             String confirmPassword = EditTextExtractor.get(passwordConfirmField);
+            /*
             String name            = EditTextExtractor.get(nameField);
             String lastName        = EditTextExtractor.get(lastNameField);
             long   age             = Long.parseLong(EditTextExtractor.get(ageField));
@@ -81,7 +82,7 @@ public class FragmentSingUp extends Fragment {
 
              */
 
-            UserRepositoryFS.getInstance().singUp(email, password, null, new CompleteListener() {
+            UserRepositoryFS.getInstance().singUp(email, password, confirmPassword, null, new CompleteListener() {
                 @Override
                 public void onSuccess() {
 

@@ -46,7 +46,7 @@ public class UserRepositoryFS implements UserRepository {
     }
 
     @Override
-    public void singUp(String email, String password, User user, CompleteListener listener) {
-        iSingUp.singUp(email, password, user, listener);
+    public void singUp(String email, String password, String confirmPassword, User user, CompleteListener listener) {
+        iSingUp.singUp(email, password, confirmPassword, user, listener);
     }
 }
