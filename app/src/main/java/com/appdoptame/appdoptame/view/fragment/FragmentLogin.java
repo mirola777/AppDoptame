@@ -1,5 +1,7 @@
 package com.appdoptame.appdoptame.view.fragment;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -94,7 +97,7 @@ public class FragmentLogin extends Fragment {
 
                 @Override
                 public void onFailure() {
-
+                    Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_SHORT).show();
                 }
             });
         });
@@ -126,7 +129,7 @@ public class FragmentLogin extends Fragment {
 
                 @Override
                 public void onFailure() {
-                    System.out.println("FFFFFFFF");
+                    Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_SHORT).show();
                 }
             });
         });
@@ -152,6 +155,7 @@ public class FragmentLogin extends Fragment {
 
                     @Override
                     public void onFailure() {
+                        Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_SHORT).show();
 
                     }
                 });

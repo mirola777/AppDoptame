@@ -1,5 +1,9 @@
 package com.appdoptame.appdoptame.data.firestore.services;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import com.appdoptame.appdoptame.AppDoptameApp;
@@ -34,6 +38,9 @@ public class LoginFS implements ILogin {
                     listener.onFailure();
                 }
             });
+        }else{
+            Toast.makeText(getApplicationContext(), "Ingrese los valores", Toast.LENGTH_SHORT).show();
+
         }
     }
 

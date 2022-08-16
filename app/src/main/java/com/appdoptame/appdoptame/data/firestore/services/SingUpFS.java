@@ -1,5 +1,9 @@
 package com.appdoptame.appdoptame.data.firestore.services;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
+import android.widget.Toast;
+
 import com.appdoptame.appdoptame.data.firestore.FirestoreDB;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.service.ISingUp;
@@ -14,14 +18,13 @@ public class SingUpFS implements ISingUp {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    // Meter user en la base de datos
-                    CollectionReference collectionUser = FirestoreDB.getCollectionUser();
-                    String userID=task.getResult().getUser().getUid();
                     listener.onSuccess();
                 } else {
                     listener.onFailure();
                 }
             });
+        }else{
+            Toast.makeText(getApplicationContext(), "Ingrese todos los valores", Toast.LENGTH_SHORT).show();
         }
     }
 }

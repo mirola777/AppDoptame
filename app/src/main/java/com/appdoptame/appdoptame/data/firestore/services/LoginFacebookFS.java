@@ -23,7 +23,6 @@ import java.util.Collections;
 public class LoginFacebookFS implements ILoginFacebook {
     @Override
     public void loginFacebook(Fragment fragment, CallbackManager callbackManager, LoginListener listener) {
-        System.out.println(callbackManager);
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
