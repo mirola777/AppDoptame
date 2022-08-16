@@ -87,6 +87,12 @@ public class FragmentController {
         return null;
     }
 
+    public static void removeAllFragments(){
+        while(fragmentManager.getBackStackEntryCount() != 0){
+            fragmentManager.popBackStackImmediate();
+        }
+    }
+
     public static void onBackPressed(){
         int count = fragmentManager.getBackStackEntryCount();
         if (count <= 1) {

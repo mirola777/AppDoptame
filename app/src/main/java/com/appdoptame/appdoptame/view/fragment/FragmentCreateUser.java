@@ -21,6 +21,7 @@ import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
+import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentMain;
 
 import java.util.concurrent.TimeUnit;
 
@@ -92,7 +93,8 @@ public class FragmentCreateUser extends Fragment {
                 UserRepositoryFS.getInstance().createPerson(newUser, new CompleteListener() {
                     @Override
                     public void onSuccess() {
-
+                        FragmentController.removeAllFragments();
+                        SetFragmentMain.set();
                     }
 
                     @Override
