@@ -27,4 +27,10 @@
         <item name="cardElevation">0dp</item>
         <item name="cardCornerRadius">25dp</item>
     </style>
+
+    <style name="BottomNavigation">
+        <item name="android:background">@color/orange_dark</item>
+        <item name="itemIconTint">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
+    </style>
 </resources>
