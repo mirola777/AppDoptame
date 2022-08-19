@@ -16,18 +16,6 @@ public class Person extends User {
         this.lastName = lastName;
     }
 
-    public Person(String identification,
-                  String name,
-                  String lastName,
-                  String phone,
-                  String city,
-                  String department,
-                  String image,
-                  long age) {
-        super(null, identification, name, phone, city, department, image, age);
-        this.lastName = lastName;
-    }
-
     public String getLastName() {
         return lastName;
     }

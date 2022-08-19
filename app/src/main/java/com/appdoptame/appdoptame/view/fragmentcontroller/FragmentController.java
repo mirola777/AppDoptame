@@ -4,7 +4,6 @@ import android.content.Context;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.Fade;
 import androidx.transition.Transition;
 
@@ -72,25 +71,12 @@ public class FragmentController {
                 .commit();
     }
 
-    public static void removeFragment(Fragment fragment){
-        fragmentManager.beginTransaction()
-                .remove(fragment)
-                .commit();
-        fragmentManager.popBackStack();
-    }
-
     private static Fragment getTopFragment(){
         if(fragmentManager.getFragments().size() != 0){
             return fragmentManager.getFragments().get(fragmentManager.getFragments().size()-1);
         }
 
         return null;
-    }
-
-    public static void removeAllFragments(){
-        while(fragmentManager.getBackStackEntryCount() != 0){
-            fragmentManager.popBackStackImmediate();
-        }
     }
 
     public static void onBackPressed(){

@@ -8,17 +8,12 @@ import com.appdoptame.appdoptame.data.firestore.services.LoginFS;
 import com.appdoptame.appdoptame.data.firestore.services.LoginFacebookFS;
 import com.appdoptame.appdoptame.data.firestore.services.LoginGoogleFS;
 import com.appdoptame.appdoptame.data.firestore.services.SingUpFS;
-import com.appdoptame.appdoptame.data.firestore.services.UserCreatorFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
-import com.appdoptame.appdoptame.data.listener.LoginListener;
 import com.appdoptame.appdoptame.data.repository.UserRepository;
 import com.appdoptame.appdoptame.data.service.ILogin;
 import com.appdoptame.appdoptame.data.service.ILoginFacebook;
 import com.appdoptame.appdoptame.data.service.ILoginGoogle;
 import com.appdoptame.appdoptame.data.service.ISingUp;
-import com.appdoptame.appdoptame.data.service.IUserCreator;
-import com.appdoptame.appdoptame.model.Organization;
-import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.User;
 import com.facebook.CallbackManager;
 
@@ -27,7 +22,6 @@ public class UserRepositoryFS implements UserRepository {
     private final ILogin iLogin;
     private final ILoginGoogle iLoginGoogle;
     private final ILoginFacebook iLoginFacebook;
-    private final IUserCreator iUserCreator;
     private final ISingUp iSingUp;
 
     private UserRepositoryFS(){
@@ -35,7 +29,6 @@ public class UserRepositoryFS implements UserRepository {
         this.iLoginGoogle   = new LoginGoogleFS();
         this.iLoginFacebook = new LoginFacebookFS();
         this.iSingUp        = new SingUpFS();
-        this.iUserCreator   = new UserCreatorFS();
     }
 
     public static UserRepositoryFS getInstance(){
@@ -47,7 +40,7 @@ public class UserRepositoryFS implements UserRepository {
     }
 
     @Override
-    public void login(String email, String password, LoginListener listener) {
+    public void login(String email, String password, CompleteListener listener) {
         iLogin.login(email, password, listener);
     }
 
@@ -57,12 +50,12 @@ public class UserRepositoryFS implements UserRepository {
     }
 
     @Override
-    public void loginGoogleResult(Intent data, LoginListener listener) {
+    public void loginGoogleResult(Intent data, CompleteListener listener) {
         iLoginGoogle.loginGoogleResult(data, listener);
     }
 
     @Override
-    public void loginFacebook(Fragment fragment, CallbackManager callbackManager, LoginListener listener) {
+    public void loginFacebook(Fragment fragment, CallbackManager callbackManager, CompleteListener listener) {
         iLoginFacebook.loginFacebook(fragment, callbackManager, listener);
     }
 
@@ -74,20 +67,5 @@ public class UserRepositoryFS implements UserRepository {
     @Override
     public void singUp(String email, String password, String confirmPassword, User user, CompleteListener listener) {
         iSingUp.singUp(email, password, confirmPassword, user, listener);
-    }
-
-    @Override
-    public void createPerson(Person person, CompleteListener listener) {
-        iUserCreator.createPerson(person, listener);
-    }
-
-    @Override
-    public void createOrganization(Organization organization, CompleteListener listener) {
-        iUserCreator.createOrganization(organization, listener);
-    }
-
-    @Override
-    public void verifyProfileCreated(LoginListener listener) {
-        iUserCreator.verifyProfileCreated(listener);
     }
 }

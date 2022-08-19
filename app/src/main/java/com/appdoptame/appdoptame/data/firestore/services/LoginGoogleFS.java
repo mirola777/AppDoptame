@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
-import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
-import com.appdoptame.appdoptame.data.listener.LoginListener;
+import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.service.ILoginGoogle;
 import com.appdoptame.appdoptame.view.fragment.FragmentLogin;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -35,7 +34,7 @@ public class LoginGoogleFS implements ILoginGoogle {
     }
 
     @Override
-    public void loginGoogleResult(Intent data, LoginListener listener) {
+    public void loginGoogleResult(Intent data, CompleteListener listener) {
         try {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             GoogleSignInAccount account    = task.getResult(ApiException.class);
@@ -43,7 +42,7 @@ public class LoginGoogleFS implements ILoginGoogle {
             FirebaseAuth auth              = FirebaseAuth.getInstance();
             auth.signInWithCredential(credential).addOnCompleteListener(authResult -> {
                 if(authResult.isSuccessful()){
-                    UserRepositoryFS.getInstance().verifyProfileCreated(listener);
+                    listener.onSuccess();
                 } else {
                     listener.onFailure();
                 }

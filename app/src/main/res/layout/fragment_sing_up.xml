@@ -94,6 +94,66 @@
                 android:textSize="12sp" />
 
             <EditText
+                android:id="@+id/sing_up_name_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_edit_text_rounded_secondary"
+                android:drawableStart="@drawable/ic_round_person_24"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/sing_up_last_name_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_edit_text_rounded_secondary"
+                android:drawableStart="@drawable/ic_round_person_24"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/last_name"
+                android:inputType="textPersonName"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/sing_up_age_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_edit_text_rounded_secondary"
+                android:drawableStart="@drawable/ic_round_person_24"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/age"
+                android:inputType="number"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/sing_up_identification_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_edit_text_rounded_secondary"
+                android:drawableStart="@drawable/ic_baseline_credit_card_24"
+                android:drawablePadding="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="@string/identification"
+                android:inputType="number"
+                android:paddingStart="25dp"
+                android:paddingEnd="25dp"
+                android:textSize="12sp" />
+
+            <EditText
                 android:id="@+id/sing_up_password_field"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
