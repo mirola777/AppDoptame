@@ -6,5 +6,4 @@ import com.appdoptame.appdoptame.data.listener.LoginListener;
 public interface ILogin {
     void login(String email, String password, LoginListener listener);
     void singOut(CompleteListener listener);
-    boolean isUserActive();
 }

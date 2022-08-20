@@ -9,14 +9,17 @@ import com.appdoptame.appdoptame.data.firestore.services.LoginFacebookFS;
 import com.appdoptame.appdoptame.data.firestore.services.LoginGoogleFS;
 import com.appdoptame.appdoptame.data.firestore.services.SingUpFS;
 import com.appdoptame.appdoptame.data.firestore.services.UserCreatorFS;
+import com.appdoptame.appdoptame.data.firestore.services.UserSessionFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LoginListener;
+import com.appdoptame.appdoptame.data.listener.UserLoaderListener;
 import com.appdoptame.appdoptame.data.repository.UserRepository;
 import com.appdoptame.appdoptame.data.service.ILogin;
 import com.appdoptame.appdoptame.data.service.ILoginFacebook;
 import com.appdoptame.appdoptame.data.service.ILoginGoogle;
 import com.appdoptame.appdoptame.data.service.ISingUp;
 import com.appdoptame.appdoptame.data.service.IUserCreator;
+import com.appdoptame.appdoptame.data.service.IUserSession;
 import com.appdoptame.appdoptame.model.Organization;
 import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.User;
@@ -29,6 +32,7 @@ public class UserRepositoryFS implements UserRepository {
     private final ILoginFacebook iLoginFacebook;
     private final IUserCreator iUserCreator;
     private final ISingUp iSingUp;
+    private final IUserSession iUserSession;
 
     private UserRepositoryFS(){
         this.iLogin         = new LoginFS();
@@ -36,6 +40,7 @@ public class UserRepositoryFS implements UserRepository {
         this.iLoginFacebook = new LoginFacebookFS();
         this.iSingUp        = new SingUpFS();
         this.iUserCreator   = new UserCreatorFS();
+        this.iUserSession   = new UserSessionFS();
     }
 
     public static UserRepositoryFS getInstance(){
@@ -93,6 +98,16 @@ public class UserRepositoryFS implements UserRepository {
 
     @Override
     public boolean isUserActive() {
-        return iLogin.isUserActive();
+        return iUserSession.isUserActive();
+    }
+
+    @Override
+    public void getUserSession(UserLoaderListener listener) {
+        iUserSession.getUserSession(listener);
+    }
+
+    @Override
+    public void saveUserSession(CompleteListener listener) {
+        iUserSession.saveUserSession(listener);
     }
 }

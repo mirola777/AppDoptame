@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LoginListener;
+import com.appdoptame.appdoptame.data.listener.UserLoaderListener;
 import com.appdoptame.appdoptame.model.Organization;
 import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.User;
@@ -22,4 +23,6 @@ public interface UserRepository {
     void createOrganization(Organization organization, CompleteListener listener);
     void verifyProfileCreated(LoginListener listener);
     boolean isUserActive();
+    void getUserSession(UserLoaderListener listener);
+    void saveUserSession(CompleteListener listener);
 }

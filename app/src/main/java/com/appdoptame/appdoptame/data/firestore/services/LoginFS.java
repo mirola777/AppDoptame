@@ -69,11 +69,4 @@ public class LoginFS implements ILogin {
         auth.signOut();
         listener.onSuccess();
     }
-
-    @Override
-    public boolean isUserActive() {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        return user != null;
-    }
 }
