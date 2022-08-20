@@ -21,4 +21,5 @@ public interface UserRepository {
     void createPerson(Person person, CompleteListener listener);
     void createOrganization(Organization organization, CompleteListener listener);
     void verifyProfileCreated(LoginListener listener);
+    boolean isUserActive();
 }

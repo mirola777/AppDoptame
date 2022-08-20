@@ -90,4 +90,9 @@ public class UserRepositoryFS implements UserRepository {
     public void verifyProfileCreated(LoginListener listener) {
         iUserCreator.verifyProfileCreated(listener);
     }
+
+    @Override
+    public boolean isUserActive() {
+        return iLogin.isUserActive();
+    }
 }

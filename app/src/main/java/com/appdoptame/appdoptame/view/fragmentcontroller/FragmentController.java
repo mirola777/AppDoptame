@@ -4,13 +4,18 @@ import android.content.Context;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.Fade;
 import androidx.transition.Transition;
 
-import com.appdoptame.appdoptame.view.MainActivity;
-
 import com.appdoptame.appdoptame.R;
+import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
+import com.appdoptame.appdoptame.view.MainActivity;
+import com.appdoptame.appdoptame.view.fragment.FragmentFeed;
+import com.appdoptame.appdoptame.view.fragment.FragmentMain;
+import com.appdoptame.appdoptame.view.fragment.FragmentMessages;
+import com.appdoptame.appdoptame.view.fragment.FragmentNotifications;
+import com.appdoptame.appdoptame.view.fragment.FragmentPostPet;
+import com.appdoptame.appdoptame.view.fragment.FragmentProfile;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 public class FragmentController {
@@ -21,8 +26,13 @@ public class FragmentController {
         activityInstance = (MainActivity) context;
         fragmentManager  = activityInstance.getSupportFragmentManager();
 
-        SetFragmentLogin.set();
-        //SetFragmentMain.set();
+        // Se verifica un inicio de sesion, en el caso de que el usuario tenga la sesion iniciada
+        // se envia derecho al main, sino se manda al login
+        if(UserRepositoryFS.getInstance().isUserActive()){
+            SetFragmentMain.set();
+        } else {
+            SetFragmentLogin.set();
+        }
     }
 
     public static void init(Context context){
@@ -96,9 +106,38 @@ public class FragmentController {
     public static void onBackPressed(){
         int count = fragmentManager.getBackStackEntryCount();
         if (count <= 1) {
-            activityInstance.moveTaskToBack(true);
+            if(isFragmentMainOnBottom()){
+                FragmentMain fragmentMain = (FragmentMain) getBottomFragment();
+                if(fragmentMain.isOnFeedPosition()){
+                    activityInstance.moveTaskToBack(true);
+                } else {
+                    fragmentMain.setFeedPosition();
+                }
+            } else {
+                activityInstance.moveTaskToBack(true);
+            }
         } else {
             fragmentManager.popBackStackImmediate();
         }
+    }
+
+    private static Fragment getBottomFragment(){
+        for(Fragment fragment: fragmentManager.getFragments()){
+            if(fragment instanceof FragmentMain){
+                return fragment;
+            }
+        }
+
+        return fragmentManager.getFragments().get(0);
+    }
+
+    public static boolean isFragmentMainOnBottom(){
+        Fragment bottomFragment = getBottomFragment();
+        return  bottomFragment instanceof FragmentMain          ||
+                bottomFragment instanceof FragmentFeed          ||
+                bottomFragment instanceof FragmentMessages      ||
+                bottomFragment instanceof FragmentNotifications ||
+                bottomFragment instanceof FragmentProfile       ||
+                bottomFragment instanceof FragmentPostPet;
     }
 }
