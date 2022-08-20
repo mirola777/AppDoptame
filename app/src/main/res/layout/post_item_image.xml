@@ -10,11 +10,12 @@
     android:layout_height="match_parent">
 
     <ImageView
+        app:layout_constraintDimensionRatio="1:1"
         android:id="@+id/post_item_image_item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:src="@drawable/image_placeholder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

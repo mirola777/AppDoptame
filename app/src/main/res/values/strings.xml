@@ -28,4 +28,9 @@
     <string name="few_moments_ago">Few moments ago</string>
     <string name="likes">%s me gusta</string>
     <string name="dont_you_have_an_account">¿No tienes una cuenta?</string>
+    <string name="profile">Perfil</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="post_pet">Publicar mascota</string>
+    <string name="messages">Mensajes</string>
+    <string name="home">Inicio</string>
 </resources>
