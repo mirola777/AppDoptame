@@ -8,6 +8,7 @@ import com.appdoptame.appdoptame.data.listener.PostLoaderListener;
 import com.appdoptame.appdoptame.data.repository.PostRepository;
 import com.appdoptame.appdoptame.data.service.IPostGetter;
 import com.appdoptame.appdoptame.data.service.IPostLike;
+import com.appdoptame.appdoptame.model.Post;
 
 public class PostRepositoryFS implements PostRepository {
     private static PostRepositoryFS instance;
@@ -38,7 +39,7 @@ public class PostRepositoryFS implements PostRepository {
     }
 
     @Override
-    public void like(String ID, LikeListener listener) {
-        iPostLike.like(ID, listener);
+    public void like(Post post, LikeListener listener) {
+        iPostLike.like(post, listener);
     }
 }

@@ -102,12 +102,12 @@ public class UserRepositoryFS implements UserRepository {
     }
 
     @Override
-    public void getUserSession(UserLoaderListener listener) {
-        iUserSession.getUserSession(listener);
+    public User getUserSession() {
+        return iUserSession.getUserSession();
     }
 
     @Override
-    public void saveUserSession(CompleteListener listener) {
-        iUserSession.saveUserSession(listener);
+    public void saveUserSession(User user) {
+        iUserSession.saveUserSession(user);
     }
 }

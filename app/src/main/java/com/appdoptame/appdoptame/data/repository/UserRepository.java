@@ -23,6 +23,6 @@ public interface UserRepository {
     void createOrganization(Organization organization, CompleteListener listener);
     void verifyProfileCreated(LoginListener listener);
     boolean isUserActive();
-    void getUserSession(UserLoaderListener listener);
-    void saveUserSession(CompleteListener listener);
+    User getUserSession();
+    void saveUserSession(User user);
 }

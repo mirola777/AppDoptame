@@ -1,7 +1,8 @@
 package com.appdoptame.appdoptame.data.service;
 
 import com.appdoptame.appdoptame.data.listener.LikeListener;
+import com.appdoptame.appdoptame.model.Post;
 
 public interface IPostLike {
-    void like(String postID, LikeListener listener);
+    void like(Post post, LikeListener listener);
 }

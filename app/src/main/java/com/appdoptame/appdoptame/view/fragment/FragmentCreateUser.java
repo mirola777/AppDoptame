@@ -90,6 +90,7 @@ public class FragmentCreateUser extends Fragment {
                         age
                         );
 
+                // Se crea el usuario y se envía a la base de datos
                 UserRepositoryFS.getInstance().createPerson(newUser, new CompleteListener() {
                     @Override
                     public void onSuccess() {

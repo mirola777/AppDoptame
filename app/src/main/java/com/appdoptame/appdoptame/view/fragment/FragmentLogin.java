@@ -1,7 +1,5 @@
 package com.appdoptame.appdoptame.view.fragment;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +17,6 @@ import androidx.fragment.app.Fragment;
 
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
-import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LoginListener;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
@@ -31,6 +28,8 @@ import com.facebook.CallbackManager;
 import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class FragmentLogin extends Fragment {
     // CODES FOR SIGN IN

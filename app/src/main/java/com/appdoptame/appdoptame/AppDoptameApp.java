@@ -15,4 +15,12 @@ public class AppDoptameApp  extends Application {
     public static Context getContext(){
         return appContext;
     }
+
+    public static int getColorById(int id){
+        return appContext.getResources().getColor(id);
+    }
+
+    public static String getStringById(int id){
+        return appContext.getString(id);
+    }
 }

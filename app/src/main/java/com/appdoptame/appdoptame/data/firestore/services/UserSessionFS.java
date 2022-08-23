@@ -4,72 +4,68 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.appdoptame.appdoptame.AppDoptameApp;
-import com.appdoptame.appdoptame.data.firestore.FirestoreDB;
-import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.UserLoaderListener;
-import com.appdoptame.appdoptame.data.parser.ParsePerson;
 import com.appdoptame.appdoptame.data.service.IUserSession;
+import com.appdoptame.appdoptame.model.Organization;
+import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.gson.Gson;
 
-import java.util.Map;
-
 public class UserSessionFS implements IUserSession {
-    private static final String USER_SESSION = "USER_SESSION";
-    private static final String USER_DATA    = "USER_DATA";
+    private static final String USER_SESSION      = "USER_SESSION";
+    private static final String PERSON_DATA       = "PERSON_DATA";
+    private static final String ORGANIZATION_DATA = "ORGANIZATION_DATA";
 
     @Override
-    public void getUserSession(UserLoaderListener listener) {
+    public User getUserSession() {
         if(isUserActive()){
             SharedPreferences preferences = AppDoptameApp.getContext().getSharedPreferences(
                     USER_SESSION,
                     Context.MODE_PRIVATE
             );
             Gson   gson     = new Gson();
-            String userJson = preferences.getString(USER_DATA, null);
-            if(userJson == null){
-                listener.onFailure();
+            String organizationJson = preferences.getString(ORGANIZATION_DATA, null);
+            String personJson       = preferences.getString(PERSON_DATA, null);
+
+            if(personJson != null){
+                return gson.fromJson(personJson, Person.class);
+            } else if(organizationJson != null){
+                return gson.fromJson(organizationJson, Organization.class);
             } else {
-                User user = gson.fromJson(userJson, User.class);
-                listener.onSuccess(user);
+                return null;
             }
         } else {
-            listener.onFailure();
+            return null;
         }
     }
 
     @Override
-    public void saveUserSession(CompleteListener listener) {
-        if(isUserActive()){
+    public void saveUserSession(User user) {
+        if(isUserActive() && user != null){
             SharedPreferences preferences = AppDoptameApp.getContext().getSharedPreferences(
                     USER_SESSION,
                     Context.MODE_PRIVATE
             );
 
-            FirebaseAuth auth     = FirebaseAuth.getInstance();
-            FirebaseUser user     = auth.getCurrentUser();
+            Gson gson = new Gson();
 
-            CollectionReference collectionUser = FirestoreDB.getCollectionUser();
-            assert user != null;
-            collectionUser.document(user.getUid()).get().addOnCompleteListener(task -> {
-                if(task.isSuccessful()){
-                    DocumentSnapshot doc        = task.getResult();
-                    Map<String, Object> docData = doc.getData();
-                    User person                 = ParsePerson.parse(docData);
-                    Gson gson                   = new Gson();
-                    String userJson             = gson.toJson(person);
-                    preferences.edit().putString(USER_DATA, userJson).apply();
-                    listener.onSuccess();
-                } else {
-                    listener.onFailure();
+            String userJson;
+            if(user instanceof Person) {
+                userJson = gson.toJson((Person) user);
+                if(userJson != null){
+                    preferences.edit().putString(PERSON_DATA, userJson).apply();
                 }
-            });
-        } else {
-            listener.onFailure();
+
+            } else if (user instanceof Organization) {
+                userJson = gson.toJson((Organization) user);
+                if(userJson != null){
+                    preferences.edit().putString(ORGANIZATION_DATA, userJson).apply();
+
+                }
+
+            }
         }
     }
 

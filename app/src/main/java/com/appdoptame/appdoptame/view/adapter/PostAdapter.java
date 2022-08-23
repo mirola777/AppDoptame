@@ -14,9 +14,12 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
+import com.appdoptame.appdoptame.data.firestore.PostRepositoryFS;
+import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
+import com.appdoptame.appdoptame.data.listener.LikeListener;
 import com.appdoptame.appdoptame.model.Post;
+import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.DateTextGetter;
-import com.appdoptame.appdoptame.util.LikesTextGetter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -29,19 +32,22 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private List<Post> posts;
-    private final Context context;
+    private List<Post>           posts;
+    private final Context        context;
+    private final User           userSession;
 
     public PostAdapter(Context context, List<Post> posts){
-        this.inflater = LayoutInflater.from(context);
-        this.context  = context;
-        this.posts    = posts;
+        this.inflater    = LayoutInflater.from(context);
+        this.context     = context;
+        this.posts       = posts;
+        this.userSession = UserRepositoryFS.getInstance().getUserSession();
     }
 
     public PostAdapter(Context context){
         this.inflater = LayoutInflater.from(context);
         this.context  = context;
         this.posts    = new ArrayList<>();
+        this.userSession = UserRepositoryFS.getInstance().getUserSession();
     }
 
     public void setPosts(List<Post> posts){
@@ -86,7 +92,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
         }
-        holder.likeCount.setText(LikesTextGetter.getDateText(post.getLikes().size()));
+        holder.likeCount.setText(String.valueOf(post.getLikes().size()));
+        holder.commentCount.setText(String.valueOf(post.getComments().size()));
+
+        if(post.getLikes().contains(userSession.getID())){
+            holder.likeButton.setBackgroundColor(AppDoptameApp.getColorById(R.color.blue));
+        } else {
+            holder.likeButton.setBackgroundColor(AppDoptameApp.getColorById(R.color.orange));
+        }
 
         holder.userImage.setImageBitmap(null);
         Glide.with(AppDoptameApp.getContext())
@@ -134,6 +147,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             shareCount    = itemView.findViewById(R.id.post_item_share_count);
             userImage     = itemView.findViewById(R.id.post_item_user_image);
             imageView     = itemView.findViewById(R.id.post_item_image_view);
+
+            likeButton.setOnClickListener(v -> {
+                Post post = posts.get(getAdapterPosition());
+                PostRepositoryFS.getInstance().like(post, new LikeListener() {
+                    @Override
+                    public void onLike() {
+                        likeCount.setText(String.valueOf(post.getLikes().size()));
+                        likeButton.setBackgroundColor(AppDoptameApp.getContext().getResources().getColor(R.color.blue));
+                    }
+
+                    @Override
+                    public void onDislike() {
+                        likeCount.setText(String.valueOf(post.getLikes().size()));
+                        likeButton.setBackgroundColor(AppDoptameApp.getContext().getResources().getColor(R.color.orange));
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        likeCount.setText(String.valueOf(post.getLikes().size()));
+                        if(post.getLikes().contains(userSession.getID())){
+                            likeButton.setBackgroundColor(AppDoptameApp.getColorById(R.color.blue));
+                        } else {
+                            likeButton.setBackgroundColor(AppDoptameApp.getColorById(R.color.orange));
+                        }
+                    }
+                });
+            });
         }
     }
 }

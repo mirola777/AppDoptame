@@ -2,9 +2,10 @@ package com.appdoptame.appdoptame.data.service;
 
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.UserLoaderListener;
+import com.appdoptame.appdoptame.model.User;
 
 public interface IUserSession {
-    void getUserSession(UserLoaderListener listener);
-    void saveUserSession(CompleteListener listener);
+    User getUserSession();
+    void saveUserSession(User user);
     boolean isUserActive();
 }
