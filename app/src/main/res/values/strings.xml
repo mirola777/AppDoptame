@@ -33,4 +33,15 @@
     <string name="post_pet">Publicar mascota</string>
     <string name="messages">Mensajes</string>
     <string name="home">Inicio</string>
+
+    <string name="pet_name">Nombre de la mascota</string>
+    <string name="pet_type">Tipo de mascota</string>
+    <string name="breed">Raza</string>
+    <string name="pet_age">Edad de la mascota</string>
+    <string name="pet_description">Descripción de la mascota</string>
+    <string name="pet_sex">Sexo de la mascota</string>
+    <string name="pet_size">Tamaño de la mascota</string>
+    <string name="sterilized">Esta esterilizado?</string>
+    <string name="pet_weight">Peso de la mascota</string>
+    <string name="create_pet">Crear mascota</string>
 </resources>
