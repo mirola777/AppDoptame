@@ -4,14 +4,27 @@ import com.appdoptame.appdoptame.data.firestore.services.PetGetterFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PetLoaderListener;
 import com.appdoptame.appdoptame.data.repository.PetRepository;
+import com.appdoptame.appdoptame.data.service.IPetCreator;
 import com.appdoptame.appdoptame.data.service.IPetGetter;
+import com.appdoptame.appdoptame.data.service.IUserCreator;
 import com.appdoptame.appdoptame.model.Pet;
 
 public class PetRepositoryFS implements PetRepository {
+    private static PetRepositoryFS instance;
     private final IPetGetter iPetGetter;
+    private final IPetCreator iPetCreator;
 
     private PetRepositoryFS() {
         this.iPetGetter = new PetGetterFS();
+        this.iPetCreator = new IPetCreatorFS();
+    }
+
+    public static PetRepositoryFS getInstance(){
+        if(instance == null){
+            instance = new PetRepositoryFS();
+        }
+
+        return instance;
     }
 
     @Override

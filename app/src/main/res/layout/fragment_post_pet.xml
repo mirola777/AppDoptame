@@ -151,20 +151,37 @@
                 android:paddingEnd="25dp"
                 android:textSize="12sp" />
 
-            <EditText
-                android:id="@+id/create_pet_sex_field"
+
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/custom_edit_text_rounded_secondary"
-                android:drawableStart="@drawable/ic_baseline_pets_24"
                 android:drawablePadding="12dp"
-                android:fontFamily="@font/poppins_regular"
-                android:hint="@string/pet_sex"
-                android:inputType="number"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
-                android:textSize="12sp" />
+                android:textSize="12sp">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pet_sex"
+                    />
+
+                <RadioButton
+                    android:id="@+id/select_pet_male_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Macho" />
+
+                <RadioButton
+                    android:id="@+id/select_pet_female_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hembra" />
+            </RadioGroup>
+
+
 
             <EditText
                 android:id="@+id/create_pet_size_field"
