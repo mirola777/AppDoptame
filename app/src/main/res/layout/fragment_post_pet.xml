@@ -131,7 +131,7 @@
                 android:drawablePadding="12dp"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="@string/breed"
-                android:inputType="number"
+                android:inputType="text"
                 android:paddingStart="25dp"
                 android:paddingEnd="25dp"
                 android:textSize="12sp" />

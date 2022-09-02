@@ -64,6 +64,7 @@ public class FragmentPostPet extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadComponents();
     }
 
     private void loadComponents(){
@@ -91,11 +92,6 @@ public class FragmentPostPet extends Fragment {
     private void loadRegisterButton(){
         registerButton.setOnClickListener(v -> {
             try {
-                /*String name           =
-                String lastName        = EditTextExtractor.get(lastNameField);
-                String phone           = EditTextExtractor.get(phoneField);
-                long   age             = Long.parseLong(EditTextExtractor.get(ageField));
-                String identification  = EditTextExtractor.get(CCField);*/
 
                 if(typeCatField.isSelected()){
                     typeField = "Gato";
@@ -136,7 +132,7 @@ public class FragmentPostPet extends Fragment {
 
 
 
-                Pet newPet = new Pet(94322,
+                Pet newPet = new Pet("34345",
                         name,
                         type,
                         sex,
@@ -144,17 +140,17 @@ public class FragmentPostPet extends Fragment {
                         city,
                         department,
                         breed,
-                stray,
-                sterilized,
-                adopted,
-                age,
-                size,
-                weight,
-                images);
+                        stray,
+                        sterilized,
+                        adopted,
+                        age,
+                        size,
+                        weight,
+                        images);
 
                 // Se crea la mascota y se envía a la base de datos
 
-                PetRepositoryFS.getInstance().createPerson(newPet, new CompleteListener() {
+                PetRepositoryFS.getInstance().createPet(newPet, new CompleteListener() {
                     @Override
                     public void onSuccess() {
                         FragmentController.removeAllFragments();
