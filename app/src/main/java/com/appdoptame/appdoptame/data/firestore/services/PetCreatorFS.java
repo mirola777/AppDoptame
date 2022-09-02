@@ -2,9 +2,14 @@ package com.appdoptame.appdoptame.data.firestore.services;
 
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PetLoaderListener;
+import com.appdoptame.appdoptame.data.parser.ParsePerson;
+import com.appdoptame.appdoptame.data.parser.ParsePet;
 import com.appdoptame.appdoptame.data.service.IPetCreator;
 import com.appdoptame.appdoptame.model.Pet;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Map;
 
 public class PetCreatorFS implements IPetCreator {
 
@@ -24,6 +29,11 @@ public class PetCreatorFS implements IPetCreator {
                pet.getImages().size()           > 0) {
 
                 FirebaseAuth auth         = FirebaseAuth.getInstance();
+
+                FirebaseUser userFirebase = auth.getCurrentUser();
+
+                Map<String, Object> doc = ParsePet.parse(pet);
+
 
             }
         }

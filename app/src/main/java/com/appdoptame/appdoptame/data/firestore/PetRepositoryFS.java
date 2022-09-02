@@ -1,12 +1,12 @@
 package com.appdoptame.appdoptame.data.firestore;
 
+import com.appdoptame.appdoptame.data.firestore.services.PetCreatorFS;
 import com.appdoptame.appdoptame.data.firestore.services.PetGetterFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PetLoaderListener;
 import com.appdoptame.appdoptame.data.repository.PetRepository;
 import com.appdoptame.appdoptame.data.service.IPetCreator;
 import com.appdoptame.appdoptame.data.service.IPetGetter;
-import com.appdoptame.appdoptame.data.service.IUserCreator;
 import com.appdoptame.appdoptame.model.Pet;
 
 public class PetRepositoryFS implements PetRepository {
@@ -16,7 +16,7 @@ public class PetRepositoryFS implements PetRepository {
 
     private PetRepositoryFS() {
         this.iPetGetter = new PetGetterFS();
-        this.iPetCreator = new IPetCreatorFS();
+        this.iPetCreator = new PetCreatorFS();
     }
 
     public static PetRepositoryFS getInstance(){
