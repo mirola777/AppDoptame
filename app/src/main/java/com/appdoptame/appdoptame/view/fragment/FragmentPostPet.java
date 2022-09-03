@@ -105,6 +105,10 @@ public class FragmentPostPet extends Fragment {
                 if(sexFemaleField.isSelected()){
                     sexField = "Hembra";
                 }
+
+                typeField = "Gato";
+                sexField = "Macho";
+
                 if(typeSterilizedField.isSelected()){
                     sterilizedField = true;
                 }
@@ -131,8 +135,7 @@ public class FragmentPostPet extends Fragment {
 
 
 
-
-                Pet newPet = new Pet("34345",
+                Pet newPet = new Pet(
                         name,
                         type,
                         sex,
@@ -153,8 +156,11 @@ public class FragmentPostPet extends Fragment {
                 PetRepositoryFS.getInstance().createPet(newPet, new CompleteListener() {
                     @Override
                     public void onSuccess() {
+                        /*
                         FragmentController.removeAllFragments();
                         SetFragmentMain.set();
+
+                         */
                     }
 
                     @Override
@@ -163,7 +169,7 @@ public class FragmentPostPet extends Fragment {
                     }
                 });
             } catch (Exception e){
-
+                System.out.println(e.toString());
             }
         });
     }

@@ -29,12 +29,12 @@ public class PetRepositoryFS implements PetRepository {
 
     @Override
     public void getPet(String ID, PetLoaderListener listener) {
-
+        iPetGetter.getPet(ID, listener);
     }
 
     @Override
     public void createPet(Pet pet, CompleteListener listener) {
-
+        iPetCreator.createPet(pet, listener);
     }
 
     @Override

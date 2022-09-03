@@ -3,7 +3,7 @@ package com.appdoptame.appdoptame.model;
 import java.util.List;
 
 public class Pet {
-    private final String ID;
+    private String ID;
     private final String name;
     private final String type;
     private final String sex;
@@ -18,6 +18,25 @@ public class Pet {
     private final long size;
     private final long weight;
     private final List<String> images;
+
+    public Pet(
+               String name,
+               String type,
+               String sex,
+               String description,
+               String city,
+               String department,
+               String breed,
+               boolean stray,
+               boolean sterilized,
+               boolean adopted,
+               long age,
+               long size,
+               long weight,
+               List<String> images){
+
+        this(null, name, type, sex, description, city, department, breed, stray, sterilized, adopted, age, size, weight, images);
+    }
 
     public Pet(String ID,
                String name,
@@ -49,6 +68,10 @@ public class Pet {
         this.size   = size;
         this.weight = weight;
         this.images = images;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public List<String> getImages() {
