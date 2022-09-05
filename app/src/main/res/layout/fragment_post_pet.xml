@@ -266,7 +266,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginBottom="150dp"
                 android:layout_marginTop="10dp"
                 app:cardBackgroundColor="?attr/colorSecondary"
                 app:cardCornerRadius="?attr/cardCornerRadius"
@@ -277,7 +276,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/SelectImage"
+                android:id="@+id/select_pet_images"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clickable="true"
@@ -289,6 +288,16 @@
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="12sp" />
             </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_pet_images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:elevation="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/select_pet_images" />
 
 
             <androidx.cardview.widget.CardView
