@@ -44,4 +44,5 @@
     <string name="sterilized">Esta esterilizado?</string>
     <string name="pet_weight">Peso de la mascota</string>
     <string name="create_pet">Crear mascota</string>
+    <string name="select_image">Seleccionar Imagenes</string>
 </resources>
