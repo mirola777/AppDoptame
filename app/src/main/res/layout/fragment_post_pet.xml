@@ -263,42 +263,30 @@
                 android:scrollbars="vertical"/>
 
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="?attr/colorSecondary"
-                app:cardCornerRadius="?attr/cardCornerRadius"
-                app:cardElevation="?attr/cardElevation"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <Button
+                android:id="@+id/pick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick"
+                android:layout_gravity="center"
+                />
 
             <TextView
-                android:id="@+id/select_pet_images"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:fontFamily="@font/poppins_bold"
-                android:foreground="?android:selectableItemBackgroundBorderless"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="@string/select_image"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="12sp" />
-            </androidx.cardview.widget.CardView>
-
+                android:id="@+id/totalPhotos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="16dp"
+                android:textColor="@color/blue"
+                />
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_pet_images"
+                android:id="@+id/recyclerView_Gallery_Images"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:elevation="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/select_pet_images" />
-
+                android:scrollbarStyle="outsideInset"
+                android:scrollbars="vertical"
+                android:layout_marginTop="5dp"
+                />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/aamontoya/Desktop/AppDoptame/app/src/main/res/layout/custom_item_layout.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/aamontoya/Desktop/AppDoptame/app/src/main/res/layout/custom_single_image.xml" value="0.11197916666666667" />
+        <entry key="..\:/Users/aamontoya/Desktop/AppDoptame/app/src/main/res/layout/fragment_post_pet.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/aamontoya/Desktop/AppDoptame/app/src/main/res/layout/post_item_image.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/AppDoptame/app/src/main/res/drawable/custom_edit_text_rounded.xml" value="0.2555" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/AppDoptame/app/src/main/res/drawable/custom_edit_text_rounded_secondary.xml" value="0.2555" />
         <entry key="..\:/Users/andre/AndroidStudioProjects/AppDoptame/app/src/main/res/drawable/ic_baseline_credit_card_24.xml" value="0.2555" />

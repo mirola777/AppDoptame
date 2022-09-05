@@ -1,10 +1,18 @@
 package com.appdoptame.appdoptame.view.fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -13,7 +21,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.PackageManagerCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.PetRepositoryFS;
@@ -23,6 +36,7 @@ import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.Pet;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
+import com.appdoptame.appdoptame.view.adapter.RecyclerAdapter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentMain;
 
@@ -50,6 +64,13 @@ public class FragmentPostPet extends Fragment {
     private EditText         weightField;
     private EditText         descriptionField;
     private TextView         registerButton;
+
+    RecyclerView recyclerView;
+    TextView textView;
+    Button pick;
+    ArrayList<Uri> uriArrayList = new ArrayList<>();
+    RecyclerAdapter adapter;
+    private static final int Read_Permission = 101;
 
     @SuppressLint("InflateParams")
     @Nullable
@@ -84,9 +105,53 @@ public class FragmentPostPet extends Fragment {
         descriptionField        = requireView().findViewById(R.id.create_pet_description_field);
         registerButton          = requireView().findViewById(R.id.create_pet_create_pet_button);
 
+        textView = requireView().findViewById(R.id.totalPhotos);
+        recyclerView = requireView().findViewById(R.id.recyclerView_Gallery_Images);
+        pick = requireView().findViewById(R.id.pick);
+
+        adapter = new RecyclerAdapter(uriArrayList);
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 4));
+        recyclerView.setAdapter(adapter);
+
+        if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},Read_Permission);
+        }
+
+        pick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("image/");
+                if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR2){
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+                }
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent,"Select Picture"), 1);
+            }
+        });
+
         loadStatusBar();
         loadBackButton();
         loadRegisterButton();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1 && resultCode== Activity.RESULT_OK){
+            if (data.getClipData() != null){
+                int x = data.getClipData().getItemCount();
+                for (int i = 0; i<x;i++){
+                    uriArrayList.add(data.getClipData().getItemAt(i).getUri());
+                }
+                adapter.notifyDataSetChanged();
+                textView.setText("Photos (" + uriArrayList.size() + ")");
+            }else if(data.getData() !=null){
+                String imageURL = data.getData().getPath();
+                uriArrayList.add(Uri.parse(imageURL));
+            }
+        }
     }
 
     private void loadRegisterButton(){
