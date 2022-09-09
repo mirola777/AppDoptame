@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     image = read_image("springerSpaniel.jpg", 224)
     image = np.expand_dims(image, axis=0)
-    pred = model.predict(image)[0]
+    pred = model.predict(image)
     label_idx = np.argmax(pred)
     breed_name = id2breed[label_idx]
 
