@@ -4,10 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.appdoptame.appdoptame.AppDoptameApp;
-import com.appdoptame.appdoptame.data.listener.UserLoaderListener;
 import com.appdoptame.appdoptame.data.service.IUserSession;
-import com.appdoptame.appdoptame.model.Organization;
-import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,8 +12,7 @@ import com.google.gson.Gson;
 
 public class UserSessionFS implements IUserSession {
     private static final String USER_SESSION      = "USER_SESSION";
-    private static final String PERSON_DATA       = "PERSON_DATA";
-    private static final String ORGANIZATION_DATA = "ORGANIZATION_DATA";
+    private static final String USER_DATA         = "USER_DATA";
 
     @Override
     public User getUserSession() {
@@ -26,13 +22,10 @@ public class UserSessionFS implements IUserSession {
                     Context.MODE_PRIVATE
             );
             Gson   gson     = new Gson();
-            String organizationJson = preferences.getString(ORGANIZATION_DATA, null);
-            String personJson       = preferences.getString(PERSON_DATA, null);
+            String userJson = preferences.getString(USER_DATA, null);
 
-            if(personJson != null){
-                return gson.fromJson(personJson, Person.class);
-            } else if(organizationJson != null){
-                return gson.fromJson(organizationJson, Organization.class);
+            if(userJson != null){
+                return gson.fromJson(userJson, User.class);
             } else {
                 return null;
             }
@@ -51,21 +44,8 @@ public class UserSessionFS implements IUserSession {
 
             Gson gson = new Gson();
 
-            String userJson;
-            if(user instanceof Person) {
-                userJson = gson.toJson((Person) user);
-                if(userJson != null){
-                    preferences.edit().putString(PERSON_DATA, userJson).apply();
-                }
-
-            } else if (user instanceof Organization) {
-                userJson = gson.toJson((Organization) user);
-                if(userJson != null){
-                    preferences.edit().putString(ORGANIZATION_DATA, userJson).apply();
-
-                }
-
-            }
+            String userJson = gson.toJson(user);
+            preferences.edit().putString(USER_DATA, userJson).apply();
         }
     }
 

@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
-import com.appdoptame.appdoptame.model.Person;
+import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
@@ -79,7 +79,7 @@ public class FragmentCreateUser extends Fragment {
                 String city            = "Medellin";  // Temporalmente mientras añadimos mas ciudades
                 String department      = "Antioquia"; // Temporalmente mientras añadimos mas departamentos
 
-                Person newUser = new Person(
+                User newUser = new User(
                         identification,
                         name,
                         lastName,
@@ -91,7 +91,7 @@ public class FragmentCreateUser extends Fragment {
                         );
 
                 // Se crea el usuario y se envía a la base de datos
-                UserRepositoryFS.getInstance().createPerson(newUser, new CompleteListener() {
+                UserRepositoryFS.getInstance().createUser(newUser, new CompleteListener() {
                     @Override
                     public void onSuccess() {
                         FragmentController.removeAllFragments();

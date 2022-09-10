@@ -12,7 +12,6 @@ import com.appdoptame.appdoptame.data.firestore.services.UserCreatorFS;
 import com.appdoptame.appdoptame.data.firestore.services.UserSessionFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LoginListener;
-import com.appdoptame.appdoptame.data.listener.UserLoaderListener;
 import com.appdoptame.appdoptame.data.repository.UserRepository;
 import com.appdoptame.appdoptame.data.service.ILogin;
 import com.appdoptame.appdoptame.data.service.ILoginFacebook;
@@ -20,8 +19,6 @@ import com.appdoptame.appdoptame.data.service.ILoginGoogle;
 import com.appdoptame.appdoptame.data.service.ISingUp;
 import com.appdoptame.appdoptame.data.service.IUserCreator;
 import com.appdoptame.appdoptame.data.service.IUserSession;
-import com.appdoptame.appdoptame.model.Organization;
-import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.User;
 import com.facebook.CallbackManager;
 
@@ -82,13 +79,8 @@ public class UserRepositoryFS implements UserRepository {
     }
 
     @Override
-    public void createPerson(Person person, CompleteListener listener) {
-        iUserCreator.createPerson(person, listener);
-    }
-
-    @Override
-    public void createOrganization(Organization organization, CompleteListener listener) {
-        iUserCreator.createOrganization(organization, listener);
+    public void createUser(User user, CompleteListener listener) {
+        iUserCreator.createUser(user, listener);
     }
 
     @Override

@@ -8,17 +8,20 @@ public class User {
     private final String city;
     private final String department;
     private final String image;
+    private final String lastName;
     private final long age;
 
     public User(String ID,
                String identification,
                String name,
+               String lastName,
                String phone,
                String city,
                String department,
                String image,
                long age){
         this.ID = ID;
+        this.lastName = lastName;
         this.identification = identification;
         this.name = name;
         this.phone = phone;
@@ -26,6 +29,24 @@ public class User {
         this.department = department;
         this.age = age;
         this.image = image;
+    }
+
+    public User(
+                String identification,
+                String name,
+                String lastName,
+                String phone,
+                String city,
+                String department,
+                String image,
+                long age){
+
+        this(null, identification, name, lastName, phone, city, department, image, age);
+    }
+
+
+    public String getLastName() {
+        return lastName;
     }
 
     public void setID(String ID) {

@@ -16,8 +16,8 @@ public class ParsePost {
         Date         date   = ((Timestamp) doc.get("DATE")).toDate();
         String       ID     = (String) doc.get("ID");
         Pet          pet    = ParsePet.parse((Map<String, Object>) doc.get("PET"));
-        User         person = ParsePerson.parse((Map<String, Object>) doc.get("PERSON"));
+        User         user   = ParseUser.parse((Map<String, Object>) doc.get("PERSON"));
 
-        return new Post(ID, date, likes, new ArrayList<>(), person, pet);
+        return new Post(ID, date, likes, new ArrayList<>(), user, pet);
     }
 }

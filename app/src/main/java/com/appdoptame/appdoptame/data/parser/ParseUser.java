@@ -1,12 +1,11 @@
 package com.appdoptame.appdoptame.data.parser;
 
-import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParsePerson {
+public class ParseUser {
     public static User parse(Map<String, Object> doc){
         long   age            = (long) doc.get("AGE");
         String department     = (String) doc.get("DEPARTMENT");
@@ -18,20 +17,20 @@ public class ParsePerson {
         String identification = (String) doc.get("CC");
         String ID             = (String) doc.get("ID");
 
-        return new Person(ID, identification, name, lastName, phone, city, department, image, age);
+        return new User(ID, identification, name, lastName, phone, city, department, image, age);
     }
 
-    public static Map<String, Object> parse(Person person){
+    public static Map<String, Object> parse(User user){
         Map<String, Object> doc  = new HashMap<>();
-        doc.put("AGE",        person.getAge());
-        doc.put("DEPARTMENT", person.getDepartment());
-        doc.put("PHONE",      person.getPhone());
-        doc.put("CITY",       person.getCity());
-        doc.put("NAME",       person.getName());
-        doc.put("IMAGE",      person.getImage());
-        doc.put("LAST_NAME",  person.getLastName());
-        doc.put("CC",         person.getIdentification());
-        doc.put("ID",         person.getID());
+        doc.put("AGE",        user.getAge());
+        doc.put("DEPARTMENT", user.getDepartment());
+        doc.put("PHONE",      user.getPhone());
+        doc.put("CITY",       user.getCity());
+        doc.put("NAME",       user.getName());
+        doc.put("IMAGE",      user.getImage());
+        doc.put("LAST_NAME",  user.getLastName());
+        doc.put("CC",         user.getIdentification());
+        doc.put("ID",         user.getID());
 
         return doc;
     }

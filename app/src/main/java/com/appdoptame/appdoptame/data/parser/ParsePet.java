@@ -1,6 +1,5 @@
 package com.appdoptame.appdoptame.data.parser;
 
-import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.Pet;
 
 import java.util.HashMap;

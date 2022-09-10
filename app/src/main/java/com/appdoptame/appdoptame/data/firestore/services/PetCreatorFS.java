@@ -4,10 +4,9 @@ import com.appdoptame.appdoptame.data.firestore.FirestoreDB;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PetLoaderListener;
-import com.appdoptame.appdoptame.data.parser.ParsePerson;
+import com.appdoptame.appdoptame.data.parser.ParseUser;
 import com.appdoptame.appdoptame.data.parser.ParsePet;
 import com.appdoptame.appdoptame.data.service.IPetCreator;
-import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.Pet;
 import com.appdoptame.appdoptame.model.User;
 import com.google.firebase.firestore.CollectionReference;
@@ -33,8 +32,8 @@ public class PetCreatorFS implements IPetCreator {
                 String petID                      = collectionPet.document().getId();
                 pet.setID(petID);                  // Asignar ID unica desde firestore
                 Map<String, Object> petDoc        = ParsePet.parse(pet);
-                Person owner                      = (Person) UserRepositoryFS.getInstance().getUserSession();
-                Map<String, Object> userDoc       = ParsePerson.parse(owner);
+                User owner                        =  UserRepositoryFS.getInstance().getUserSession();
+                Map<String, Object> userDoc       = ParseUser.parse(owner);
                 petDoc.put("OWNER", userDoc);
 
                 collectionPet.document(petID).set(petDoc).addOnCompleteListener(task -> {

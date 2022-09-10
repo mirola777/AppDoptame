@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,19 +31,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.PetRepositoryFS;
-import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
-import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.Pet;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
 import com.appdoptame.appdoptame.view.adapter.RecyclerAdapter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
-import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentMain;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class FragmentPostPet extends Fragment {
 
@@ -226,11 +226,12 @@ public class FragmentPostPet extends Fragment {
                         SetFragmentMain.set();
 
                          */
+                        Toast.makeText(getApplicationContext(), "Mascota publicada", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure() {
-
+                        Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_LONG).show();
                     }
                 });
             } catch (Exception e){

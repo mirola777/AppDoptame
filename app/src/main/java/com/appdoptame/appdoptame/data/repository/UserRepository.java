@@ -6,9 +6,6 @@ import androidx.fragment.app.Fragment;
 
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LoginListener;
-import com.appdoptame.appdoptame.data.listener.UserLoaderListener;
-import com.appdoptame.appdoptame.model.Organization;
-import com.appdoptame.appdoptame.model.Person;
 import com.appdoptame.appdoptame.model.User;
 import com.facebook.CallbackManager;
 
@@ -19,8 +16,7 @@ public interface UserRepository {
     void loginFacebook(Fragment fragment, CallbackManager callbackManager, LoginListener listener);
     void singOut(CompleteListener listener);
     void singUp(String email, String password, String confirmPassword, User user, CompleteListener listener);
-    void createPerson(Person person, CompleteListener listener);
-    void createOrganization(Organization organization, CompleteListener listener);
+    void createUser(User user, CompleteListener listener);
     void verifyProfileCreated(LoginListener listener);
     boolean isUserActive();
     User getUserSession();
