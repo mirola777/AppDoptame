@@ -262,25 +262,17 @@
                 android:minLines="1"
                 android:scrollbars="vertical"/>
 
-
-            <Button
-                android:id="@+id/pick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pick"
-                android:layout_gravity="center"
-                />
-
             <TextView
-                android:id="@+id/totalPhotos"
+                android:id="@+id/create_pet_images_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textColor="@color/blue"
                 />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_Gallery_Images"
+                android:id="@+id/create_pet_pick_images_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbarStyle="outsideInset"
