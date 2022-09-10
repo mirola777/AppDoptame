@@ -8,6 +8,7 @@ import com.appdoptame.appdoptame.data.service.IPostGetter;
 import com.appdoptame.appdoptame.model.Post;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class PostGetterFS implements IPostGetter {
     public void getFeedPosts(PostListLoaderListener listener) {
         ArrayList<Post> posts = new ArrayList<>();
         CollectionReference collectionPost = FirestoreDB.getCollectionPost();
-        collectionPost.get().addOnCompleteListener(task -> {
+        collectionPost.orderBy("DATE", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
                     if(document.getData() != null){
