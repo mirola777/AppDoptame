@@ -2,29 +2,24 @@ package com.appdoptame.appdoptame.data.firestore.services;
 
 import android.net.Uri;
 
-import androidx.annotation.NonNull;
-
 import com.appdoptame.appdoptame.data.firestore.FirestoreDB;
+import com.appdoptame.appdoptame.data.firestore.PostRepositoryFS;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PetLoaderListener;
-import com.appdoptame.appdoptame.data.parser.ParseUser;
 import com.appdoptame.appdoptame.data.parser.ParsePet;
+import com.appdoptame.appdoptame.data.parser.ParseUser;
 import com.appdoptame.appdoptame.data.service.IPetCreator;
 import com.appdoptame.appdoptame.model.Pet;
+import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.model.User;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class PetCreatorFS implements IPetCreator {
     private static final CollectionReference collectionPet = FirestoreDB.getCollectionPet();
@@ -63,8 +58,9 @@ public class PetCreatorFS implements IPetCreator {
 
         collectionPet.document(pet.getID()).set(petDoc).addOnCompleteListener(task -> {
             if (task.isSuccessful()){
-                System.out.println(pet.getID());
-                listener.onSuccess();
+                // Con la mascota creada, se crea un post automaticamente.
+                Post post = new Post(owner, pet);
+                PostRepositoryFS.getInstance().createPost(post, listener);
             } else {
                 listener.onFailure();
             }
@@ -72,35 +68,27 @@ public class PetCreatorFS implements IPetCreator {
     }
 
     private void uploadPetImages(Pet pet, List<Uri> petImages, int counter, CompleteListener listener){
-        System.out.println(counter + "  " + petImages.size());
-        if (petImages != null) {
-            if(counter < petImages.size()){
-                StorageReference referenceImage = storagePet.child(pet.getID() + counter + ".jpg");
-                UploadTask uploadTask = referenceImage.putFile(petImages.get(counter));
-                uploadTask.continueWithTask(task -> {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
+        if(counter < petImages.size()){
+            StorageReference referenceImage = storagePet.child(pet.getID() + counter + ".jpg");
+            UploadTask uploadTask = referenceImage.putFile(petImages.get(counter));
+            uploadTask.continueWithTask(task -> {
 
-                    return referenceImage.getDownloadUrl();
-                }).addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        String imageUrl = task.getResult().toString();
-                        System.out.println(imageUrl);
-                        pet.getImages().add(imageUrl);
-                        uploadPetImages(pet, petImages, counter + 1, listener);
-                    } else {
+                if (!task.isSuccessful()) throw Objects.requireNonNull(task.getException());
+                return referenceImage.getDownloadUrl();
 
-                        listener.onFailure();
-                    }
-                });
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    String imageUrl = task.getResult().toString();
+                    pet.getImages().add(imageUrl);
+                    uploadPetImages(pet, petImages, counter + 1, listener);
+                } else {
+                    listener.onFailure();
+                }
+            });
 
-            } else {
-                // YA TERMINO LA SUBIDA DE IMAGENES, SE SUBEN LOS DATOS DE LA MASCOTA ACA
-               uploadPetData(pet, listener);
-            }
         } else {
-
+            // YA TERMINO LA SUBIDA DE IMAGENES, SE SUBEN LOS DATOS DE LA MASCOTA ACA
+           uploadPetData(pet, listener);
         }
     }
 

@@ -5,6 +5,6 @@ import com.appdoptame.appdoptame.data.listener.PostLoaderListener;
 import com.appdoptame.appdoptame.model.Post;
 
 public interface IPostCreator {
-    void createPet(Post post, CompleteListener listener);
-    void verifyPetCreated(PostLoaderListener listener);
+    void createPost(Post post, CompleteListener listener);
+    void verifyPostCreated(PostLoaderListener listener);
 }

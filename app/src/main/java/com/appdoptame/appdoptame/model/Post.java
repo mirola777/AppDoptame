@@ -1,11 +1,13 @@
 package com.appdoptame.appdoptame.model;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class Post {
     private final Date date;
-    private final String ID;
+    private String ID;
     private final List<String> likes;
     private final List<Comment> comments;
     private final User user;
@@ -18,6 +20,14 @@ public class Post {
         this.pet = pet;
         this.ID = ID;
         this.comments = comments;
+    }
+
+    public Post(User user, Pet pet){
+        this(null, Calendar.getInstance().getTime(), new ArrayList<>(), new ArrayList<>(), user, pet);
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public List<Comment> getComments() {
