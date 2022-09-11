@@ -45,4 +45,6 @@
     <string name="create_pet">Crear mascota</string>
     <string name="select_image">Seleccionar imagenes</string>
     <string name="select">Seleccionar</string>
+    <string name="settings">Configuraciones</string>
+    <string name="search">Buscar</string>
 </resources>

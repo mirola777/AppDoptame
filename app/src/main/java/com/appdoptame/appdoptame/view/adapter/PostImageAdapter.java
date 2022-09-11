@@ -1,6 +1,8 @@
 package com.appdoptame.appdoptame.view.adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.appdoptame.appdoptame.AppDoptameApp;
@@ -18,7 +21,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.ViewHolder> {
 
-    private final List<String> images;
+    private List<String> images;
     private final LayoutInflater inflater;
     private final Context context;
 
@@ -26,6 +29,16 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.View
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.images = images;
+    }
+
+    public PostImageAdapter(Context context) {
+        this(context, new ArrayList<>());
+    }
+
+    public void setData(List<String> images){
+        this.images = images;
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(this::notifyDataSetChanged);
     }
 
     @NonNull
@@ -41,7 +54,6 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.View
 
         Glide.with(AppDoptameApp.getContext())
                 .load(imageURL)
-                .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.image_placeholder)
                 .into(holder.image);
     }

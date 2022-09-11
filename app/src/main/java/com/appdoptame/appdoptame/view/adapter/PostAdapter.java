@@ -73,25 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         ", " +
                         post.getPet().getDepartment());
         holder.description.setText(post.getPet().getDescription());
-        if(holder.imageAdapter == null){
-            holder.imageAdapter = new PostImageAdapter(context, post.getPet().getImages());
-            holder.imageView.setAdapter(holder.imageAdapter);
-            holder.imageView.setPageTransformer(new ViewPager2.PageTransformer() {
-                private static final float MIN_SCALE = 0.85f;
-                private static final float MIN_ALPHA = 0.6f;
-
-                @Override
-                public void transformPage(@NonNull View page, float position) {
-                    if (position <-1) page.setAlpha(0);
-                    else if (position <=1){ // [-1,1]
-                        page.setScaleX(Math.max(MIN_SCALE,1-Math.abs(position)));
-                        page.setScaleY(Math.max(MIN_SCALE,1-Math.abs(position)));
-                        page.setAlpha(Math.max(MIN_ALPHA,1-Math.abs(position)));
-                    }
-                    else page.setAlpha(0);
-                }
-            });
-        }
+        holder.imageAdapter.setData(post.getPet().getImages());
         holder.likeCount.setText(String.valueOf(post.getLikes().size()));
         holder.commentCount.setText(String.valueOf(post.getComments().size()));
 
@@ -146,6 +128,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             shareCount    = itemView.findViewById(R.id.post_item_share_count);
             userImage     = itemView.findViewById(R.id.post_item_user_image);
             imageView     = itemView.findViewById(R.id.post_item_image_view);
+
+
+            imageAdapter = new PostImageAdapter(context);
+            imageView.setAdapter(imageAdapter);
+            imageView.setPageTransformer(new ViewPager2.PageTransformer() {
+                private static final float MIN_SCALE = 0.85f;
+                private static final float MIN_ALPHA = 0.6f;
+
+                @Override
+                public void transformPage(@NonNull View page, float position) {
+                    if (position <-1) page.setAlpha(0);
+                    else if (position <=1){ // [-1,1]
+                        page.setScaleX(Math.max(MIN_SCALE,1-Math.abs(position)));
+                        page.setScaleY(Math.max(MIN_SCALE,1-Math.abs(position)));
+                        page.setAlpha(Math.max(MIN_ALPHA,1-Math.abs(position)));
+                    }
+                    else page.setAlpha(0);
+                }
+            });
+
 
             likeButton.setOnClickListener(v -> {
                 Post post = posts.get(getAdapterPosition());
