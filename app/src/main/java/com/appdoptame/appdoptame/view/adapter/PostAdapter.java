@@ -104,7 +104,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.userImage.setImageBitmap(null);
         Glide.with(AppDoptameApp.getContext())
                 .load(post.getUser().getImage())
-                .transition(DrawableTransitionOptions.withCrossFade())
                 .placeholder(R.drawable.user_icon_orange)
                 .error(R.drawable.user_icon_orange)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)

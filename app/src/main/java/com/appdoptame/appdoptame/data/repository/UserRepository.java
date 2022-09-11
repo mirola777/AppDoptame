@@ -1,6 +1,7 @@
 package com.appdoptame.appdoptame.data.repository;
 
 import android.content.Intent;
+import android.net.Uri;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,7 +17,7 @@ public interface UserRepository {
     void loginFacebook(Fragment fragment, CallbackManager callbackManager, LoginListener listener);
     void singOut(CompleteListener listener);
     void singUp(String email, String password, String confirmPassword, User user, CompleteListener listener);
-    void createUser(User user, CompleteListener listener);
+    void createUser(User user, Uri userImage, CompleteListener listener);
     void verifyProfileCreated(LoginListener listener);
     boolean isUserActive();
     User getUserSession();

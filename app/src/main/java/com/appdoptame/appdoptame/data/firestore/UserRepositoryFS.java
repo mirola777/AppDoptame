@@ -1,6 +1,7 @@
 package com.appdoptame.appdoptame.data.firestore;
 
 import android.content.Intent;
+import android.net.Uri;
 
 import androidx.fragment.app.Fragment;
 
@@ -79,8 +80,8 @@ public class UserRepositoryFS implements UserRepository {
     }
 
     @Override
-    public void createUser(User user, CompleteListener listener) {
-        iUserCreator.createUser(user, listener);
+    public void createUser(User user, Uri userImage, CompleteListener listener) {
+        iUserCreator.createUser(user, userImage, listener);
     }
 
     @Override

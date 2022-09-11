@@ -7,7 +7,7 @@ public class User {
     private final String phone;
     private final String city;
     private final String department;
-    private final String image;
+    private String image;
     private final String lastName;
     private final long age;
 
@@ -44,6 +44,9 @@ public class User {
         this(null, identification, name, lastName, phone, city, department, image, age);
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public String getLastName() {
         return lastName;

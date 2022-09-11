@@ -1,12 +1,16 @@
 package com.appdoptame.appdoptame.view.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +38,12 @@ public class FragmentCreateUser extends Fragment {
     private EditText         CCField;
     private EditText         phoneField;
     private TextView         registerButton;
+    private ImageView        image;
+    private ImageButton      imageDelete;
+    private TextView         imagePick;
+
+    private static final int PICK_CODE = 2;
+    private Uri userImage;
 
     public FragmentCreateUser(){
 
@@ -54,18 +64,44 @@ public class FragmentCreateUser extends Fragment {
     }
 
     private void loadComponents(){
-        statusBar            = requireView().findViewById(R.id.create_user_status_bar);
-        backButton           = requireView().findViewById(R.id.create_user_back_button);
-        nameField            = requireView().findViewById(R.id.create_user_name_field);
-        lastNameField        = requireView().findViewById(R.id.create_user_last_name_field);
-        ageField             = requireView().findViewById(R.id.create_user_age_field);
-        phoneField           = requireView().findViewById(R.id.create_user_phone_field);
-        CCField              = requireView().findViewById(R.id.create_user_identification_field);
-        registerButton       = requireView().findViewById(R.id.create_user_create_user_button);
+        statusBar      = requireView().findViewById(R.id.create_user_status_bar);
+        backButton     = requireView().findViewById(R.id.create_user_back_button);
+        nameField      = requireView().findViewById(R.id.create_user_name_field);
+        lastNameField  = requireView().findViewById(R.id.create_user_last_name_field);
+        ageField       = requireView().findViewById(R.id.create_user_age_field);
+        phoneField     = requireView().findViewById(R.id.create_user_phone_field);
+        CCField        = requireView().findViewById(R.id.create_user_identification_field);
+        registerButton = requireView().findViewById(R.id.create_user_create_user_button);
+        image          = requireView().findViewById(R.id.create_user_image);
+        imageDelete    = requireView().findViewById(R.id.create_user_image_delete);
+        imagePick      = requireView().findViewById(R.id.create_user_image_button);
 
+        loadImagePick();
         loadStatusBar();
         loadBackButton();
         loadRegisterButton();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_CODE && resultCode== Activity.RESULT_OK){
+            userImage = data.getData();
+            image.setImageURI(userImage);
+        }
+    }
+
+    private void loadImagePick(){
+        imagePick.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityForResult(intent, PICK_CODE);
+        });
+
+        imageDelete.setOnClickListener(v -> {
+            userImage = null;
+            image.setImageResource(R.drawable.user_icon_ligthblue);
+        });
     }
 
     private void loadRegisterButton(){
@@ -80,18 +116,12 @@ public class FragmentCreateUser extends Fragment {
                 String department      = "Antioquia"; // Temporalmente mientras añadimos mas departamentos
 
                 User newUser = new User(
-                        identification,
-                        name,
-                        lastName,
-                        phone,
-                        city,
-                        department,
-                        null, // Imagen nula de momento
-                        age
-                        );
+                        identification, name, lastName, phone,
+                        city, department, null, age
+                );
 
                 // Se crea el usuario y se envía a la base de datos
-                UserRepositoryFS.getInstance().createUser(newUser, new CompleteListener() {
+                UserRepositoryFS.getInstance().createUser(newUser, userImage, new CompleteListener() {
                     @Override
                     public void onSuccess() {
                         FragmentController.removeAllFragments();

@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="?attr/backgroundColor"
     android:layout_height="match_parent">
@@ -77,8 +78,78 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-            <EditText
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/create_user_image"
                 android:layout_marginTop="50dp"
+                android:src="@drawable/user_icon_ligthblue"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="150dp">
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_gravity="center"
+                    android:layout_height="30dp"
+                    app:cardBackgroundColor="?attr/colorSecondary"
+                    app:cardCornerRadius="?attr/cardCornerRadius"
+                    app:cardElevation="?attr/cardElevation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/create_user_image_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:fontFamily="@font/poppins_bold"
+                        android:foreground="?android:selectableItemBackgroundBorderless"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/select"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:textSize="10sp"
+                        tools:ignore="SmallSp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="30dp"
+                    android:layout_gravity="center"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    app:cardBackgroundColor="@color/red"
+                    app:cardCornerRadius="?attr/cardCornerRadius"
+                    app:cardElevation="?attr/cardElevation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageButton
+                        android:id="@+id/create_user_image_delete"
+                        android:tint="?attr/colorOnPrimary"
+                        android:src="@drawable/ic_cancel"
+                        android:background="?android:selectableItemBackgroundBorderless"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp">
+
+                    </ImageButton>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+
+
+            <EditText
+                android:layout_marginTop="10dp"
                 android:id="@+id/create_user_name_field"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

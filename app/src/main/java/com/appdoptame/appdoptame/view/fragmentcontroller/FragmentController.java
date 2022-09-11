@@ -28,7 +28,7 @@ public class FragmentController {
 
         // Se verifica un inicio de sesion, en el caso de que el usuario tenga la sesion iniciada
         // se envia derecho al main, sino se manda al login
-        if(UserRepositoryFS.getInstance().isUserActive()){
+        if(UserRepositoryFS.getInstance().isUserActive() && UserRepositoryFS.getInstance().getUserSession() != null){
             SetFragmentMain.set();
         } else {
             SetFragmentLogin.set();

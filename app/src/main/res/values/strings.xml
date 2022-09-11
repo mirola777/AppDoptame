@@ -33,7 +33,6 @@
     <string name="post_pet">Publicar mascota</string>
     <string name="messages">Mensajes</string>
     <string name="home">Inicio</string>
-
     <string name="pet_name">Nombre de la mascota</string>
     <string name="pet_type">Tipo de mascota</string>
     <string name="breed">Raza</string>
@@ -44,5 +43,6 @@
     <string name="sterilized">Esta esterilizado?</string>
     <string name="pet_weight">Peso de la mascota</string>
     <string name="create_pet">Crear mascota</string>
-    <string name="select_image">Seleccionar Imagenes</string>
+    <string name="select_image">Seleccionar imagenes</string>
+    <string name="select">Seleccionar</string>
 </resources>
