@@ -6,5 +6,5 @@ import com.appdoptame.appdoptame.data.listener.PetLoaderListener;
 public interface IPetGetter {
     void getFeedPets(PetListLoaderListener listener);
     void getPet(String ID, PetLoaderListener listener);
-
+    void getUserPets(String userID, PetListLoaderListener listener);
 }

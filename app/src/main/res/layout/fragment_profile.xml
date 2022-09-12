@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/me_refresh"
-    android:background="?attr/colorSecondary"
+    android:background="?attr/colorOnPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/me_nested_scroll_view"
+        android:id="@+id/profile_nested"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,7 @@
                 android:layout_height="325dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/me_user_image"
+                    android:id="@+id/profile_image"
                     android:src="@drawable/user_icon_orange"
                     android:layout_width="149dp"
                     android:layout_marginBottom="1dp"
@@ -55,7 +55,7 @@
                     android:layout_height="250dp">
 
                     <ImageView
-                        android:id="@+id/me_cover_image"
+                        android:id="@+id/profile_cover_image"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
@@ -64,7 +64,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/me_user_name"
+                android:id="@+id/profile_name"
                 android:text="@string/profile"
                 android:textColor="?attr/titleTextColor"
                 android:textAlignment="center"
@@ -73,11 +73,10 @@
                 android:fontFamily="@font/poppins_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
             </TextView>
 
             <TextView
-                android:id="@+id/me_user_description"
+                android:id="@+id/profile_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
@@ -88,26 +87,13 @@
                 android:textSize="18sp">
             </TextView>
 
-            <TextView
-                android:id="@+id/me_user_recognitions_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-                android:padding="20dp"
-                android:textAlignment="center"
-                android:text="@string/app_name"
-                android:textColor="?attr/titleTextColor"
-                android:textSize="30sp">
-            </TextView>
-
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/me_user_recognitions"
+                android:id="@+id/profile_pets_list"
                 android:layout_width="match_parent"
                 android:clipToPadding="false"
                 android:paddingBottom="?android:actionBarSize"
                 android:layout_height="wrap_content">
             </androidx.recyclerview.widget.RecyclerView>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

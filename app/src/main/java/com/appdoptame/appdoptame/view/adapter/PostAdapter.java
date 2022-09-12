@@ -20,6 +20,7 @@ import com.appdoptame.appdoptame.data.listener.LikeListener;
 import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.DateTextGetter;
+import com.appdoptame.appdoptame.util.UserNameGetter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -65,7 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @SuppressLint("SetTextI18n") @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
-        holder.userName.setText(post.getUser().getName());
+        holder.userName.setText(UserNameGetter.get(post.getUser()));
         holder.time.setText(
                         DateTextGetter.getDateText(post.getDate()) +
                         " ● " +
@@ -88,7 +89,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 .load(post.getUser().getImage())
                 .placeholder(R.drawable.user_icon_orange)
                 .error(R.drawable.user_icon_orange)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(holder.userImage);
     }
 

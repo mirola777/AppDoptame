@@ -5,6 +5,7 @@ import android.net.Uri;
 import com.appdoptame.appdoptame.data.firestore.services.PetCreatorFS;
 import com.appdoptame.appdoptame.data.firestore.services.PetGetterFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
+import com.appdoptame.appdoptame.data.listener.PetListLoaderListener;
 import com.appdoptame.appdoptame.data.listener.PetLoaderListener;
 import com.appdoptame.appdoptame.data.repository.PetRepository;
 import com.appdoptame.appdoptame.data.service.IPetCreator;
@@ -34,6 +35,11 @@ public class PetRepositoryFS implements PetRepository {
     @Override
     public void getPet(String ID, PetLoaderListener listener) {
         iPetGetter.getPet(ID, listener);
+    }
+
+    @Override
+    public void getUserPets(String userID, PetListLoaderListener listener) {
+        iPetGetter.getUserPets(userID, listener);
     }
 
     @Override

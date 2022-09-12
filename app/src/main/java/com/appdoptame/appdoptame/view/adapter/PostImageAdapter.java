@@ -55,6 +55,7 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.View
         Glide.with(AppDoptameApp.getContext())
                 .load(imageURL)
                 .placeholder(R.drawable.image_placeholder)
+                .error(R.drawable.image_placeholder)
                 .into(holder.image);
     }
 
