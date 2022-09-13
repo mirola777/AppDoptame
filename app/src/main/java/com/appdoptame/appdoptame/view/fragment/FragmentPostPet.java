@@ -148,13 +148,11 @@ public class FragmentPostPet extends Fragment implements PickImageAdapterListene
                 if(sexFemaleField.isChecked()){
                     sexField = "Hembra";
                 }
-                System.out.println(sexField);
-                System.out.println(typeField);
 
-                if(typeSterilizedField.isSelected()){
+                if(typeSterilizedField.isChecked()){
                     sterilizedField = true;
                 }
-                else if(typeNotSterilizedField.isSelected()){
+                else if(typeNotSterilizedField.isChecked()){
                     sterilizedField = false;
                 }
 
