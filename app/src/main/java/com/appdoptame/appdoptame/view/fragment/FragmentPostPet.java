@@ -135,21 +135,21 @@ public class FragmentPostPet extends Fragment implements PickImageAdapterListene
         registerButton.setOnClickListener(v -> {
             try {
 
-                if(typeCatField.isSelected()){
+                if(typeCatField.isChecked()){
                     typeField = "Gato";
                 }
-                if(typeDogField.isSelected()){
+                if(typeDogField.isChecked()){
                     typeField = "Perro";
                 }
-                if(sexMaleField.isSelected()){
+                if(sexMaleField.isChecked()){
+
                     sexField = "Macho";
                 }
-                if(sexFemaleField.isSelected()){
+                if(sexFemaleField.isChecked()){
                     sexField = "Hembra";
                 }
-
-                typeField = "Gato";
-                sexField = "Macho";
+                System.out.println(sexField);
+                System.out.println(typeField);
 
                 if(typeSterilizedField.isSelected()){
                     sterilizedField = true;
