@@ -14,16 +14,16 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
+import com.appdoptame.appdoptame.data.firestore.PetRepositoryFS;
 import com.appdoptame.appdoptame.data.firestore.PostRepositoryFS;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
+import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LikeListener;
 import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.DateTextGetter;
 import com.appdoptame.appdoptame.util.UserNameGetter;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,6 +146,20 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     }
                     else page.setAlpha(0);
                 }
+            });
+
+            adoptButton.setOnClickListener(v -> {
+                PetRepositoryFS.getInstance().changeState(posts.get(getAdapterPosition()).getPet(), new CompleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        System.out.println("aaaa");
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        System.out.println("aaaddda");
+                    }
+                });
             });
 
 

@@ -120,8 +120,8 @@ public class FragmentPostPet extends Fragment implements PickImageAdapterListene
 
             } else if(data.getData() !=null){
                 // una sola imagen seleccionada
-                String imageURL = data.getData().getPath();
-                pickImagesAdapter.addImage(Uri.parse(imageURL));
+                Uri imageURL = data.getData();
+                pickImagesAdapter.addImage(imageURL);
             }
         }
     }
@@ -231,7 +231,7 @@ public class FragmentPostPet extends Fragment implements PickImageAdapterListene
     @Override
     public void onAdd() {
         Intent intent = new Intent();
-        intent.setType("image/");
+        intent.setType("image/*");
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Picture"), PICK_CODE);

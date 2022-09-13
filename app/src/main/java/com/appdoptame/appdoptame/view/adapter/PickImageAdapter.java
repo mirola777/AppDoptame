@@ -83,7 +83,6 @@ public class PickImageAdapter extends RecyclerView.Adapter<PickImageAdapter.View
             Uri imageUri = images.get(position);
             Glide.with(AppDoptameApp.getContext())
                     .load(imageUri)
-                    .transition(DrawableTransitionOptions.withCrossFade())
                     .placeholder(R.drawable.image_placeholder)
                     .into(holder.image);
         }

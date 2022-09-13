@@ -16,6 +16,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.util.DisplayManager;
 import com.appdoptame.appdoptame.view.MainActivity;
+import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentSettings;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -156,15 +157,27 @@ public class FragmentMain extends Fragment {
         MainViewPagerFunction();
     }
 
+    @SuppressLint("NonConstantResourceId")
     private void loadToolbar(){
         toolbar = requireView().findViewById(R.id.main_toolbar);
-
         // Padding toolbar
         ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) toolbar.getLayoutParams();
         int height = params.height;
         params.height = DisplayManager.getStatusBarHeight() + params.height;
         toolbar.setPadding(0, params.height - height, 0, 0);
         toolbar.setLayoutParams(params);
+        toolbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_main_settings:
+                    SetFragmentSettings.set();
+                    return true;
+
+                case R.id.action_main_search:
+                    //System.out.println("eee");
+                    return true;
+            }
+            return false;
+        });
     }
 
     private class ViewPagerAdapter extends FragmentStateAdapter {

@@ -50,6 +50,16 @@ public class UserSessionFS implements IUserSession {
     }
 
     @Override
+    public void deleteUserSession() {
+        SharedPreferences preferences = AppDoptameApp.getContext().getSharedPreferences(
+                USER_SESSION,
+                Context.MODE_PRIVATE
+        );
+
+        preferences.edit().putString(USER_DATA, null).apply();
+    }
+
+    @Override
     public boolean isUserActive() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
