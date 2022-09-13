@@ -13,6 +13,7 @@ public interface PetRepository {
     void getPet(String ID, PetLoaderListener listener);
     void getUserPets(String userID, PetListLoaderListener listener);
     void createPet(Pet pet, List<Uri> petImages, CompleteListener listener);
-    void updatePet(Pet pet, PetLoaderListener listener);
+    void updatePet(Pet pet, CompleteListener listener);
+    void changeState(Pet pet, CompleteListener listener);
     void deletePet(String ID, CompleteListener listener);
 }

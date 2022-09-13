@@ -22,4 +22,5 @@ public interface UserRepository {
     boolean isUserActive();
     User getUserSession();
     void saveUserSession(User user);
+    void deleteUserSession();
 }

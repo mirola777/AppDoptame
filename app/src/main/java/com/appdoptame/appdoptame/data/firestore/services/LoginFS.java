@@ -66,6 +66,7 @@ public class LoginFS implements ILogin {
                     break;
             }
         }
+        UserRepositoryFS.getInstance().deleteUserSession();
         auth.signOut();
         listener.onSuccess();
     }

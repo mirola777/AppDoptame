@@ -47,4 +47,5 @@
     <string name="select">Seleccionar</string>
     <string name="settings">Configuraciones</string>
     <string name="search">Buscar</string>
+    <string name="sign_out">Cerrar sesión</string>
 </resources>

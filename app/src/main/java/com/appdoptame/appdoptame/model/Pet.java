@@ -13,7 +13,7 @@ public class Pet {
     private final String breed;
     private final boolean stray;
     private final boolean sterilized;
-    private final boolean adopted;
+    private boolean adopted;
     private final long age;
     private final long size;
     private final long weight;
@@ -68,6 +68,10 @@ public class Pet {
         this.size   = size;
         this.weight = weight;
         this.images = images;
+    }
+
+    public void setAdopted(boolean adopted) {
+        this.adopted = adopted;
     }
 
     public void setID(String ID) {

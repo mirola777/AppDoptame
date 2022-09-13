@@ -3,12 +3,14 @@ package com.appdoptame.appdoptame.data.firestore;
 import android.net.Uri;
 
 import com.appdoptame.appdoptame.data.firestore.services.PetCreatorFS;
+import com.appdoptame.appdoptame.data.firestore.services.PetEditorFS;
 import com.appdoptame.appdoptame.data.firestore.services.PetGetterFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PetListLoaderListener;
 import com.appdoptame.appdoptame.data.listener.PetLoaderListener;
 import com.appdoptame.appdoptame.data.repository.PetRepository;
 import com.appdoptame.appdoptame.data.service.IPetCreator;
+import com.appdoptame.appdoptame.data.service.IPetEditor;
 import com.appdoptame.appdoptame.data.service.IPetGetter;
 import com.appdoptame.appdoptame.model.Pet;
 
@@ -16,12 +18,14 @@ import java.util.List;
 
 public class PetRepositoryFS implements PetRepository {
     private static PetRepositoryFS instance;
-    private final IPetGetter iPetGetter;
+    private final IPetGetter  iPetGetter;
     private final IPetCreator iPetCreator;
+    private final IPetEditor  iPetEditor;
 
     private PetRepositoryFS() {
-        this.iPetGetter = new PetGetterFS();
+        this.iPetGetter  = new PetGetterFS();
         this.iPetCreator = new PetCreatorFS();
+        this.iPetEditor  = new PetEditorFS();
     }
 
     public static PetRepositoryFS getInstance(){
@@ -48,8 +52,13 @@ public class PetRepositoryFS implements PetRepository {
     }
 
     @Override
-    public void updatePet(Pet pet, PetLoaderListener listener) {
+    public void updatePet(Pet pet, CompleteListener listener) {
+        iPetEditor.updatePet(pet, listener);
+    }
 
+    @Override
+    public void changeState(Pet pet, CompleteListener listener) {
+        iPetEditor.changeState(pet, listener);
     }
 
     @Override

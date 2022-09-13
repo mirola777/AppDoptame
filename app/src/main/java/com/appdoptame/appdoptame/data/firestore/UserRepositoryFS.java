@@ -103,4 +103,9 @@ public class UserRepositoryFS implements UserRepository {
     public void saveUserSession(User user) {
         iUserSession.saveUserSession(user);
     }
+
+    @Override
+    public void deleteUserSession() {
+        iUserSession.deleteUserSession();
+    }
 }

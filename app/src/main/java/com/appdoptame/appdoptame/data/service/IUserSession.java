@@ -7,5 +7,6 @@ import com.appdoptame.appdoptame.model.User;
 public interface IUserSession {
     User getUserSession();
     void saveUserSession(User user);
+    void deleteUserSession();
     boolean isUserActive();
 }
