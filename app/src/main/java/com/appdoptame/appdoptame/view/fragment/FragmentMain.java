@@ -13,12 +13,15 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.util.DisplayManager;
 import com.appdoptame.appdoptame.view.MainActivity;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentSettings;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.shape.CornerFamily;
+import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.concurrent.TimeUnit;
 
@@ -123,6 +126,15 @@ public class FragmentMain extends Fragment {
     @SuppressLint("NonConstantResourceId")
     private void bottomNavigationViewFunction(){
         bottomNavigation = requireView().findViewById(R.id.main_bottom_navigation);
+        int radius = AppDoptameApp.getContext().getResources().getDimensionPixelSize(R.dimen.dp15);
+        MaterialShapeDrawable bottomBarBackground = (MaterialShapeDrawable) bottomNavigation.getBackground();
+        bottomBarBackground.setShapeAppearanceModel(
+                bottomBarBackground.getShapeAppearanceModel()
+                        .toBuilder()
+                        .setTopRightCorner(CornerFamily.ROUNDED,radius)
+                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                        .build());
+
         bottomNavigation.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.menu_feed:

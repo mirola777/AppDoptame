@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_feed"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/navigation_home_icon"
         android:title="@string/home"
         />
     <item
         android:id="@+id/menu_messages"
-        android:icon="@drawable/ic_baseline_chat_bubble_24"
+        android:icon="@drawable/navigation_messages_icon"
         android:title="@string/messages"
         />
     <item
         android:id="@+id/menu_post_pet"
-        android:icon="@drawable/ic_baseline_add_circle_24"
+        android:icon="@drawable/navigation_post_icon"
         android:title="@string/post_pet"
         />
     <item
         android:id="@+id/menu_notifications"
-        android:icon="@drawable/ic_baseline_notifications_24"
+        android:icon="@drawable/navigation_notifications_icon"
         android:title="@string/notifications"
         />
     <item
         android:id="@+id/menu_profile"
-        android:icon="@drawable/ic_baseline_person_24"
+        android:icon="@drawable/navigation_user_icon"
         android:title="@string/profile"
         />
 

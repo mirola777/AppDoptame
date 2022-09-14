@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.appdoptame.appdoptame.data.listener.LikeListener;
 import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.DateTextGetter;
+import com.appdoptame.appdoptame.util.PetAgeGetter;
 import com.appdoptame.appdoptame.util.UserNameGetter;
 import com.bumptech.glide.Glide;
 
@@ -59,13 +61,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.post_item, parent, false);
+        View view = inflater.inflate(R.layout.adapter_post, parent, false);
         return new ViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n") @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Post post = posts.get(position);
+        holder.petBreed.setText(post.getPet().getBreed());
+        holder.petAge.setText(PetAgeGetter.get(post.getPet()));
+        holder.petName.setText(post.getPet().getName());
         holder.userName.setText(UserNameGetter.get(post.getUser()));
         holder.time.setText(
                         DateTextGetter.getDateText(post.getDate()) +
@@ -79,8 +84,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.commentCount.setText(String.valueOf(post.getComments().size()));
 
         if(post.getLikes().contains(userSession.getID())){
+            holder.likeImage.setImageResource(R.drawable.ic_like_selected);
             holder.likeButton.setBackgroundColor(AppDoptameApp.getColorById(R.color.blue));
         } else {
+            holder.likeImage.setImageResource(R.drawable.ic_like);
             holder.likeButton.setBackgroundColor(AppDoptameApp.getColorById(R.color.orange));
         }
 
@@ -102,9 +109,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView         userName;
         TextView         time;
         TextView         description;
-        TextView         adoptButton;
+        TextView         petName;
+        TextView         petAge;
+        TextView         petBreed;
+        LinearLayout     adoptButton;
         LinearLayout     likeButton;
         TextView         likeCount;
+        ImageView        likeImage;
         LinearLayout     commentButton;
         TextView         commentCount;
         LinearLayout     shareButton;
@@ -128,10 +139,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             shareCount    = itemView.findViewById(R.id.post_item_share_count);
             userImage     = itemView.findViewById(R.id.post_item_user_image);
             imageView     = itemView.findViewById(R.id.post_item_image_view);
+            likeImage     = itemView.findViewById(R.id.post_item_like_image);
+            petName       = itemView.findViewById(R.id.post_item_pet_name);
+            petAge        = itemView.findViewById(R.id.post_item_pet_age);
+            petBreed      = itemView.findViewById(R.id.post_item_pet_breed);
 
 
             imageAdapter = new PostImageAdapter(context);
             imageView.setAdapter(imageAdapter);
+            /*
             imageView.setPageTransformer(new ViewPager2.PageTransformer() {
                 private static final float MIN_SCALE = 0.85f;
                 private static final float MIN_ALPHA = 0.6f;
@@ -148,6 +164,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
 
+
+             */
             adoptButton.setOnClickListener(v -> {
                 PetRepositoryFS.getInstance().changeState(posts.get(getAdapterPosition()).getPet(), new CompleteListener() {
                     @Override
@@ -170,12 +188,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     public void onLike() {
                         likeCount.setText(String.valueOf(post.getLikes().size()));
                         likeButton.setBackgroundColor(AppDoptameApp.getContext().getResources().getColor(R.color.blue));
+                        likeImage.setImageResource(R.drawable.ic_like_selected);
                     }
 
                     @Override
                     public void onDislike() {
                         likeCount.setText(String.valueOf(post.getLikes().size()));
                         likeButton.setBackgroundColor(AppDoptameApp.getContext().getResources().getColor(R.color.orange));
+                        likeImage.setImageResource(R.drawable.ic_like);
                     }
 
                     @Override

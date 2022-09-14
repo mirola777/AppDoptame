@@ -146,10 +146,11 @@
                     android:focusable="true">
 
                     <ImageView
+                        android:id="@+id/post_item_like_image"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:padding="6dp"
-                        android:src="@drawable/ic_baseline_favorite_border_24"
+                        android:src="@drawable/ic_like"
                         android:tint="?attr/colorOnPrimary"
                         android:contentDescription="TODO" />
 
@@ -194,7 +195,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:padding="6dp"
-                        android:src="@drawable/ic_baseline_comment_24"
+                        android:src="@drawable/ic_comment"
                         android:tint="?attr/colorOnPrimary"
                         android:contentDescription="TODO" />
 
@@ -240,7 +241,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:padding="6dp"
-                        android:src="@drawable/ic_baseline_share_24"
+                        android:src="@drawable/ic_share"
                         android:tint="?attr/colorOnPrimary"
                         android:contentDescription="TODO" />
 

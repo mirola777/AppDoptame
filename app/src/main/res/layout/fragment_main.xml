@@ -38,6 +38,7 @@
         android:elevation="0dp"
         app:elevation="0dp"
         android:theme="@style/bottom_navigation_style"
+        android:background="?attr/colorPrimary"
         app:labelVisibilityMode="unlabeled"
         app:itemIconSize="25dp"
         app:itemIconTint="@drawable/bottom_navigation_tint"
