@@ -16,13 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
-import com.appdoptame.appdoptame.data.firestore.PetRepositoryFS;
+import com.appdoptame.appdoptame.data.firestore.PostRepositoryFS;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
-import com.appdoptame.appdoptame.data.listener.PetListLoaderListener;
-import com.appdoptame.appdoptame.model.Pet;
+import com.appdoptame.appdoptame.data.listener.PostListLoaderListener;
+import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.UserNameGetter;
-import com.appdoptame.appdoptame.view.adapter.PetsListAdapter;
+import com.appdoptame.appdoptame.view.adapter.PostGridAdapter;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -30,10 +30,13 @@ import java.util.concurrent.TimeUnit;
 
 public class FragmentProfile extends Fragment {
     private ImageView       image;
-    private ImageView       coverImage;
     private TextView        nameText;
-    private PetsListAdapter petsAdapter;
-    private RecyclerView    petsList;
+    private TextView        ageText;
+    private TextView        idText;
+    private TextView        phoneText;
+    private TextView        cityText;
+    private PostGridAdapter postAdapter;
+    private RecyclerView    postList;
 
     @SuppressLint("InflateParams")
     @Nullable
@@ -52,15 +55,19 @@ public class FragmentProfile extends Fragment {
     }
 
     private void loadComponents(){
-        image      = requireView().findViewById(R.id.profile_image);
-        coverImage = requireView().findViewById(R.id.profile_cover_image);
-        nameText   = requireView().findViewById(R.id.profile_name);
-        petsList   = requireView().findViewById(R.id.profile_pets_list);
+        image     = requireView().findViewById(R.id.profile_image);
+        nameText  = requireView().findViewById(R.id.profile_name);
+        ageText   = requireView().findViewById(R.id.profile_age);
+        cityText  = requireView().findViewById(R.id.profile_city);
+        idText    = requireView().findViewById(R.id.profile_id);
+        phoneText = requireView().findViewById(R.id.profile_phone);
+        postList  = requireView().findViewById(R.id.profile_post_list);
 
         loadPetsList();
         loadUserData();
     }
 
+    @SuppressLint("SetTextI18n")
     private void loadUserData(){
         User user = UserRepositoryFS.getInstance().getUserSession();
 
@@ -71,11 +78,15 @@ public class FragmentProfile extends Fragment {
                 .into(image);
 
         nameText.setText(UserNameGetter.get(user));
+        phoneText.setText(user.getPhone());
+        idText.setText(user.getIdentification());
+        ageText.setText(String.valueOf(user.getAge()));
+        cityText.setText(user.getCity() + ", " + user.getDepartment());
 
-        PetRepositoryFS.getInstance().getUserPets(user.getID(), new PetListLoaderListener() {
+        PostRepositoryFS.getInstance().getUserPosts(user.getID(), new PostListLoaderListener() {
             @Override
-            public void onSuccess(List<Pet> pets) {
-                petsAdapter.setData(pets);
+            public void onSuccess(List<Post> posts) {
+                postAdapter.setPosts(posts);
             }
 
             @Override
@@ -86,8 +97,8 @@ public class FragmentProfile extends Fragment {
     }
 
     private void loadPetsList(){
-        petsAdapter = new PetsListAdapter(requireContext());
-        petsList.setLayoutManager(new GridLayoutManager(requireContext(), 3));
-        petsList.setAdapter(petsAdapter);
+        postAdapter = new PostGridAdapter(requireContext());
+        postList.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        postList.setAdapter(postAdapter);
     }
 }

@@ -9,6 +9,7 @@ import com.appdoptame.appdoptame.model.Post;
 public interface PostRepository {
     void getFeedPosts(PostListLoaderListener listener);
     void getPost(String ID, PostLoaderListener listener);
+    void getUserPosts(String userID, PostListLoaderListener listener);
     void like(Post post, LikeListener listener);
     void createPost(Post post, CompleteListener listener);
     void verifyPostCreated(PostLoaderListener listener);

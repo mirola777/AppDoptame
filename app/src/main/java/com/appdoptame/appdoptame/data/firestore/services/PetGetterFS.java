@@ -33,8 +33,6 @@ public class PetGetterFS implements IPetGetter {
     @Override
     public void getUserPets(String userID, PetListLoaderListener listener) {
         List<Pet> pets = new ArrayList<>();
-        Map<String, Object> doc = new HashMap<>();
-        doc.put("ID", userID);
 
         collectionPet.whereEqualTo("OWNER.ID", userID).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

@@ -2,6 +2,8 @@ package com.appdoptame.appdoptame.view.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +57,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public void setPosts(List<Post> posts){
         this.posts = posts;
-        notifyDataSetChanged();
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(this::notifyDataSetChanged);
     }
 
     @NonNull
@@ -74,7 +77,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.userName.setText(UserNameGetter.get(post.getUser()));
         holder.time.setText(
                         DateTextGetter.getDateText(post.getDate()) +
-                        " ● " +
+                        " ⚬ " +
                         post.getPet().getCity() +
                         ", " +
                         post.getPet().getDepartment());

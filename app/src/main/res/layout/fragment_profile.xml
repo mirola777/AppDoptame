@@ -2,8 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/me_refresh"
-    android:background="?attr/colorOnPrimary"
+    android:background="@color/orange_dark"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,74 +26,158 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"/>
 
-            <FrameLayout
+            <androidx.cardview.widget.CardView
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="325dp">
+                app:cardElevation="0dp"
+                app:cardCornerRadius="15dp"
+                android:layout_height="wrap_content">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image"
-                    android:src="@drawable/user_icon_orange"
-                    android:layout_width="149dp"
-                    android:layout_marginBottom="1dp"
-                    android:translationZ="3dp"
-                    android:background="#00FFFFFF"
-                    android:layout_gravity="center|bottom"
-                    android:layout_height="149dp" />
-
-                <View
-                    android:layout_gravity="center|bottom"
-                    android:translationZ="3dp"
-                    android:background="@drawable/image_rounded_border"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp">
-                </View>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_margin="10dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    app:cardElevation="0dp"
-                    app:cardCornerRadius="?attr/cardCornerRadius"
-                    android:layout_height="250dp">
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/user_icon_orange"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/profile_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/profile"
+                        android:textColor="?attr/titleTextColor"
+                        android:textSize="25sp"
+                        android:textAlignment="center"
+                        android:theme="@style/FontExtraBold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+                    <TextView
+                        android:id="@+id/profile_city"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:text="@string/app_name"
+                        android:textColor="?attr/titleTextColor"
+                        android:textSize="14sp"
+                        android:theme="@style/FontLight"
+                        android:layout_marginStart="10dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_name" />
 
                     <ImageView
-                        android:id="@+id/profile_cover_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/splash_gradient"/>
-                </androidx.cardview.widget.CardView>
-            </FrameLayout>
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/ic_city"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_name">
 
-            <TextView
-                android:id="@+id/profile_name"
-                android:text="@string/profile"
-                android:textColor="?attr/titleTextColor"
-                android:textAlignment="center"
-                android:textSize="25sp"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/poppins_bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
+                    </ImageView>
 
-            <TextView
-                android:id="@+id/profile_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-                android:padding="20dp"
-                android:textAlignment="center"
-                android:text="@string/app_name"
-                android:textColor="?attr/titleTextColor"
-                android:textSize="18sp">
-            </TextView>
+                    <TextView
+                        android:id="@+id/profile_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/app_name"
+                        android:textColor="?attr/titleTextColor"
+                        android:textSize="14sp"
+                        android:theme="@style/FontLight"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView3"
+                        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_phone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_city">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/profile_age"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/app_name"
+                        android:textColor="?attr/titleTextColor"
+                        android:textSize="14sp"
+                        android:theme="@style/FontLight"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/ic_age"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_phone">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/profile_id"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/app_name"
+                        android:textColor="?attr/titleTextColor"
+                        android:textSize="14sp"
+                        android:theme="@style/FontLight"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:src="@drawable/ic_id"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/profile_age">
+
+                    </ImageView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/profile_pets_list"
+                android:id="@+id/profile_post_list"
                 android:layout_width="match_parent"
                 android:clipToPadding="false"
-                android:paddingBottom="?android:actionBarSize"
-                android:layout_height="wrap_content">
+                android:paddingEnd="10dp"
+                android:paddingBottom="100dp"
+                android:layout_height="wrap_content"
+                tools:ignore="RtlSymmetry">
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

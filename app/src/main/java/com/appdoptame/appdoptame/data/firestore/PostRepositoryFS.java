@@ -44,6 +44,11 @@ public class PostRepositoryFS implements PostRepository {
     }
 
     @Override
+    public void getUserPosts(String userID, PostListLoaderListener listener) {
+        iPostGetter.getUserPosts(userID, listener);
+    }
+
+    @Override
     public void like(Post post, LikeListener listener) {
         iPostLike.like(post, listener);
     }

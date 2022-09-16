@@ -33,4 +33,20 @@
         <item name="itemIconTint">@color/white</item>
         <item name="itemTextColor">@color/white</item>
     </style>
+
+    <style name="FontExtraBold">
+        <item name="android:fontFamily">@font/spotify_extra_bold</item>
+    </style>
+
+    <style name="FontBold">
+        <item name="android:fontFamily">@font/spotify_bold</item>
+    </style>
+
+    <style name="FontNormal">
+        <item name="android:fontFamily">@font/spotify_regular</item>
+    </style>
+
+    <style name="FontLight">
+        <item name="android:fontFamily">@font/spotify_light</item>
+    </style>
 </resources>
