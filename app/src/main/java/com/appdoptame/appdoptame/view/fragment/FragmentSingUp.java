@@ -24,16 +24,17 @@ import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentCreateUser;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.concurrent.TimeUnit;
 
 public class FragmentSingUp extends Fragment {
-    private ConstraintLayout statusBar;
-    private ImageButton      backButton;
-    private EditText         emailField;
-    private EditText         passwordField;
-    private EditText         passwordConfirmField;
-    private TextView         registerButton;
+    private ConstraintLayout  statusBar;
+    private ImageButton       backButton;
+    private TextInputEditText emailField;
+    private TextInputEditText passwordField;
+    private TextInputEditText passwordConfirmField;
+    private TextView          registerButton;
 
     @SuppressLint("InflateParams") @Nullable @Override
     public View onCreateView(LayoutInflater inflater,

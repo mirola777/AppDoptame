@@ -174,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:clipToPadding="false"
                 android:paddingEnd="10dp"
-                android:paddingBottom="100dp"
+                android:paddingBottom="67dp"
                 android:layout_height="wrap_content"
                 tools:ignore="RtlSymmetry">
             </androidx.recyclerview.widget.RecyclerView>

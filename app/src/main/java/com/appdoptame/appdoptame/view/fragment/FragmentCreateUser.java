@@ -26,21 +26,22 @@ import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentMain;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.concurrent.TimeUnit;
 
 public class FragmentCreateUser extends Fragment {
-    private ConstraintLayout statusBar;
-    private ImageButton      backButton;
-    private EditText         nameField;
-    private EditText         lastNameField;
-    private EditText         ageField;
-    private EditText         CCField;
-    private EditText         phoneField;
-    private TextView         registerButton;
-    private ImageView        image;
-    private ImageButton      imageDelete;
-    private TextView         imagePick;
+    private ConstraintLayout  statusBar;
+    private ImageButton       backButton;
+    private TextInputEditText nameField;
+    private TextInputEditText lastNameField;
+    private TextInputEditText ageField;
+    private TextInputEditText CCField;
+    private TextInputEditText phoneField;
+    private TextView          registerButton;
+    private ImageView         image;
+    private ImageButton       imageDelete;
+    private TextView          imagePick;
 
     private static final int PICK_CODE = 2;
     private Uri userImage;

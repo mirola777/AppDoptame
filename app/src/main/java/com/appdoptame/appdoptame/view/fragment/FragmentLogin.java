@@ -24,6 +24,7 @@ import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentCreateUser;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentMain;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentSingUp;
 import com.facebook.CallbackManager;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,13 +37,13 @@ public class FragmentLogin extends Fragment {
     public static final int GOOGLE   = 0;
 
     // Elements
-    private EditText        emailField;
-    private EditText        passwordField;
-    private TextView        loginButton;
-    private TextView        singUpButton;
-    private CheckBox        rememberCheckBox;
-    private CircleImageView facebookButton;
-    private CircleImageView googleButton;
+    private TextInputEditText emailField;
+    private TextInputEditText passwordField;
+    private TextView          loginButton;
+    private TextView          singUpButton;
+    private CheckBox          rememberCheckBox;
+    private CircleImageView   facebookButton;
+    private CircleImageView   googleButton;
 
     // CALLBACK FOR FACEBOOK LOGIN
     private CallbackManager callbackManager;

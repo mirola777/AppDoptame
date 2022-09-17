@@ -40,7 +40,7 @@
     <string name="pet_description">Descripción de la mascota</string>
     <string name="pet_sex">Sexo de la mascota</string>
     <string name="pet_size">Tamaño de la mascota</string>
-    <string name="sterilized">Esta esterilizado?</string>
+    <string name="sterilized">¿Está esterilizado?</string>
     <string name="pet_weight">Peso de la mascota</string>
     <string name="create_pet">Crear mascota</string>
     <string name="select_image">Seleccionar imagenes</string>
@@ -51,4 +51,17 @@
     <string name="delete_pet">Eliminar mascota</string>
     <string name="edit_pet">Editar mascota</string>
     <string name="save_pet">Guardar mascota</string>
+    <string name="kind_pet">¿Qué tipo de mascota deseas publicar?</string>
+    <string name="post_dog">Publicar un perro</string>
+    <string name="post_cat">Publicar un gato</string>
+    <string name="post_hamster">Publicar un hamster</string>
+    <string name="post_snake">Publicar una serpiente</string>
+    <string name="post_bunny">Publicar un conejo</string>
+    <string name="post_bird">Publicar un ave</string>
+    <string name="post_fish">Publicar un pez</string>
+    <string name="post_turtle">Publicar una tortuga</string>
+    <string name="male">Masculino</string>
+    <string name="female">Femenino</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
 </resources>

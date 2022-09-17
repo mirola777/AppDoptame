@@ -9,6 +9,10 @@ public abstract class Selectable {
         this.stringResourceID   = stringResourceID;
     }
 
+    public Selectable(int drawableResourceID){
+        this(drawableResourceID, 0);
+    }
+
     public int getDrawableID() {
         return drawableResourceID;
     }
