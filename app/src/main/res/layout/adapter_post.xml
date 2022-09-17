@@ -18,12 +18,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_marginTop="10dp"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
@@ -39,27 +38,36 @@
                     android:id="@+id/post_item_user_image"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:scaleType="centerCrop"
                     android:layout_gravity="center"
-                    android:src="@drawable/user_icon_orange" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/user_icon_orange"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/linearLayout5"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/post_item_options"
+                    app:layout_constraintStart_toEndOf="@+id/post_item_user_image"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/post_item_user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:theme="@style/FontNormal"
                         android:maxLines="1"
                         android:text="UserName"
                         android:textColor="?attr/titleTextColor"
                         android:textSize="11sp"
+                        android:theme="@style/FontNormal"
                         tools:ignore="SmallSp" />
 
                     <TextView
@@ -67,15 +75,27 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:theme="@style/FontLight"
                         android:maxLines="1"
                         android:text="Hace 30 minutos"
                         android:textColor="?attr/subtitleTextColor"
                         android:textSize="10sp"
+                        android:theme="@style/FontLight"
                         tools:ignore="SmallSp" />
-
                 </LinearLayout>
-            </LinearLayout>
+
+                <ImageButton
+                    android:background="?android:selectableItemBackgroundBorderless"
+                    android:tint="?attr/subtitleTextColor"
+                    android:id="@+id/post_item_options"
+                    android:layout_width="24dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_more"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </ImageButton>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"

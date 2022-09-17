@@ -13,4 +13,5 @@ public interface PostRepository {
     void like(Post post, LikeListener listener);
     void createPost(Post post, CompleteListener listener);
     void verifyPostCreated(PostLoaderListener listener);
+    void deletePost(Post post, CompleteListener listener);
 }

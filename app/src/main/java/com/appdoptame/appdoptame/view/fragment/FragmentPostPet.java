@@ -25,6 +25,7 @@ import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.PetRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PickImageAdapterListener;
+import com.appdoptame.appdoptame.data.observer.PostObserver;
 import com.appdoptame.appdoptame.model.Pet;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.StatusBarHeightGetter;

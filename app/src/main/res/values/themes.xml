@@ -28,10 +28,16 @@
         <item name="cardCornerRadius">25dp</item>
     </style>
 
-    <style name="BottomNavigation">
-        <item name="android:background">@color/orange_dark</item>
-        <item name="itemIconTint">@color/white</item>
-        <item name="itemTextColor">@color/white</item>
+    <style name="BottomNavigation" parent="Theme.AppDoptame">
+        <item name="android:background">?attr/colorPrimaryVariant</item>
+        <item name="itemIconTint">?attr/colorOnPrimary</item>
+        <item name="itemTextColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="dialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
     <style name="FontExtraBold">

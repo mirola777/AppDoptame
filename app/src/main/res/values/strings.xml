@@ -48,4 +48,7 @@
     <string name="settings">Configuraciones</string>
     <string name="search">Buscar</string>
     <string name="sign_out">Cerrar sesión</string>
+    <string name="delete_pet">Eliminar mascota</string>
+    <string name="edit_pet">Editar mascota</string>
+    <string name="save_pet">Guardar mascota</string>
 </resources>

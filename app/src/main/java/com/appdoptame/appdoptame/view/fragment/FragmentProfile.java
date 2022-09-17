@@ -101,4 +101,10 @@ public class FragmentProfile extends Fragment {
         postList.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         postList.setAdapter(postAdapter);
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        postAdapter.onDetach();
+    }
 }

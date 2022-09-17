@@ -71,6 +71,12 @@ public class FragmentFeed extends Fragment {
         });
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        feedAdapter.onDetach();
+    }
+
     private void setListFunction(){
         feedAdapter = new PostAdapter(requireContext());
         feedRecyclerView.setLayoutManager(new LinearLayoutManager(

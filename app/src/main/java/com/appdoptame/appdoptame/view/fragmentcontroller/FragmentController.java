@@ -16,6 +16,7 @@ import com.appdoptame.appdoptame.view.fragment.FragmentMessages;
 import com.appdoptame.appdoptame.view.fragment.FragmentNotifications;
 import com.appdoptame.appdoptame.view.fragment.FragmentPostPet;
 import com.appdoptame.appdoptame.view.fragment.FragmentProfile;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 public class FragmentController {
@@ -42,6 +43,10 @@ public class FragmentController {
     public static void reload(Context context){
         activityInstance = (MainActivity) context;
         fragmentManager  = activityInstance.getSupportFragmentManager();
+    }
+
+    public static void showDialog(BottomSheetDialogFragment dialog){
+        dialog.show(fragmentManager, dialog.getTag());
     }
 
     public static void addFragmentFade(Fragment fragment){

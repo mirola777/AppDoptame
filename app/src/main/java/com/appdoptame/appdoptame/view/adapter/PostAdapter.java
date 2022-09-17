@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,19 +23,27 @@ import com.appdoptame.appdoptame.data.firestore.PostRepositoryFS;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LikeListener;
+import com.appdoptame.appdoptame.data.listener.PostDeleterListener;
+import com.appdoptame.appdoptame.data.listener.PostInserterListener;
+import com.appdoptame.appdoptame.data.observer.PostObserver;
 import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.DateTextGetter;
 import com.appdoptame.appdoptame.util.PetAgeGetter;
 import com.appdoptame.appdoptame.util.UserNameGetter;
+import com.appdoptame.appdoptame.view.dialog.DialogPostSettings;
+import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
 import com.bumptech.glide.Glide;
+import com.google.common.collect.Iterables;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> implements PostDeleterListener, PostInserterListener {
 
     private final LayoutInflater inflater;
     private List<Post>           posts;
@@ -46,13 +55,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         this.context     = context;
         this.posts       = posts;
         this.userSession = UserRepositoryFS.getInstance().getUserSession();
+
+        PostObserver.attachPostDeleterListener(this);
+        PostObserver.attachPostInserterListener(this);
     }
 
     public PostAdapter(Context context){
-        this.inflater = LayoutInflater.from(context);
-        this.context  = context;
-        this.posts    = new ArrayList<>();
-        this.userSession = UserRepositoryFS.getInstance().getUserSession();
+        this(context, new ArrayList<>());
+    }
+
+    public void onDetach(){
+        PostObserver.detachPostDeleterListener(this);
+        PostObserver.detachPostInserterListener(this);
     }
 
     public void setPosts(List<Post> posts){
@@ -107,6 +121,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return posts.size();
     }
 
+    @Override
+    public void onDeleted(String postID) {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            int position = Iterables.indexOf(posts, input -> input.getID().equals(postID));
+            if(position != -1) {
+                posts.remove(position);
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(() -> {
+                    notifyItemRemoved(position);
+                });
+            }
+        });
+    }
+
+    @Override
+    public void onInserted(Post post) {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            posts.add(0, post);
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(() -> {
+                notifyItemInserted(0);
+            });
+        });
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder  {
         TextView         userName;
@@ -125,6 +166,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView         shareCount;
         CircleImageView  userImage;
         ViewPager2       imageView;
+        ImageButton      optionsButton;
         PostImageAdapter imageAdapter;
 
         ViewHolder(View itemView) {
@@ -146,7 +188,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             petName       = itemView.findViewById(R.id.post_item_pet_name);
             petAge        = itemView.findViewById(R.id.post_item_pet_age);
             petBreed      = itemView.findViewById(R.id.post_item_pet_breed);
+            optionsButton = itemView.findViewById(R.id.post_item_options);
 
+            optionsButton.setOnClickListener(v -> {
+                Post post = posts.get(getAdapterPosition());
+                DialogPostSettings dialog = new DialogPostSettings(post);
+                FragmentController.showDialog(dialog);
+            });
 
             imageAdapter = new PostImageAdapter(context);
             imageView.setAdapter(imageAdapter);

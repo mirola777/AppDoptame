@@ -1,6 +1,7 @@
 package com.appdoptame.appdoptame.data.firestore;
 
 import com.appdoptame.appdoptame.data.firestore.services.PostCreatorFS;
+import com.appdoptame.appdoptame.data.firestore.services.PostDeleterFS;
 import com.appdoptame.appdoptame.data.firestore.services.PostGetterFS;
 import com.appdoptame.appdoptame.data.firestore.services.PostLikeFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
@@ -9,6 +10,7 @@ import com.appdoptame.appdoptame.data.listener.PostListLoaderListener;
 import com.appdoptame.appdoptame.data.listener.PostLoaderListener;
 import com.appdoptame.appdoptame.data.repository.PostRepository;
 import com.appdoptame.appdoptame.data.service.IPostCreator;
+import com.appdoptame.appdoptame.data.service.IPostDeleter;
 import com.appdoptame.appdoptame.data.service.IPostGetter;
 import com.appdoptame.appdoptame.data.service.IPostLike;
 import com.appdoptame.appdoptame.model.Post;
@@ -18,11 +20,13 @@ public class PostRepositoryFS implements PostRepository {
     private final IPostGetter  iPostGetter;
     private final IPostLike    iPostLike;
     private final IPostCreator iPostCreator;
+    private final IPostDeleter iPostDeleter;
 
     private PostRepositoryFS(){
         this.iPostGetter  = new PostGetterFS();
         this.iPostLike    = new PostLikeFS();
         this.iPostCreator = new PostCreatorFS();
+        this.iPostDeleter = new PostDeleterFS();
     }
 
     public static PostRepositoryFS getInstance(){
@@ -61,5 +65,10 @@ public class PostRepositoryFS implements PostRepository {
     @Override
     public void verifyPostCreated(PostLoaderListener listener) {
         iPostCreator.verifyPostCreated(listener);
+    }
+
+    @Override
+    public void deletePost(Post post, CompleteListener listener) {
+        iPostDeleter.deletePost(post, listener);
     }
 }

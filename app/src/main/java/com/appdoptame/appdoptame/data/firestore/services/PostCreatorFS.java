@@ -3,6 +3,7 @@ package com.appdoptame.appdoptame.data.firestore.services;
 import com.appdoptame.appdoptame.data.firestore.FirestoreDB;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PostLoaderListener;
+import com.appdoptame.appdoptame.data.observer.PostObserver;
 import com.appdoptame.appdoptame.data.parser.ParsePost;
 import com.appdoptame.appdoptame.data.service.IPostCreator;
 import com.appdoptame.appdoptame.model.Post;
@@ -21,6 +22,7 @@ public class PostCreatorFS implements IPostCreator {
             Map<String, Object> postDoc = ParsePost.parse(post);
             collectionPost.document(post.getID()).set(postDoc).addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
+                    PostObserver.notifyPostInserted(post);
                     listener.onSuccess();
                 } else {
                     listener.onFailure();

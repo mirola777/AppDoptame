@@ -15,5 +15,5 @@ public interface PetRepository {
     void createPet(Pet pet, List<Uri> petImages, CompleteListener listener);
     void updatePet(Pet pet, CompleteListener listener);
     void changeState(Pet pet, CompleteListener listener);
-    void deletePet(String ID, CompleteListener listener);
+    void deletePet(Pet pet, CompleteListener listener);
 }

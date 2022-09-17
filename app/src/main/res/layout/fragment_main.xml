@@ -40,7 +40,7 @@
         android:theme="@style/bottom_navigation_style"
         android:background="?attr/colorPrimary"
         app:labelVisibilityMode="unlabeled"
-        app:itemIconSize="25dp"
+        app:itemIconSize="20dp"
         app:itemIconTint="@drawable/bottom_navigation_tint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
