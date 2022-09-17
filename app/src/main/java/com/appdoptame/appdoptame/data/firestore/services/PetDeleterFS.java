@@ -11,6 +11,8 @@ public class PetDeleterFS implements IPetDeleter {
 
     @Override
     public void deletePet(Pet pet, CompleteListener listener) {
+        // Faltan eliminar también las imágenes de la DB
+
         collectionPet.document(pet.getID()).delete().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 listener.onSuccess();
