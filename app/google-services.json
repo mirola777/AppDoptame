@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "964326768267-pldf1etsfkvdrsrijcipte9mrk7kqeur.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appdoptame.appdoptame",
+            "certificate_hash": "03ec983f161fea1e356dcf1633e07c6215144d8f"
+          }
+        },
+        {
           "client_id": "964326768267-3lsmip9vsc95n3srrekiihtb6qvc86b0.apps.googleusercontent.com",
           "client_type": 3
         }
