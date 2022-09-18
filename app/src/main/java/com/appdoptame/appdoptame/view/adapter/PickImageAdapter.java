@@ -1,7 +1,6 @@
 package com.appdoptame.appdoptame.view.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -17,31 +16,34 @@ import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.listener.PickImageAdapterListener;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PickImageAdapter extends RecyclerView.Adapter<PickImageAdapter.ViewHolder> {
 
-    private final List<Uri>      images;
+    private final List<byte[]>   images;
     private final LayoutInflater inflater;
     private final Context        context;
     private PickImageAdapterListener listener;
 
     public PickImageAdapter(Context context, PickImageAdapterListener listener) {
-        this.context  = context;
-        this.inflater = LayoutInflater.from(context);
-        this.images   = new ArrayList<>();
-        this.listener = listener;
-        images.add(null);
+        this(context, listener, new ArrayList<>());
     }
 
-    public List<Uri> getImages(){
+    public PickImageAdapter(Context context, PickImageAdapterListener listener, List<byte[]> images){
+        this.context  = context;
+        this.inflater = LayoutInflater.from(context);
+        this.images   = images;
+        this.listener = listener;
+        images.add(0, null);
+    }
+
+    public List<byte[]> getImages(){
         return images.subList(1, images.size());
     }
 
-    public void addImage(Uri image){
+    public void addImage(byte[] image){
         this.images.add(image);
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(() -> notifyItemInserted(images.size()-1));
@@ -56,7 +58,7 @@ public class PickImageAdapter extends RecyclerView.Adapter<PickImageAdapter.View
 
     }
 
-    public void addImages(List<Uri> images){
+    public void addImages(List<byte[]> images){
         int initialPosition = this.images.size();
         this.images.addAll(images);
         Handler handler = new Handler(Looper.getMainLooper());
@@ -80,7 +82,7 @@ public class PickImageAdapter extends RecyclerView.Adapter<PickImageAdapter.View
             holder.add.setVisibility(View.GONE);
             holder.delete.setVisibility(View.VISIBLE);
 
-            Uri imageUri = images.get(position);
+            byte[] imageUri = images.get(position);
             Glide.with(AppDoptameApp.getContext())
                     .load(imageUri)
                     .placeholder(R.drawable.image_placeholder)

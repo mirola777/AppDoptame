@@ -1,7 +1,5 @@
 package com.appdoptame.appdoptame.data.firestore;
 
-import android.net.Uri;
-
 import com.appdoptame.appdoptame.data.firestore.services.PetCreatorFS;
 import com.appdoptame.appdoptame.data.firestore.services.PetDeleterFS;
 import com.appdoptame.appdoptame.data.firestore.services.PetEditorFS;
@@ -51,13 +49,13 @@ public class PetRepositoryFS implements PetRepository {
     }
 
     @Override
-    public void createPet(Pet pet, List<Uri> petImages, CompleteListener listener) {
+    public void createPet(Pet pet, List<byte[]> petImages, CompleteListener listener) {
         iPetCreator.createPet(pet, petImages, listener);
     }
 
     @Override
-    public void updatePet(Pet pet, CompleteListener listener) {
-        iPetEditor.updatePet(pet, listener);
+    public void updatePet(Pet pet, List<byte[]> petImages, CompleteListener listener) {
+        iPetEditor.updatePet(pet, petImages, listener);
     }
 
     @Override

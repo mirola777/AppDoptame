@@ -30,6 +30,7 @@ public class Post {
         this.ID = ID;
     }
 
+
     public List<Comment> getComments() {
         return comments;
     }

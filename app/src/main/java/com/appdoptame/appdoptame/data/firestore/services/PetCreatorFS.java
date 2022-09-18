@@ -1,7 +1,5 @@
 package com.appdoptame.appdoptame.data.firestore.services;
 
-import android.net.Uri;
-
 import com.appdoptame.appdoptame.data.firestore.FirestoreDB;
 import com.appdoptame.appdoptame.data.firestore.PostRepositoryFS;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
@@ -26,7 +24,7 @@ public class PetCreatorFS implements IPetCreator {
     private static final StorageReference storagePet       = FirestoreDB.getStoragePet();
 
     @Override
-    public void createPet(Pet pet, List<Uri> petImages, CompleteListener listener) {
+    public void createPet(Pet pet, List<byte[]> petImages, CompleteListener listener) {
         if(pet != null) {
             if(pet.getName().length()        > 0 &&
                pet.getType().length()        > 0 &&
@@ -67,10 +65,10 @@ public class PetCreatorFS implements IPetCreator {
         });
     }
 
-    private void uploadPetImages(Pet pet, List<Uri> petImages, int counter, CompleteListener listener){
+    private void uploadPetImages(Pet pet, List<byte[]> petImages, int counter, CompleteListener listener){
         if(counter < petImages.size()){
-            StorageReference referenceImage = storagePet.child(pet.getID() + counter + ".jpg");
-            UploadTask uploadTask = referenceImage.putFile(petImages.get(counter));
+            StorageReference referenceImage = storagePet.child(pet.getID() + counter);
+            UploadTask uploadTask = referenceImage.putBytes(petImages.get(counter));
             uploadTask.continueWithTask(task -> {
 
                 if (!task.isSuccessful()) throw Objects.requireNonNull(task.getException());

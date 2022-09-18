@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/create_pet_type_image"
+                        android:id="@+id/edit_pet_type_image"
                         android:layout_width="0dp"
                         android:src="@drawable/image_bird"
                         android:scaleType="centerCrop"
@@ -50,17 +50,17 @@
                     </ImageView>
 
                     <TextView
-                        android:id="@+id/create_pet_type"
+                        android:id="@+id/edit_pet_type"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/kind_pet"
+                        android:text="@string/edit_pet"
                         android:textColor="?attr/titleTextColor"
                         android:textSize="20sp"
                         android:layout_marginStart="10dp"
                         android:theme="@style/FontExtraBold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/create_pet_type_image"
+                        app:layout_constraintStart_toEndOf="@+id/edit_pet_type_image"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -81,9 +81,9 @@
                     app:startIconDrawable="@drawable/ic_paw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    
+
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/create_pet_name_field"
+                        android:id="@+id/edit_pet_name_field"
                         android:layout_width="match_parent"
                         android:theme="@style/FontLight"
                         android:textSize="15sp"
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/create_pet_breed_field"
+                        android:id="@+id/edit_pet_breed_field"
                         android:layout_width="match_parent"
                         android:theme="@style/FontLight"
                         android:textSize="15sp"
@@ -145,7 +145,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/create_pet_age_field"
+                        android:id="@+id/edit_pet_age_field"
                         android:layout_width="match_parent"
                         android:theme="@style/FontLight"
                         android:textSize="15sp"
@@ -180,7 +180,7 @@
                         android:textColor="?attr/titleTextColor"
                         android:theme="@style/FontLight"
                         android:buttonTint="@color/orange"
-                        android:id="@+id/select_pet_male_field"
+                        android:id="@+id/edit_pet_male_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/male" />
@@ -191,7 +191,7 @@
                         android:textColor="?attr/titleTextColor"
                         android:theme="@style/FontLight"
                         android:buttonTint="@color/orange"
-                        android:id="@+id/select_pet_female_field"
+                        android:id="@+id/edit_pet_female_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/female" />
@@ -216,7 +216,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/create_pet_size_field"
+                        android:id="@+id/edit_pet_size_field"
                         android:layout_width="match_parent"
                         android:theme="@style/FontLight"
                         android:textSize="15sp"
@@ -250,7 +250,7 @@
                         android:textColor="?attr/titleTextColor"
                         android:theme="@style/FontLight"
                         android:buttonTint="@color/orange"
-                        android:id="@+id/select_pet_sterilized_yes_field"
+                        android:id="@+id/edit_pet_sterilized_yes_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/yes" />
@@ -261,7 +261,7 @@
                         android:textColor="?attr/titleTextColor"
                         android:theme="@style/FontLight"
                         android:buttonTint="@color/orange"
-                        android:id="@+id/select_pet_sterilized_no_field"
+                        android:id="@+id/edit_pet_sterilized_no_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/no" />
@@ -286,7 +286,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/create_pet_weight_field"
+                        android:id="@+id/edit_pet_weight_field"
                         android:layout_width="match_parent"
                         android:theme="@style/FontLight"
                         android:textSize="15sp"
@@ -317,7 +317,7 @@
                     android:layout_height="wrap_content">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/create_pet_description_field"
+                        android:id="@+id/edit_pet_description_field"
                         android:layout_width="match_parent"
                         android:theme="@style/FontLight"
                         android:textSize="15sp"
@@ -331,7 +331,7 @@
 
                 <TextView
                     android:layout_marginTop="10dp"
-                    android:id="@+id/create_pet_images_count"
+                    android:id="@+id/edit_pet_images_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -340,7 +340,7 @@
                     android:textSize="15sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/create_pet_pick_images_list"
+                    android:id="@+id/edit_pet_pick_images_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -361,14 +361,14 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/create_pet_create_pet_button"
+                        android:id="@+id/edit_pet_edit_pet_button"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clickable="true"
                         android:foreground="?android:selectableItemBackgroundBorderless"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="@string/create_pet"
+                        android:text="@string/edit_pet"
                         android:textColor="?attr/colorOnPrimary"
                         android:textSize="15sp"
                         android:theme="@style/FontNormal" />

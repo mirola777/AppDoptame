@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +24,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appdoptame.appdoptame.R;
-import com.appdoptame.appdoptame.data.firestore.PetRepositoryFS;
+import com.appdoptame.appdoptame.data.firestore.PostRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PickImageAdapterListener;
+import com.appdoptame.appdoptame.data.observer.PostObserver;
 import com.appdoptame.appdoptame.model.Pet;
+import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.PetSexConstants;
 import com.appdoptame.appdoptame.util.PetTypeConstants;
+import com.appdoptame.appdoptame.util.URLToByteArray;
 import com.appdoptame.appdoptame.util.UriToByteArray;
 import com.appdoptame.appdoptame.view.adapter.PickImageAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -36,11 +41,13 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class DialogPostPet extends BottomSheetDialogFragment implements PickImageAdapterListener {
+public class DialogEditPet extends BottomSheetDialogFragment implements PickImageAdapterListener {
     private EditText          nameField;
     private RadioButton       sexMaleField;
     private RadioButton       sexFemaleField;
@@ -53,7 +60,7 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
     private TextInputEditText sizeField;
     private TextInputEditText weightField;
     private TextInputEditText descriptionField;
-    private TextView          registerButton;
+    private TextView          editButton;
     private RecyclerView      pickImagesList;
     private TextView          imagesCountText;
     private TextView          petTypeText;
@@ -63,10 +70,10 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
     private static final int PICK_CODE       = 1;
 
     // DATA
-    private final String petType;
+    private final Post post;
 
-    public DialogPostPet(String petType){
-        this.petType = petType;
+    public DialogEditPet(Post post){
+        this.post = post;
     }
 
     @NonNull
@@ -80,7 +87,7 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         postponeEnterTransition(1, TimeUnit.MILLISECONDS);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.dialogStyle);
-        return inflater.inflate(R.layout.dialog_post_pet, null);
+        return inflater.inflate(R.layout.dialog_edit_pet, null);
     }
 
     @Override
@@ -90,67 +97,80 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
     }
 
     private void loadComponents(){
-        nameField               = requireView().findViewById(R.id.create_pet_name_field);
-        breedField              = requireView().findViewById(R.id.create_pet_breed_field);
-        ageField                = requireView().findViewById(R.id.create_pet_age_field);
-        sexMaleField            = requireView().findViewById(R.id.select_pet_male_field);
-        sexFemaleField          = requireView().findViewById(R.id.select_pet_female_field);
-        sizeField               = requireView().findViewById(R.id.create_pet_size_field);
-        typeSterilizedField     = requireView().findViewById(R.id.select_pet_sterilized_yes_field);
-        typeNotSterilizedField  = requireView().findViewById(R.id.select_pet_sterilized_no_field);
-        weightField             = requireView().findViewById(R.id.create_pet_weight_field);
-        descriptionField        = requireView().findViewById(R.id.create_pet_description_field);
-        registerButton          = requireView().findViewById(R.id.create_pet_create_pet_button);
-        imagesCountText         = requireView().findViewById(R.id.create_pet_images_count);
-        pickImagesList          = requireView().findViewById(R.id.create_pet_pick_images_list);
-        petTypeText             = requireView().findViewById(R.id.create_pet_type);
-        petTypeImage            = requireView().findViewById(R.id.create_pet_type_image);
-        pickImagesAdapter       = new PickImageAdapter(requireContext(), this);
+        nameField               = requireView().findViewById(R.id.edit_pet_name_field);
+        breedField              = requireView().findViewById(R.id.edit_pet_breed_field);
+        ageField                = requireView().findViewById(R.id.edit_pet_age_field);
+        sexMaleField            = requireView().findViewById(R.id.edit_pet_male_field);
+        sexFemaleField          = requireView().findViewById(R.id.edit_pet_female_field);
+        sizeField               = requireView().findViewById(R.id.edit_pet_size_field);
+        typeSterilizedField     = requireView().findViewById(R.id.edit_pet_sterilized_yes_field);
+        typeNotSterilizedField  = requireView().findViewById(R.id.edit_pet_sterilized_no_field);
+        weightField             = requireView().findViewById(R.id.edit_pet_weight_field);
+        descriptionField        = requireView().findViewById(R.id.edit_pet_description_field);
+        editButton              = requireView().findViewById(R.id.edit_pet_edit_pet_button);
+        imagesCountText         = requireView().findViewById(R.id.edit_pet_images_count);
+        pickImagesList          = requireView().findViewById(R.id.edit_pet_pick_images_list);
+        petTypeText             = requireView().findViewById(R.id.edit_pet_type);
+        petTypeImage            = requireView().findViewById(R.id.edit_pet_type_image);
 
-        loadHeader();
         loadPickImages();
-        loadRegisterButton();
+        loadHeader();
+        loadEditButton();
+        loadPetData();
+    }
+
+    private void loadPetData(){
+        Pet pet = post.getPet();
+
+        nameField.setText(pet.getName());
+        ageField.setText(String.valueOf(pet.getAge()));
+        breedField.setText(pet.getBreed());
+        sizeField.setText(String.valueOf(pet.getSize()));
+        weightField.setText(String.valueOf(pet.getWeight()));
+        descriptionField.setText(pet.getDescription());
+        typeNotSterilizedField.setChecked(!pet.isSterilized());
+        typeSterilizedField.setChecked(pet.isSterilized());
+
+        if(PetSexConstants.FEMALE.equals(pet.getSex())){
+            sexFemaleField.setChecked(true);
+            sexMaleField.setChecked(false);
+        } else if(PetSexConstants.MALE.equals(pet.getSex())){
+            sexFemaleField.setChecked(false);
+            sexMaleField.setChecked(true);
+        }
     }
 
     private void loadHeader(){
-        switch (petType){
+        switch (post.getPet().getType()){
             case  PetTypeConstants.TURTLE:
-                petTypeText.setText(R.string.post_turtle);
                 petTypeImage.setImageResource(R.drawable.image_turtle);
                 break;
 
             case  PetTypeConstants.BIRD:
-                petTypeText.setText(R.string.post_bird);
                 petTypeImage.setImageResource(R.drawable.image_bird);
                 break;
 
             case  PetTypeConstants.BUNNY:
-                petTypeText.setText(R.string.post_bunny);
                 petTypeImage.setImageResource(R.drawable.image_bunny);
                 break;
 
             case  PetTypeConstants.CAT:
-                petTypeText.setText(R.string.post_cat);
                 petTypeImage.setImageResource(R.drawable.image_cat_2);
                 break;
 
             case  PetTypeConstants.DOG:
-                petTypeText.setText(R.string.post_dog);
                 petTypeImage.setImageResource(R.drawable.image_dog_4);
                 break;
 
             case  PetTypeConstants.FISH:
-                petTypeText.setText(R.string.post_fish);
                 petTypeImage.setImageResource(R.drawable.image_fish);
                 break;
 
             case  PetTypeConstants.HAMSTER:
-                petTypeText.setText(R.string.post_hamster);
                 petTypeImage.setImageResource(R.drawable.image_hamster);
                 break;
 
             case  PetTypeConstants.SNAKE:
-                petTypeText.setText(R.string.post_snake);
                 petTypeImage.setImageResource(R.drawable.image_snake);
                 break;
         }
@@ -180,13 +200,28 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
     }
 
     private void loadPickImages(){
-        updateImagesCount(0);
-        pickImagesList.setLayoutManager(new GridLayoutManager(requireContext(), 3));
-        pickImagesList.setAdapter(pickImagesAdapter);
+
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            List<byte[]> petImages = new ArrayList<>();
+            for(String url: post.getPet().getImages()){
+                petImages.add(URLToByteArray.getByteImageFromURL(url));
+            }
+
+            pickImagesAdapter = new PickImageAdapter(requireContext(), this, petImages);
+
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(() -> {
+                updateImagesCount(0);
+                pickImagesList.setLayoutManager(new GridLayoutManager(requireContext(), 3));
+                pickImagesList.setAdapter(pickImagesAdapter);
+            });
+
+        });
     }
 
-    private void loadRegisterButton(){
-        registerButton.setOnClickListener(v -> {
+    private void loadEditButton(){
+        editButton.setOnClickListener(v -> {
             try {
 
                 if(sexMaleField.isChecked()){
@@ -207,7 +242,7 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
 
                 //String ID;
                 String name             = EditTextExtractor.get(nameField);
-                String type             = petType;
+                String type             = post.getPet().getType();
                 String sex              = sexField;
                 String description      = EditTextExtractor.get(descriptionField);
                 String city             = "Medellin";  // Temporalmente mientras añadimos mas ciudades
@@ -215,23 +250,32 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
                 String breed            = EditTextExtractor.get(breedField);
                 boolean stray           = false;
                 boolean sterilized      = sterilizedField;
-                boolean adopted         = false;
+                boolean adopted         = post.getPet().isAdopted();
                 long age                = Long.parseLong(EditTextExtractor.get(ageField));
                 long size               = Long.parseLong(EditTextExtractor.get(sizeField));
                 long weight             = Long.parseLong(EditTextExtractor.get(weightField));
-                List<String> images = new ArrayList<>();
 
-                Pet newPet = new Pet(
-                        name,  type,       sex,     description, city, department, breed,
-                        stray, sterilized, adopted, age,         size, weight,     images);
+                // Se actualiza el post
+                post.getPet().setName(name);
+                post.getPet().setType(type);
+                post.getPet().setSex(sex);
+                post.getPet().setDescription(description);
+                post.getPet().setCity(city);
+                post.getPet().setDepartment(department);
+                post.getPet().setBreed(breed);
+                post.getPet().setStray(stray);
+                post.getPet().setAdopted(adopted);
+                post.getPet().setSterilized(sterilized);
+                post.getPet().setAge(age);
+                post.getPet().setSize(size);
+                post.getPet().setWeight(weight);
 
-                // Se crea la mascota y se envía a la base de datos
-
-                PetRepositoryFS.getInstance().createPet(newPet, pickImagesAdapter.getImages(),  new CompleteListener() {
+                PostRepositoryFS.getInstance().updatePost(post, pickImagesAdapter.getImages(), new CompleteListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(getApplicationContext(), "Mascota publicada", Toast.LENGTH_LONG).show();
-                        DialogPostPet.this.dismiss();
+                        PostObserver.notifyPostEdited(post);
+                        Toast.makeText(getApplicationContext(), "Mascota editada", Toast.LENGTH_LONG).show();
+                        DialogEditPet.this.dismiss();
                     }
 
                     @Override

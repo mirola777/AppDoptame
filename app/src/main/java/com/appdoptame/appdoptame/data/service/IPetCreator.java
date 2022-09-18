@@ -9,6 +9,6 @@ import com.appdoptame.appdoptame.model.Pet;
 import java.util.List;
 
 public interface IPetCreator {
-    void createPet(Pet pet, List<Uri> petImages, CompleteListener listener);
+    void createPet(Pet pet, List<byte[]> petImages, CompleteListener listener);
     void verifyPetCreated(PetLoaderListener listener);
 }

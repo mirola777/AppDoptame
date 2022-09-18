@@ -10,9 +10,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PetGetterFS implements IPetGetter {
     private static final  CollectionReference collectionPet = FirestoreDB.getCollectionPet();
@@ -34,7 +32,7 @@ public class PetGetterFS implements IPetGetter {
     public void getUserPets(String userID, PetListLoaderListener listener) {
         List<Pet> pets = new ArrayList<>();
 
-        collectionPet.whereEqualTo("OWNER.ID", userID).get().addOnCompleteListener(task -> {
+        collectionPet.whereEqualTo("OWNER.ID", userID).orderBy("NAME").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
                     if(document.getData() != null){

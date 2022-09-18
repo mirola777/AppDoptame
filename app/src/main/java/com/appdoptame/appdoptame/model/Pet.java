@@ -4,20 +4,20 @@ import java.util.List;
 
 public class Pet {
     private String ID;
-    private final String name;
-    private final String type;
-    private final String sex;
-    private final String description;
-    private final String city;
-    private final String department;
-    private final String breed;
-    private final boolean stray;
-    private final boolean sterilized;
+    private String name;
+    private String type;
+    private String sex;
+    private String description;
+    private String city;
+    private String department;
+    private String breed;
+    private boolean stray;
+    private boolean sterilized;
     private boolean adopted;
-    private final long age;
-    private final long size;
-    private final long weight;
-    private final List<String> images;
+    private long age;
+    private long size;
+    private long weight;
+    private List<String> images;
 
     public Pet(
                String name,
@@ -68,6 +68,58 @@ public class Pet {
         this.size   = size;
         this.weight = weight;
         this.images = images;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(long age) {
+        this.age = age;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
+    }
+
+    public void setSterilized(boolean sterilized) {
+        this.sterilized = sterilized;
+    }
+
+    public void setStray(boolean stray) {
+        this.stray = stray;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setWeight(long weight) {
+        this.weight = weight;
     }
 
     public void setAdopted(boolean adopted) {

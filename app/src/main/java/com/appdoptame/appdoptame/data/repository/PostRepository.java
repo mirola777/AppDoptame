@@ -6,6 +6,8 @@ import com.appdoptame.appdoptame.data.listener.PostListLoaderListener;
 import com.appdoptame.appdoptame.data.listener.PostLoaderListener;
 import com.appdoptame.appdoptame.model.Post;
 
+import java.util.List;
+
 public interface PostRepository {
     void getFeedPosts(PostListLoaderListener listener);
     void getPost(String ID, PostLoaderListener listener);
@@ -14,4 +16,5 @@ public interface PostRepository {
     void createPost(Post post, CompleteListener listener);
     void verifyPostCreated(PostLoaderListener listener);
     void deletePost(Post post, CompleteListener listener);
+    void updatePost(Post post, List<byte[]> postImages, CompleteListener listener);
 }

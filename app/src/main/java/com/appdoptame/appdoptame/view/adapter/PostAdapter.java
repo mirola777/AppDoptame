@@ -24,6 +24,7 @@ import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LikeListener;
 import com.appdoptame.appdoptame.data.listener.PostDeleterListener;
+import com.appdoptame.appdoptame.data.listener.PostEditorListener;
 import com.appdoptame.appdoptame.data.listener.PostInserterListener;
 import com.appdoptame.appdoptame.data.observer.PostObserver;
 import com.appdoptame.appdoptame.model.Post;
@@ -43,7 +44,7 @@ import java.util.concurrent.Executors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> implements PostDeleterListener, PostInserterListener {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> implements PostDeleterListener, PostInserterListener, PostEditorListener {
 
     private final LayoutInflater inflater;
     private List<Post>           posts;
@@ -58,6 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
         PostObserver.attachPostDeleterListener(this);
         PostObserver.attachPostInserterListener(this);
+        PostObserver.attachPostEditorListener(this);
     }
 
     public PostAdapter(Context context){
@@ -67,6 +69,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
     public void onDetach(){
         PostObserver.detachPostDeleterListener(this);
         PostObserver.detachPostInserterListener(this);
+        PostObserver.detachPostEditorListener(this);
     }
 
     public void setPosts(List<Post> posts){
@@ -125,13 +128,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
     public void onDeleted(String postID) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            int position = Iterables.indexOf(posts, input -> input.getID().equals(postID));
+            int position = Iterables.indexOf(posts, input -> {
+                assert input != null;
+                return input.getID().equals(postID);
+            });
             if(position != -1) {
                 posts.remove(position);
                 Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(() -> {
-                    notifyItemRemoved(position);
-                });
+                handler.post(() -> notifyItemRemoved(position));
             }
         });
     }
@@ -142,9 +146,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         executor.execute(() -> {
             posts.add(0, post);
             Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(() -> {
-                notifyItemInserted(0);
+            handler.post(() -> notifyItemInserted(0));
+        });
+    }
+
+    @Override
+    public void onEdited(Post post) {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            int position = Iterables.indexOf(posts, input -> {
+                assert input != null;
+                return input.getID().equals(post.getID());
             });
+            if(position != -1) {
+                posts.set(position, post);
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(() -> notifyItemChanged(position));
+            }
         });
     }
 
@@ -217,19 +235,17 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
 
              */
-            adoptButton.setOnClickListener(v -> {
-                PetRepositoryFS.getInstance().changeState(posts.get(getAdapterPosition()).getPet(), new CompleteListener() {
-                    @Override
-                    public void onSuccess() {
-                        System.out.println("aaaa");
-                    }
+            adoptButton.setOnClickListener(v -> PetRepositoryFS.getInstance().changeState(posts.get(getAdapterPosition()).getPet(), new CompleteListener() {
+                @Override
+                public void onSuccess() {
+                    System.out.println("aaaa");
+                }
 
-                    @Override
-                    public void onFailure() {
-                        System.out.println("aaaddda");
-                    }
-                });
-            });
+                @Override
+                public void onFailure() {
+                    System.out.println("aaaddda");
+                }
+            }));
 
 
             likeButton.setOnClickListener(v -> {

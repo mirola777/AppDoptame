@@ -16,6 +16,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.listener.PostDeleterListener;
+import com.appdoptame.appdoptame.data.listener.PostEditorListener;
 import com.appdoptame.appdoptame.data.listener.PostInserterListener;
 import com.appdoptame.appdoptame.data.observer.PostObserver;
 import com.appdoptame.appdoptame.model.Post;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class PostGridAdapter extends RecyclerView.Adapter<PostGridAdapter.ViewHolder> implements PostDeleterListener, PostInserterListener {
+public class PostGridAdapter extends RecyclerView.Adapter<PostGridAdapter.ViewHolder> implements PostDeleterListener, PostInserterListener, PostEditorListener {
 
     private final LayoutInflater inflater;
     private List<Post> posts;
@@ -42,6 +43,7 @@ public class PostGridAdapter extends RecyclerView.Adapter<PostGridAdapter.ViewHo
 
         PostObserver.attachPostDeleterListener(this);
         PostObserver.attachPostInserterListener(this);
+        PostObserver.attachPostEditorListener(this);
     }
 
     public PostGridAdapter(Context context){
@@ -51,6 +53,7 @@ public class PostGridAdapter extends RecyclerView.Adapter<PostGridAdapter.ViewHo
     public void onDetach(){
         PostObserver.detachPostDeleterListener(this);
         PostObserver.detachPostInserterListener(this);
+        PostObserver.detachPostEditorListener(this);
     }
 
     public void setPosts(List<Post> posts){
@@ -84,13 +87,14 @@ public class PostGridAdapter extends RecyclerView.Adapter<PostGridAdapter.ViewHo
     public void onDeleted(String postID) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            int position = Iterables.indexOf(posts, input -> input.getID().equals(postID));
+            int position = Iterables.indexOf(posts, input -> {
+                assert input != null;
+                return input.getID().equals(postID);
+            });
             if(position != -1) {
                 posts.remove(position);
                 Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(() -> {
-                    notifyItemRemoved(position);
-                });
+                handler.post(() -> notifyItemRemoved(position));
             }
         });
     }
@@ -101,9 +105,23 @@ public class PostGridAdapter extends RecyclerView.Adapter<PostGridAdapter.ViewHo
         executor.execute(() -> {
             posts.add(0, post);
             Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(() -> {
-                notifyItemInserted(0);
+            handler.post(() -> notifyItemInserted(0));
+        });
+    }
+
+    @Override
+    public void onEdited(Post post) {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            int position = Iterables.indexOf(posts, input -> {
+                assert input != null;
+                return input.getID().equals(post.getID());
             });
+            if(position != -1) {
+                posts.set(position, post);
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(() -> notifyItemChanged(position));
+            }
         });
     }
 

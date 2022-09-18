@@ -23,6 +23,7 @@ import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.Selectable;
 import com.appdoptame.appdoptame.view.adapter.SelectableAdapter;
+import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class DialogPostSettings extends BottomSheetDialogFragment  {
     private SelectableAdapter     selectablesAdapter;
 
     // DATA
-    private Post post;
+    private final Post post;
 
     public DialogPostSettings(Post post){
         this.post = post;
@@ -76,6 +77,8 @@ public class DialogPostSettings extends BottomSheetDialogFragment  {
             selectables.add(new Selectable(R.drawable.ic_edit, R.string.edit_pet) {
                 @Override
                 public void onClick() {
+                    DialogEditPet dialog = new DialogEditPet(post);
+                    FragmentController.showDialog(dialog);
                     DialogPostSettings.this.dismiss();
                 }
             });
