@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
+import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.util.DisplayManager;
 import com.appdoptame.appdoptame.view.MainActivity;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentSettings;
@@ -162,7 +163,7 @@ public class FragmentMain extends Fragment {
         fragmentMessages      = new FragmentMessages();
         fragmentPostPet       = new FragmentPostPet();
         fragmentNotifications = new FragmentNotifications();
-        fragmentProfile       = new FragmentProfile();
+        fragmentProfile       = new FragmentProfile(UserRepositoryFS.getInstance().getUserSession());
 
         loadToolbar();
         bottomNavigationViewFunction();

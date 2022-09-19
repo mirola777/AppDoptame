@@ -2,14 +2,14 @@ package com.appdoptame.appdoptame.model;
 
 public class User {
     private String ID;
-    private final String identification;
-    private final String name;
-    private final String phone;
-    private final String city;
-    private final String department;
+    private String identification;
+    private String name;
+    private String phone;
+    private String city;
+    private String department;
     private String image;
-    private final String lastName;
-    private final long age;
+    private String lastName;
+    private long age;
 
     public User(String ID,
                String identification,
@@ -42,6 +42,34 @@ public class User {
                 long age){
 
         this(null, identification, name, lastName, phone, city, department, image, age);
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setAge(long age) {
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setImage(String image) {

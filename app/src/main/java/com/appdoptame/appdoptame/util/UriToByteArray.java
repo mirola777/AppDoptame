@@ -10,6 +10,7 @@ import java.io.InputStream;
 
 public class UriToByteArray {
     public static byte[] convert(Uri uri) {
+        if(uri == null) return null;
         try {
             InputStream iStream = AppDoptameApp.getContext().getContentResolver().openInputStream(uri);
             try {

@@ -50,6 +50,7 @@
     <string name="sign_out">Cerrar sesión</string>
     <string name="delete_pet">Eliminar mascota</string>
     <string name="edit_pet">Editar mascota</string>
+    <string name="edit_user">Editar usuario</string>
     <string name="save_pet">Guardar mascota</string>
     <string name="kind_pet">¿Qué tipo de mascota deseas publicar?</string>
     <string name="post_dog">Publicar un perro</string>

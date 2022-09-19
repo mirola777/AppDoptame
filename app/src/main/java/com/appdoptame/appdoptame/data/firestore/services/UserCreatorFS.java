@@ -1,7 +1,5 @@
 package com.appdoptame.appdoptame.data.firestore.services;
 
-import android.net.Uri;
-
 import com.appdoptame.appdoptame.data.firestore.FirestoreDB;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
@@ -24,7 +22,7 @@ public class UserCreatorFS implements IUserCreator {
     private static final CollectionReference collectionUser = FirestoreDB.getCollectionUser();
 
     @Override
-    public void createUser(User user, Uri userImage, CompleteListener listener) {
+    public void createUser(User user, byte[] userImage, CompleteListener listener) {
         if(user != null){
             if(user.getName().length()           > 0 &&
                user.getIdentification().length() > 0 &&
@@ -69,9 +67,9 @@ public class UserCreatorFS implements IUserCreator {
         });
     }
 
-    private void uploadUserImage(User user, Uri userImage, CompleteListener listener){
+    private void uploadUserImage(User user, byte[] userImage, CompleteListener listener){
         StorageReference referenceImage = storageUser.child(user.getID() + ".jpg");
-        UploadTask uploadTask = referenceImage.putFile(userImage);
+        UploadTask uploadTask = referenceImage.putBytes(userImage);
         uploadTask.continueWithTask(task -> {
             if (!task.isSuccessful()) throw Objects.requireNonNull(task.getException());
             return referenceImage.getDownloadUrl();

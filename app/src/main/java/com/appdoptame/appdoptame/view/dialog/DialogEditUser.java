@@ -1,7 +1,8 @@
-package com.appdoptame.appdoptame.view.fragment;
+package com.appdoptame.appdoptame.view.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,31 +14,32 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 
+import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
-import com.appdoptame.appdoptame.util.StatusBarHeightGetter;
+import com.appdoptame.appdoptame.util.URLToByteArray;
 import com.appdoptame.appdoptame.util.UriToByteArray;
-import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
-import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentMain;
+import com.bumptech.glide.Glide;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class FragmentCreateUser extends Fragment {
-    private ConstraintLayout  statusBar;
-    private ImageButton       backButton;
+public class DialogEditUser extends BottomSheetDialogFragment {
+
     private TextInputEditText nameField;
     private TextInputEditText lastNameField;
     private TextInputEditText ageField;
     private TextInputEditText CCField;
     private TextInputEditText phoneField;
-    private TextView          registerButton;
+    private TextView          editButton;
     private ImageView         image;
     private ImageButton       imageDelete;
     private TextView          imagePick;
@@ -45,16 +47,24 @@ public class FragmentCreateUser extends Fragment {
     private static final int PICK_CODE = 2;
     private byte[] userImage;
 
-    public FragmentCreateUser(){
+    private User user;
 
+    public DialogEditUser(User user){
+        this.user = user;
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.dialogStyle);
+        return super.onCreateDialog(savedInstanceState);
     }
 
     @SuppressLint("InflateParams") @Nullable @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         postponeEnterTransition(1, TimeUnit.MILLISECONDS);
-        return inflater.inflate(R.layout.fragment_create_user, null);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.dialogStyle);
+        return inflater.inflate(R.layout.dialog_edit_user, null);
     }
 
     @Override
@@ -64,22 +74,35 @@ public class FragmentCreateUser extends Fragment {
     }
 
     private void loadComponents(){
-        statusBar      = requireView().findViewById(R.id.create_user_status_bar);
-        backButton     = requireView().findViewById(R.id.create_user_back_button);
-        nameField      = requireView().findViewById(R.id.create_user_name_field);
-        lastNameField  = requireView().findViewById(R.id.create_user_last_name_field);
-        ageField       = requireView().findViewById(R.id.create_user_age_field);
-        phoneField     = requireView().findViewById(R.id.create_user_phone_field);
-        CCField        = requireView().findViewById(R.id.create_user_identification_field);
-        registerButton = requireView().findViewById(R.id.create_user_create_user_button);
-        image          = requireView().findViewById(R.id.create_user_image);
-        imageDelete    = requireView().findViewById(R.id.create_user_image_delete);
-        imagePick      = requireView().findViewById(R.id.create_user_image_button);
+        nameField      = requireView().findViewById(R.id.edit_user_name_field);
+        lastNameField  = requireView().findViewById(R.id.edit_user_last_name_field);
+        ageField       = requireView().findViewById(R.id.edit_user_age_field);
+        phoneField     = requireView().findViewById(R.id.edit_user_phone_field);
+        CCField        = requireView().findViewById(R.id.edit_user_identification_field);
+        editButton     = requireView().findViewById(R.id.edit_user_edit_user_button);
+        image          = requireView().findViewById(R.id.edit_user_image);
+        imageDelete    = requireView().findViewById(R.id.edit_user_image_delete);
+        imagePick      = requireView().findViewById(R.id.edit_user_image_button);
 
         loadImagePick();
-        loadStatusBar();
-        loadBackButton();
-        loadRegisterButton();
+        loadEditButton();
+        loadUserData();
+    }
+
+    private void loadUserData(){
+        nameField.setText(user.getName());
+        lastNameField.setText(user.getLastName());
+        ageField.setText(String.valueOf(user.getAge()));
+        phoneField.setText(user.getPhone());
+        CCField.setText(user.getIdentification());
+        Glide.with(AppDoptameApp.getContext())
+                .load(user.getImage())
+                .placeholder(R.drawable.user_icon_ligthblue)
+                .error(R.drawable.user_icon_ligthblue)
+                .into(image);
+
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> userImage = URLToByteArray.getByteImageFromURL(user.getImage()));
     }
 
     @Override
@@ -105,8 +128,8 @@ public class FragmentCreateUser extends Fragment {
         });
     }
 
-    private void loadRegisterButton(){
-        registerButton.setOnClickListener(v -> {
+    private void loadEditButton(){
+        editButton.setOnClickListener(v -> {
             try {
                 String name            = EditTextExtractor.get(nameField);
                 String lastName        = EditTextExtractor.get(lastNameField);
@@ -116,17 +139,19 @@ public class FragmentCreateUser extends Fragment {
                 String city            = "Medellin";  // Temporalmente mientras añadimos mas ciudades
                 String department      = "Antioquia"; // Temporalmente mientras añadimos mas departamentos
 
-                User newUser = new User(
-                        identification, name, lastName, phone,
-                        city, department, null, age
-                );
+                user.setName(name);
+                user.setLastName(lastName);
+                user.setPhone(phone);
+                user.setAge(age);
+                user.setIdentification(identification);
+                user.setCity(city);
+                user.setDepartment(department);
 
                 // Se crea el usuario y se envía a la base de datos
-                UserRepositoryFS.getInstance().createUser(newUser, userImage, new CompleteListener() {
+                UserRepositoryFS.getInstance().editUser(user, userImage, new CompleteListener() {
                     @Override
                     public void onSuccess() {
-                        FragmentController.removeAllFragments();
-                        SetFragmentMain.set();
+                        DialogEditUser.this.dismiss();
                     }
 
                     @Override
@@ -138,17 +163,5 @@ public class FragmentCreateUser extends Fragment {
 
             }
         });
-    }
-
-    private void loadBackButton(){
-        backButton.setOnClickListener(v -> FragmentController.onBackPressed());
-    }
-
-    private void loadStatusBar(){
-        // Añadiendo padding superior en base a la altura de la barra de notificaciones
-        ConstraintLayout.LayoutParams params =
-                (ConstraintLayout.LayoutParams) statusBar.getLayoutParams();
-        params.topMargin = StatusBarHeightGetter.get();
-        statusBar.setLayoutParams(params);
     }
 }

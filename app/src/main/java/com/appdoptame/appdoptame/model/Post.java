@@ -10,7 +10,7 @@ public class Post {
     private String ID;
     private final List<String> likes;
     private final List<Comment> comments;
-    private final User user;
+    private User user;
     private final Pet pet;
 
     public Post(String ID, Date date, List<String> likes, List<Comment> comments, User user, Pet pet){
@@ -30,6 +30,9 @@ public class Post {
         this.ID = ID;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public List<Comment> getComments() {
         return comments;

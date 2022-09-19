@@ -1,7 +1,6 @@
 package com.appdoptame.appdoptame.data.firestore;
 
 import android.content.Intent;
-import android.net.Uri;
 
 import androidx.fragment.app.Fragment;
 
@@ -10,6 +9,7 @@ import com.appdoptame.appdoptame.data.firestore.services.LoginFacebookFS;
 import com.appdoptame.appdoptame.data.firestore.services.LoginGoogleFS;
 import com.appdoptame.appdoptame.data.firestore.services.SingUpFS;
 import com.appdoptame.appdoptame.data.firestore.services.UserCreatorFS;
+import com.appdoptame.appdoptame.data.firestore.services.UserEditorFS;
 import com.appdoptame.appdoptame.data.firestore.services.UserSessionFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LoginListener;
@@ -19,6 +19,7 @@ import com.appdoptame.appdoptame.data.service.ILoginFacebook;
 import com.appdoptame.appdoptame.data.service.ILoginGoogle;
 import com.appdoptame.appdoptame.data.service.ISingUp;
 import com.appdoptame.appdoptame.data.service.IUserCreator;
+import com.appdoptame.appdoptame.data.service.IUserEditor;
 import com.appdoptame.appdoptame.data.service.IUserSession;
 import com.appdoptame.appdoptame.model.User;
 import com.facebook.CallbackManager;
@@ -31,6 +32,7 @@ public class UserRepositoryFS implements UserRepository {
     private final IUserCreator iUserCreator;
     private final ISingUp iSingUp;
     private final IUserSession iUserSession;
+    private final IUserEditor iUserEditor;
 
     private UserRepositoryFS(){
         this.iLogin         = new LoginFS();
@@ -39,6 +41,7 @@ public class UserRepositoryFS implements UserRepository {
         this.iSingUp        = new SingUpFS();
         this.iUserCreator   = new UserCreatorFS();
         this.iUserSession   = new UserSessionFS();
+        this.iUserEditor    = new UserEditorFS();
     }
 
     public static UserRepositoryFS getInstance(){
@@ -80,7 +83,12 @@ public class UserRepositoryFS implements UserRepository {
     }
 
     @Override
-    public void createUser(User user, Uri userImage, CompleteListener listener) {
+    public void editUser(User user, byte[] userImage, CompleteListener listener) {
+        iUserEditor.editUser(user, userImage, listener);
+    }
+
+    @Override
+    public void createUser(User user, byte[] userImage, CompleteListener listener) {
         iUserCreator.createUser(user, userImage, listener);
     }
 

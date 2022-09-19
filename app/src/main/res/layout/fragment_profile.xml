@@ -38,8 +38,8 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/profile_image"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
                         android:layout_margin="20dp"
                         android:src="@drawable/user_icon_orange"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +59,19 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+                    <ImageButton
+                        android:id="@+id/profile_edit_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_edit"
+                        android:tint="?attr/subtitleTextColor"
+                        android:background="?android:selectableItemBackgroundBorderless"
+                        android:layout_margin="@dimen/dp20"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </ImageButton>
 
                     <TextView
                         android:id="@+id/profile_city"
