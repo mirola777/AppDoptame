@@ -9,17 +9,19 @@ public class FirestoreDB {
     private static CollectionReference collectionPost;
     private static CollectionReference collectionPet;
     private static CollectionReference collectionUser;
+    private static CollectionReference collectionChat;
     private static StorageReference    storagePet;
     private static StorageReference    storageUser;
 
     private FirestoreDB(){
         FirebaseFirestore database = FirebaseFirestore.getInstance();
         FirebaseStorage storage    = FirebaseStorage.getInstance();
-        collectionPost = database.collection("post");
-        collectionPet  = database.collection("pet");
-        collectionUser = database.collection("user");
-        storagePet     = storage.getReference().child("pet/");
-        storageUser    = storage.getReference().child("user/");
+        collectionPost             = database.collection("post");
+        collectionPet              = database.collection("pet");
+        collectionUser             = database.collection("user");
+        collectionChat             = database.collection("chat");
+        storagePet                 = storage.getReference().child("pet/");
+        storageUser                = storage.getReference().child("user/");
     }
 
     public static StorageReference getStorageUser(){
@@ -50,5 +52,11 @@ public class FirestoreDB {
         if(collectionUser == null) new FirestoreDB();
 
         return collectionUser;
+    }
+
+    public static CollectionReference getCollectionChat(){
+        if(collectionChat == null) new FirestoreDB();
+
+        return collectionChat;
     }
 }

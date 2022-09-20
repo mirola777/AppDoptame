@@ -32,6 +32,7 @@ import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.DateTextGetter;
 import com.appdoptame.appdoptame.util.PetAgeGetter;
 import com.appdoptame.appdoptame.util.UserNameGetter;
+import com.appdoptame.appdoptame.view.dialog.DialogCreateChat;
 import com.appdoptame.appdoptame.view.dialog.DialogPostSettings;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
 import com.bumptech.glide.Glide;
@@ -109,6 +110,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         } else {
             holder.likeImage.setImageResource(R.drawable.ic_like);
             holder.likeButton.setBackgroundColor(AppDoptameApp.getColorById(R.color.orange));
+        }
+
+        if(userSession.getID().equals(post.getUser().getID())){
+            holder.adoptButton.setVisibility(View.GONE);
+        } else {
+            holder.adoptButton.setVisibility(View.VISIBLE);
         }
 
         holder.userImage.setImageBitmap(null);
@@ -216,25 +223,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
             imageAdapter = new PostImageAdapter(context);
             imageView.setAdapter(imageAdapter);
-            /*
-            imageView.setPageTransformer(new ViewPager2.PageTransformer() {
-                private static final float MIN_SCALE = 0.85f;
-                private static final float MIN_ALPHA = 0.6f;
 
-                @Override
-                public void transformPage(@NonNull View page, float position) {
-                    if (position <-1) page.setAlpha(0);
-                    else if (position <=1){ // [-1,1]
-                        page.setScaleX(Math.max(MIN_SCALE,1-Math.abs(position)));
-                        page.setScaleY(Math.max(MIN_SCALE,1-Math.abs(position)));
-                        page.setAlpha(Math.max(MIN_ALPHA,1-Math.abs(position)));
-                    }
-                    else page.setAlpha(0);
-                }
+            adoptButton.setOnClickListener(v -> {
+                DialogCreateChat dialog = new DialogCreateChat(posts.get(getAdapterPosition()));
+                FragmentController.showDialog(dialog);
             });
-
-
-             */
+            
+            /*
             adoptButton.setOnClickListener(v -> PetRepositoryFS.getInstance().changeState(posts.get(getAdapterPosition()).getPet(), new CompleteListener() {
                 @Override
                 public void onSuccess() {
@@ -246,7 +241,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                     System.out.println("aaaddda");
                 }
             }));
-
+             */
 
             likeButton.setOnClickListener(v -> {
                 Post post = posts.get(getAdapterPosition());
