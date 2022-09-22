@@ -24,6 +24,7 @@ import com.appdoptame.appdoptame.model.Pet;
 import com.appdoptame.appdoptame.model.Post;
 import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
+import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentChat;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
@@ -52,7 +53,9 @@ public class DialogCreateChat extends BottomSheetDialogFragment {
     }
 
     @SuppressLint("InflateParams") @Nullable @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         postponeEnterTransition(1, TimeUnit.MILLISECONDS);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.dialogStyle);
         return inflater.inflate(R.layout.dialog_create_chat, null);
@@ -122,6 +125,7 @@ public class DialogCreateChat extends BottomSheetDialogFragment {
                        System.out.println(chat.getID());
 
                        DialogCreateChat.this.dismiss();
+                       SetFragmentChat.set(chat);
                    }
 
                    @Override
