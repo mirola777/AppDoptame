@@ -20,7 +20,7 @@ public class ChatCreatorFS implements IChatCreator {
         String chatID = collectionChat.document().getId();
         chat.setID(chatID);
         firstMessage.setChatID(chatID);
-        chat.getMessages().add(firstMessage);
+        chat.setLastMessage(firstMessage);
 
         Map<String, Object> doc = ParseChat.parse(chat);
 

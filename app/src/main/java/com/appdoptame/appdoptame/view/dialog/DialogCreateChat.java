@@ -121,9 +121,6 @@ public class DialogCreateChat extends BottomSheetDialogFragment {
                ChatRepositoryFS.getInstance().createChat(newChat, newMessage, new ChatCreatorListener() {
                    @Override
                    public void onChatCreated(Chat chat) {
-                       // Creat Fragmento chat.
-                       System.out.println(chat.getID());
-
                        DialogCreateChat.this.dismiss();
                        SetFragmentChat.set(chat);
                    }

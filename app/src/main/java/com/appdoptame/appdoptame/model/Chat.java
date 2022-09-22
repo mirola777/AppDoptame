@@ -1,33 +1,30 @@
 package com.appdoptame.appdoptame.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Chat {
     private String        ID;
     private User          owner;
     private User          adopter;
     private Pet           pet;
-    private List<Message> messages;
+    private Message       lastMessage;
 
-    public Chat(String ID, User owner, User adopter, Pet pet, List<Message> messages){
+    public Chat(String ID, User owner, User adopter, Pet pet, Message lastMessage){
         this.ID       = ID;
         this.owner    = owner;
         this.adopter  = adopter;
         this.pet      = pet;
-        this.messages = messages;
+        this.lastMessage = lastMessage;
     }
 
     public Chat(User owner, User adopter, Pet pet){
-        this(null, owner, adopter, pet, new ArrayList<>());
+        this(null, owner, adopter, pet, null);
     }
 
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
+    public Message getLastMessage() {
+        return lastMessage;
     }
 
-    public List<Message> getMessages() {
-        return messages;
+    public void setLastMessage(Message lastMessage) {
+        this.lastMessage = lastMessage;
     }
 
     public String getID() {
