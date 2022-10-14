@@ -5,6 +5,7 @@ import com.appdoptame.appdoptame.data.firestore.services.PostDeleterFS;
 import com.appdoptame.appdoptame.data.firestore.services.PostEditorFS;
 import com.appdoptame.appdoptame.data.firestore.services.PostGetterFS;
 import com.appdoptame.appdoptame.data.firestore.services.PostLikeFS;
+import com.appdoptame.appdoptame.data.firestore.services.PostObserverFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.LikeListener;
 import com.appdoptame.appdoptame.data.listener.PostListLoaderListener;
@@ -15,24 +16,29 @@ import com.appdoptame.appdoptame.data.service.IPostDeleter;
 import com.appdoptame.appdoptame.data.service.IPostEditor;
 import com.appdoptame.appdoptame.data.service.IPostGetter;
 import com.appdoptame.appdoptame.data.service.IPostLike;
+import com.appdoptame.appdoptame.data.service.IPostObserver;
 import com.appdoptame.appdoptame.model.Post;
 
 import java.util.List;
 
 public class PostRepositoryFS implements PostRepository {
     private static PostRepositoryFS instance;
-    private final IPostGetter  iPostGetter;
-    private final IPostLike    iPostLike;
-    private final IPostCreator iPostCreator;
-    private final IPostDeleter iPostDeleter;
-    private final IPostEditor  iPostEditor;
+    private final IPostGetter   iPostGetter;
+    private final IPostLike     iPostLike;
+    private final IPostCreator  iPostCreator;
+    private final IPostDeleter  iPostDeleter;
+    private final IPostEditor   iPostEditor;
+    private final IPostObserver iPostObserver;
 
     private PostRepositoryFS(){
-        this.iPostGetter  = new PostGetterFS();
-        this.iPostLike    = new PostLikeFS();
-        this.iPostCreator = new PostCreatorFS();
-        this.iPostDeleter = new PostDeleterFS();
-        this.iPostEditor  = new PostEditorFS();
+        this.iPostGetter    = new PostGetterFS();
+        this.iPostLike      = new PostLikeFS();
+        this.iPostCreator   = new PostCreatorFS();
+        this.iPostDeleter   = new PostDeleterFS();
+        this.iPostEditor    = new PostEditorFS();
+        this.iPostObserver  = new PostObserverFS();
+
+        iPostObserver.createObserver();
     }
 
     public static PostRepositoryFS getInstance(){

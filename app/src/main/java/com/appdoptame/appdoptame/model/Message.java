@@ -20,6 +20,9 @@ public class Message {
         this(null, writerID, Calendar.getInstance().getTime(), message);
     }
 
+    public Message(String chatID, String writerID, String message){
+        this(chatID, writerID, Calendar.getInstance().getTime(), message);
+    }
 
     public String getChatID() {
         return chatID;

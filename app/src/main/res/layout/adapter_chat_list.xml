@@ -18,6 +18,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:clickable="true"
+            android:foreground="?selectableItemBackground"
             android:id="@+id/adapter_chat_list_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

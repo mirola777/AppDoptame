@@ -65,4 +65,32 @@ public class DateTextGetter {
             }
         }
     }
+
+    /**
+     * Método que se encarga del objetivo de la clase, pero para chats.
+     * @param date dato tipo Date al que se busca convertir a texto
+     * @return conversión de date a texto
+     */
+    @SuppressLint("StringFormatMatches")
+    public static String getDateTextForChat(Date date){
+        Date currentTime = Calendar.getInstance().getTime();
+        long diff = currentTime.getTime() - date.getTime();
+
+        TimeUnit timeDays = TimeUnit.DAYS;
+        long difference = timeDays.convert(diff, TimeUnit.MILLISECONDS);
+
+        if(difference >= 7){
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy, HH:mm");
+            return formatter.format(date);
+        } else if(difference >= 1) {
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat formatter = new SimpleDateFormat("EEEE, HH:mm");
+            return formatter.format(date);
+        } else {
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            return formatter.format(date);
+        }
+    }
 }

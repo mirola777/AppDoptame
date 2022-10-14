@@ -31,6 +31,7 @@ import com.appdoptame.appdoptame.util.PetSexConstants;
 import com.appdoptame.appdoptame.util.PetTypeConstants;
 import com.appdoptame.appdoptame.util.UriToByteArray;
 import com.appdoptame.appdoptame.view.adapter.PickImageAdapter;
+import com.appdoptame.appdoptame.view.alert.AlertLoading;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -225,18 +226,20 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
                         name,  type,       sex,     description, city, department, breed,
                         stray, sterilized, adopted, age,         size, weight,     images);
 
-                // Se crea la mascota y se envía a la base de datos
+                AlertLoading alert = new AlertLoading(requireActivity());
+                alert.show();
 
+                // Se crea la mascota y se envía a la base de datos
                 PetRepositoryFS.getInstance().createPet(newPet, pickImagesAdapter.getImages(),  new CompleteListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(getApplicationContext(), "Mascota publicada", Toast.LENGTH_LONG).show();
+                        alert.setSuccessfully();
                         DialogPostPet.this.dismiss();
                     }
 
                     @Override
                     public void onFailure() {
-                        Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_LONG).show();
+                        alert.setFailure();
                     }
                 });
             } catch (Exception e){

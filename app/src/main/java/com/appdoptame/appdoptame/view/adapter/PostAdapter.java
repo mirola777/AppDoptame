@@ -35,6 +35,7 @@ import com.appdoptame.appdoptame.util.UserNameGetter;
 import com.appdoptame.appdoptame.view.dialog.DialogCreateChat;
 import com.appdoptame.appdoptame.view.dialog.DialogPostSettings;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
+import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentProfile;
 import com.bumptech.glide.Glide;
 import com.google.common.collect.Iterables;
 
@@ -228,20 +229,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
                 DialogCreateChat dialog = new DialogCreateChat(posts.get(getAdapterPosition()));
                 FragmentController.showDialog(dialog);
             });
-            
-            /*
-            adoptButton.setOnClickListener(v -> PetRepositoryFS.getInstance().changeState(posts.get(getAdapterPosition()).getPet(), new CompleteListener() {
-                @Override
-                public void onSuccess() {
-                    System.out.println("aaaa");
-                }
 
-                @Override
-                public void onFailure() {
-                    System.out.println("aaaddda");
-                }
-            }));
-             */
+            userImage.setOnClickListener(v -> {
+                SetFragmentProfile.set(posts.get(getAdapterPosition()).getUser());
+            });
+
+            userName.setOnClickListener(v -> {
+                SetFragmentProfile.set(posts.get(getAdapterPosition()).getUser());
+            });
 
             likeButton.setOnClickListener(v -> {
                 Post post = posts.get(getAdapterPosition());
