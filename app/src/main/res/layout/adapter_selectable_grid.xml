@@ -40,7 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:background="?attr/colorPrimary"
+                    android:background="?attr/colorOnPrimary"
                     android:scaleType="centerCrop"
                     android:id="@+id/adapter_selectable_image"
                     android:layout_width="match_parent"
