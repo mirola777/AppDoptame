@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,15 +21,22 @@ import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.ChatRepositoryFS;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
+import com.appdoptame.appdoptame.data.listener.ChatEditorListener;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
+import com.appdoptame.appdoptame.data.listener.MessageInserterListener;
 import com.appdoptame.appdoptame.data.listener.MessageListLoaderListener;
+import com.appdoptame.appdoptame.data.observer.ChatObserver;
+import com.appdoptame.appdoptame.data.observer.MessageObserver;
 import com.appdoptame.appdoptame.model.Chat;
 import com.appdoptame.appdoptame.model.Message;
 import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.DisplayManager;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
+import com.appdoptame.appdoptame.util.MessageConstants;
 import com.appdoptame.appdoptame.util.UserNameGetter;
 import com.appdoptame.appdoptame.view.adapter.MessageListAdapter;
+import com.appdoptame.appdoptame.view.alert.AlertAdopt;
+import com.appdoptame.appdoptame.view.alert.AlertAdoptWaiting;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,7 +44,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class FragmentChat extends Fragment {
+public class FragmentChat extends Fragment implements MessageInserterListener, ChatEditorListener {
 
     // Elements
     private ConstraintLayout   toolbar;
@@ -45,11 +53,12 @@ public class FragmentChat extends Fragment {
     private ImageView          image;
     private TextView           name;
     private ImageButton        backButton;
-    private ImageButton        optionsButton;
     private ImageButton        sendButton;
+    private LinearLayout       adoptButton;
     private TextInputEditText  input;
+    private AlertAdoptWaiting  dialogWaiting;
 
-    private final Chat chat;
+    private Chat chat;
 
     public FragmentChat(Chat chat){
         this.chat = chat;
@@ -76,31 +85,33 @@ public class FragmentChat extends Fragment {
         image         = requireView().findViewById(R.id.chat_user_image);
         name          = requireView().findViewById(R.id.chat_user_name);
         backButton    = requireView().findViewById(R.id.chat_back);
-        optionsButton = requireView().findViewById(R.id.chat_options);
+        adoptButton   = requireView().findViewById(R.id.chat_adopt_button);
         input         = requireView().findViewById(R.id.chat_input);
         sendButton    = requireView().findViewById(R.id.chat_send);
+        dialogWaiting = new AlertAdoptWaiting(requireActivity());
 
         addToolbarFunction();
         addBackFunction();
-        addOptionsFunction();
         addMessagesListFunction();
         addData();
         addSendFunction();
+        addAdoptFunction();
         loadMessages();
+
+        MessageObserver.attachMessageInserterListener(this);
+        ChatObserver.attachChatEditorListener(this);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        MessageObserver.detachMessageInserterListener(this);
+        ChatObserver.detachChatEditorListener(this);
         messagesAdapter.onDetach();
     }
 
     private void addBackFunction(){
         backButton.setOnClickListener(v -> FragmentController.onBackPressed());
-    }
-
-    private void addOptionsFunction(){
-        optionsButton.setOnClickListener(v -> {});
     }
 
     private void addMessagesListFunction(){
@@ -167,9 +178,63 @@ public class FragmentChat extends Fragment {
         });
     }
 
+    private void addAdoptFunction(){
+        adoptButton.setOnClickListener(v -> {
+            User userSession   = UserRepositoryFS.getInstance().getUserSession();
+            Message message    = new Message(chat.getID(), userSession.getID(), "");
+
+            ChatRepositoryFS.getInstance().sendAdoptMessage(message, new CompleteListener() {
+                @Override
+                public void onSuccess() {
+                    dialogWaiting.show();
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+        });
+    }
+
     private void addToolbarFunction(){
         ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) toolbar.getLayoutParams();
         params.topMargin = DisplayManager.getStatusBarHeight();
         toolbar.setLayoutParams(params);
+    }
+
+    @Override
+    public void onNewMessage(Message message) {
+
+    }
+
+    @Override
+    public void onNewAdoptMessage(Message message) {
+        if(chat.getID().equals(message.getChatID())) {
+
+            User userSession = UserRepositoryFS.getInstance().getUserSession();
+            if(!userSession.getID().equals(message.getWriterID())){
+                if(dialogWaiting.isShowing()){
+                    if(message.getMessage().equals(MessageConstants.ADOPT_YES)){
+                        dialogWaiting.setSuccess();
+
+                    } else if(message.getMessage().equals(MessageConstants.ADOPT_NO)) {
+                        dialogWaiting.setFailure();
+
+                    } else {
+                        dialogWaiting.setFailure();
+                    }
+
+                } else {
+                    AlertAdopt alertAdopt = new AlertAdopt(requireActivity(), chat);
+                    alertAdopt.show();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onEdited(Chat chat) {
+        if(this.chat.getID().equals(chat.getID())) this.chat = chat;
     }
 }

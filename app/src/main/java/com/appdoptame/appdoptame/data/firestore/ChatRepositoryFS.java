@@ -51,6 +51,11 @@ public class ChatRepositoryFS implements ChatRepository {
     }
 
     @Override
+    public void sendAdoptMessage(Message message, CompleteListener listener) {
+        iMessageSender.sendAdoptMessage(message, listener);
+    }
+
+    @Override
     public void getUserChats(String userID, ChatListLoaderListener listener) {
         iChatGetter.getUserChats(userID, listener);
     }

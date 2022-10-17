@@ -18,6 +18,7 @@ import com.appdoptame.appdoptame.AppDoptameApp;
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.UserRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.ChatCreatorListener;
+import com.appdoptame.appdoptame.data.listener.ChatEditorListener;
 import com.appdoptame.appdoptame.data.listener.MessageInserterListener;
 import com.appdoptame.appdoptame.data.observer.ChatObserver;
 import com.appdoptame.appdoptame.data.observer.MessageObserver;
@@ -35,7 +36,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> implements ChatCreatorListener, MessageInserterListener {
+public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHolder> implements ChatCreatorListener, ChatEditorListener, MessageInserterListener {
 
     private List<Chat> chats;
     private final LayoutInflater inflater;
@@ -49,6 +50,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
         this.userSession = UserRepositoryFS.getInstance().getUserSession();
 
         ChatObserver.attachChatCreatorListener(this);
+        ChatObserver.attachChatEditorListener(this);
         MessageObserver.attachMessageInserterListener(this);
     }
 
@@ -118,6 +120,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
 
     public void onDetach(){
         ChatObserver.detachChatCreatorListener(this);
+        ChatObserver.detachChatEditorListener(this);
         MessageObserver.detachMessageInserterListener(this);
     }
 
@@ -129,6 +132,24 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             if(position == -1) return;
 
             chats.get(position).setLastMessage(message);
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(() -> notifyItemChanged(position));
+        });
+    }
+
+    @Override
+    public void onNewAdoptMessage(Message message) {
+
+    }
+
+    @Override
+    public void onEdited(Chat chat) {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            int position = Iterables.indexOf(chats, input -> input.getID().equals(chat.getID()));
+            if(position == -1) return;
+            chats.set(position, chat);
+
             Handler handler = new Handler(Looper.getMainLooper());
             handler.post(() -> notifyItemChanged(position));
         });

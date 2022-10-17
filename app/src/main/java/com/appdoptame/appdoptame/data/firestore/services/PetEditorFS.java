@@ -2,9 +2,11 @@ package com.appdoptame.appdoptame.data.firestore.services;
 
 import com.appdoptame.appdoptame.data.firestore.FirestoreDB;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
+import com.appdoptame.appdoptame.data.parser.ParseChat;
 import com.appdoptame.appdoptame.data.parser.ParsePet;
 import com.appdoptame.appdoptame.data.parser.ParsePost;
 import com.appdoptame.appdoptame.data.service.IPetEditor;
+import com.appdoptame.appdoptame.model.Chat;
 import com.appdoptame.appdoptame.model.Pet;
 import com.appdoptame.appdoptame.model.Post;
 import com.google.firebase.firestore.CollectionReference;
@@ -19,6 +21,7 @@ import java.util.Objects;
 public class PetEditorFS implements IPetEditor {
     private static final CollectionReference collectionPet  = FirestoreDB.getCollectionPet();
     private static final CollectionReference collectionPost = FirestoreDB.getCollectionPost();
+    private static final CollectionReference collectionChat = FirestoreDB.getCollectionChat();
     private static final StorageReference    storagePet     = FirestoreDB.getStoragePet();
 
     @Override
@@ -45,7 +48,31 @@ public class PetEditorFS implements IPetEditor {
                                         .update("PET.ADOPTED", pet.isAdopted())
                                         .addOnCompleteListener(petTask -> {
                                     if(petTask.isSuccessful()){
-                                        listener.onSuccess();
+
+                                        collectionChat
+                                                .whereEqualTo("PET.ID", pet.getID())
+                                                .get()
+                                                .addOnCompleteListener(chatTask -> {
+                                                    if(chatTask.isSuccessful()){
+                                                        for (DocumentSnapshot documentChat : chatTask.getResult()) {
+                                                            if(documentChat.getData() != null){
+                                                                Chat chat = ParseChat.parse(documentChat.getData());
+                                                                collectionChat
+                                                                        .document(chat.getID())
+                                                                        .update("PET.ADOPTED", pet.isAdopted())
+                                                                        .addOnCompleteListener(petChatTask -> {
+                                                                            if(petChatTask.isSuccessful()){
+                                                                                listener.onSuccess();
+                                                                            } else {
+                                                                                listener.onFailure();
+                                                                            }
+                                                                        });
+                                                            }
+                                                        }
+                                                    } else {
+                                                        listener.onFailure();
+                                                    }
+                                                });
                                     } else {
                                         listener.onFailure();
                                     }
