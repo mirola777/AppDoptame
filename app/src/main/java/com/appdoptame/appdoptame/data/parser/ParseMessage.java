@@ -1,6 +1,7 @@
 package com.appdoptame.appdoptame.data.parser;
 
 import com.appdoptame.appdoptame.model.Message;
+import com.appdoptame.appdoptame.util.MessageConstants;
 import com.google.firebase.Timestamp;
 
 import java.util.ArrayList;
@@ -14,12 +15,17 @@ public class ParseMessage {
     private static final String WRITER_ID = "WRITER_ID";
     private static final String DATE      = "DATE";
     private static final String MESSAGE   = "MESSAGE";
+    private static final String TYPE      = "TYPE";
 
     public static List<Message> parseDocList(List<Map<String, Object>> docs){
         List<Message> messages = new ArrayList<>();
 
         for(Map<String, Object> doc: docs){
-            messages.add(parse(doc));
+            if(doc.get(TYPE) != null){
+                if(doc.get(TYPE).equals(MessageConstants.NORMAL)) messages.add(parse(doc));
+            } else {
+                messages.add(parse(doc));
+            }
         }
 
         return messages;
@@ -51,6 +57,18 @@ public class ParseMessage {
         doc.put(WRITER_ID,  message.getWriterID());
         doc.put(DATE,       message.getDate());
         doc.put(MESSAGE,    message.getMessage());
+        doc.put(TYPE,       MessageConstants.NORMAL);
+
+        return doc;
+    }
+
+    public static Map<String, Object> parseAdopt(Message message){
+        Map<String, Object> doc  = new HashMap<>();
+        doc.put(CHAT_ID,    message.getChatID());
+        doc.put(WRITER_ID,  message.getWriterID());
+        doc.put(DATE,       message.getDate());
+        doc.put(MESSAGE,    message.getMessage());
+        doc.put(TYPE,       MessageConstants.ADOPT);
 
         return doc;
     }

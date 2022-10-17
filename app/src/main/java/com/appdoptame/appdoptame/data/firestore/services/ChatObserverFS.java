@@ -10,6 +10,7 @@ import com.appdoptame.appdoptame.data.service.IChatObserver;
 import com.appdoptame.appdoptame.model.Chat;
 import com.appdoptame.appdoptame.model.Message;
 import com.appdoptame.appdoptame.model.User;
+import com.appdoptame.appdoptame.util.MessageConstants;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.MetadataChanges;
@@ -50,16 +51,31 @@ public class ChatObserverFS implements IChatObserver {
                     Map<String, Object> chatDoc = dc.getDocument().getData();
                     Chat chat = ParseChat.parse(chatDoc);
                     ChatObserver.notifyChatCreated(chat);
+                    break;
 
                 case REMOVED:
                     break;
                 case MODIFIED:
                     chatDoc                                   = dc.getDocument().getData();
+                    chat                                      = ParseChat.parse(chatDoc);
                     List<Map<String, Object>> messagesListDoc = (List<Map<String, Object>>) chatDoc.get("MESSAGES");
                     Map<String, Object>       lastMessageDoc  = messagesListDoc.get(messagesListDoc.size() - 1);
                     Message                   lastMessage     = ParseMessage.parse(lastMessageDoc);
 
-                    MessageObserver.notifyNewMessage(lastMessage);
+                    ChatObserver.notifyChatEdited(chat);
+
+                    if(lastMessageDoc.get("TYPE") != null){
+                        switch ((String) lastMessageDoc.get("TYPE")){
+                            case MessageConstants.NORMAL:
+                                MessageObserver.notifyNewMessage(lastMessage);
+                                break;
+                            case MessageConstants.ADOPT:
+                                MessageObserver.notifyNewAdoptMessage(lastMessage);
+                                break;
+                        }
+                    } else {
+                        MessageObserver.notifyNewMessage(lastMessage);
+                    }
 
                     break;
             }

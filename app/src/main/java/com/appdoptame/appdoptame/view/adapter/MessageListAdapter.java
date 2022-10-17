@@ -120,7 +120,8 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
     @Override
     public void onNewMessage(Message message) {
-        if(message.getChatID().equals(chat.getID())){
+        Message lastMessage = messages.get(messages.size() - 1);
+        if(lastMessage.getDate().getTime() != message.getDate().getTime() && message.getChatID().equals(chat.getID())){
             Executor executor = Executors.newSingleThreadExecutor();
             executor.execute(() -> {
                 messages.add(message);
@@ -148,6 +149,11 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
                 });
             });
         }
+    }
+
+    @Override
+    public void onNewAdoptMessage(Message message) {
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

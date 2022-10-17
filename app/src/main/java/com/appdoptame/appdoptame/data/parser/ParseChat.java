@@ -18,13 +18,14 @@ public class ParseChat {
     private static final String MESSAGES = "MESSAGES";
 
     public static Chat parse(Map<String, Object> doc){
-        List<Map<String, Object>> messagesList = (List<Map<String, Object>>) doc.get(MESSAGES);
+        List<Map<String, Object>> messagesListDoc = (List<Map<String, Object>>) doc.get(MESSAGES);
+        List<Message> messagesList = ParseMessage.parseDocList(messagesListDoc);
 
         User   owner           = ParseUser.parse((Map<String, Object>) doc.get(OWNER));
         User   adopter         = ParseUser.parse((Map<String, Object>) doc.get(ADOPTER));
         Pet    pet             = ParsePet.parse((Map<String, Object>) doc.get(PET));
         String ID              = (String) doc.get(CHAT_ID);
-        Message lastMessage    = ParseMessage.parse(messagesList.get(messagesList.size()-1));
+        Message lastMessage    = messagesList.get(messagesList.size()-1);
 
         return new Chat(ID, owner, adopter, pet, lastMessage);
     }
