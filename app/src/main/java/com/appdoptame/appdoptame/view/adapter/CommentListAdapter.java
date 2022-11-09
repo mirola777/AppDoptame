@@ -118,6 +118,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         });
     }
 
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView        userImage;
         TextView         commentText;
