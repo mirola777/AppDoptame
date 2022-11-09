@@ -35,6 +35,7 @@ import com.appdoptame.appdoptame.util.UserNameGetter;
 import com.appdoptame.appdoptame.view.dialog.DialogCreateChat;
 import com.appdoptame.appdoptame.view.dialog.DialogPostSettings;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
+import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentComment;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentProfile;
 import com.bumptech.glide.Glide;
 import com.google.common.collect.Iterables;
@@ -236,6 +237,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
             userName.setOnClickListener(v -> {
                 SetFragmentProfile.set(posts.get(getAdapterPosition()).getUser());
+            });
+
+            commentButton.setOnClickListener(v -> {
+                SetFragmentComment.set(posts.get(getAdapterPosition()));
             });
 
             likeButton.setOnClickListener(v -> {

@@ -23,7 +23,7 @@ public class ParsePost {
     public static Post parse(Map<String, Object> doc){
 
         List<String> likes     = (List<String>) doc.get(LIKES);
-        List<Comment> comments = new ArrayList<>();
+        List<Comment> comments = ParseComment.parseDocList((List<Map<String, Object>>) doc.get(COMMENTS));
         Date         date      = ((Timestamp) doc.get(DATE)).toDate();
         String       ID        = (String) doc.get(POST_ID);
         Pet          pet       = ParsePet.parse((Map<String, Object>) doc.get(PET));
