@@ -78,4 +78,7 @@
     <string name="notification_new_post_1">acaba de publicar a</string>
     <string name="notification_new_post_2">. ¡Dale un vistazo!</string>
     <string name="ok">OK</string>
+    <string name="type_a_comment">Escribe un comentario...</string>
+    <string name="post_comments">Comentarios de la publicación</string>
+    <string name="why_adopt">¿Por qué deberías adoptar a la mascota?</string>
 </resources>
