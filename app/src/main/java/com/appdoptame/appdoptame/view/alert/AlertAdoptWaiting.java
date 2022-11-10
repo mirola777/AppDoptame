@@ -18,6 +18,7 @@ public class AlertAdoptWaiting {
     private final AlertDialog         dialog;
     private final LottieAnimationView animationView;
     private final TextView            waitingText;
+    private       boolean             isStarted;
 
     public AlertAdoptWaiting(@NonNull Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -26,6 +27,7 @@ public class AlertAdoptWaiting {
 
         animationView = layout.findViewById(R.id.adopt_waiting_animation);
         waitingText   = layout.findViewById(R.id.adopt_waiting_text);
+        isStarted     = true;
 
         builder.setCancelable(false);
         builder.setView(layout);
@@ -42,8 +44,13 @@ public class AlertAdoptWaiting {
         dialog.show();
     }
 
+    public boolean isStarted() {
+        return isStarted;
+    }
+
     public void setFailure(){
         if(dialog.isShowing()){
+            isStarted = false;
             animationView.setAnimation(R.raw.loading_failure);
             animationView.loop(false);
             animationView.playAnimation();
@@ -55,6 +62,7 @@ public class AlertAdoptWaiting {
 
     public void setTimeout(){
         if(dialog.isShowing()){
+            isStarted = false;
             animationView.setAnimation(R.raw.sad);
             animationView.loop(true);
             animationView.playAnimation();
@@ -65,6 +73,7 @@ public class AlertAdoptWaiting {
 
     public void setSuccess(){
         if(dialog.isShowing()){
+            isStarted = false;
             animationView.setAnimation(R.raw.loading_succesfully);
             animationView.loop(false);
             animationView.playAnimation();

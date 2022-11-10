@@ -325,7 +325,8 @@ public class FragmentChat extends Fragment implements MessageInserterListener, C
             User userSession = UserRepositoryFS.getInstance().getUserSession();
             if(!userSession.getID().equals(message.getWriterID())){
                 timerHandler.removeCallbacks(timerRunnable);
-                if(dialogWaiting.isShowing()){
+                if(dialogWaiting.isStarted()){
+
                     switch (message.getMessage()) {
                         case MessageConstants.ADOPT_YES:
                             dialogWaiting.setSuccess();
