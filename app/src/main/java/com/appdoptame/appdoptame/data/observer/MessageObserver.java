@@ -33,12 +33,4 @@ public class MessageObserver {
             listener.onNewMessage(message);
         }
     }
-
-    public static void notifyNewAdoptMessage(Message message){
-        if(messageInserterListeners == null) new MessageObserver();
-
-        for(MessageInserterListener listener: messageInserterListeners){
-            listener.onNewAdoptMessage(message);
-        }
-    }
 }

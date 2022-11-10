@@ -13,6 +13,7 @@
     <string name="sing_up">Regístrate</string>
     <string name="create_user">Crear usuario</string>
     <string name="contact_user">Contactar usuario</string>
+    <string name="send_images">Imagenes a enviar</string>
     <string name="phone">Número de teléfono</string>
     <string name="remember_me">Mantener sesión iniciada</string>
     <string name="name">Nombre</string>
@@ -68,7 +69,8 @@
     <string name="no">No</string>
     <string name="waiting_adopt">Esperando a que el usuario envíe una respuesta</string>
     <string name="waiting_adopt_success">El usuario ha aceptado. ¡La mascota ha sido adoptada!</string>
-    <string name="waiting_adopt_failure">El usuario ha rechazado la solicitud.</string>
+    <string name="waiting_adopt_failure">El usuario ha rechazado la solicitud</string>
+    <string name="waiting_adopt_timeout">Se ha excedido el tiempo limite de la solicitud</string>
     <string name="finish_adopt">El usuario desea concretar ya el proceso de adopción. ¿Deseas concretarlo tú también?</string>
     <string name="create_chat_text_1">¿Seguro que deseas contactar a</string>
     <string name="create_chat_text_2">para adoptar a</string>
@@ -81,4 +83,8 @@
     <string name="type_a_comment">Escribe un comentario...</string>
     <string name="post_comments">Comentarios de la publicación</string>
     <string name="why_adopt">¿Por qué deberías adoptar a la mascota?</string>
+    <string name="adopt_start">Se ha comenzado el proceso para concretar la adopción</string>
+    <string name="adopt_no">Se ha rechazado el proceso de adopción</string>
+    <string name="adopt_timeout">Se ha excedido el tiempo de espera</string>
+    <string name="adopt_yes">Se ha aceptado el proceso de adopción :)</string>
 </resources>

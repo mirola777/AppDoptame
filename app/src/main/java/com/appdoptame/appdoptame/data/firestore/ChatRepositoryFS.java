@@ -1,5 +1,7 @@
 package com.appdoptame.appdoptame.data.firestore;
 
+import android.net.Uri;
+
 import com.appdoptame.appdoptame.data.firestore.services.ChatCreatorFS;
 import com.appdoptame.appdoptame.data.firestore.services.ChatGetterFS;
 import com.appdoptame.appdoptame.data.firestore.services.ChatObserverFS;
@@ -15,6 +17,9 @@ import com.appdoptame.appdoptame.data.service.IChatObserver;
 import com.appdoptame.appdoptame.data.service.IMessageSender;
 import com.appdoptame.appdoptame.model.Chat;
 import com.appdoptame.appdoptame.model.Message;
+
+import java.io.File;
+import java.util.List;
 
 public class ChatRepositoryFS implements ChatRepository {
     private static ChatRepositoryFS instance;
@@ -51,8 +56,13 @@ public class ChatRepositoryFS implements ChatRepository {
     }
 
     @Override
-    public void sendAdoptMessage(Message message, CompleteListener listener) {
-        iMessageSender.sendAdoptMessage(message, listener);
+    public void sendMessage(Message message, List<byte[]> images, CompleteListener listener) {
+        iMessageSender.sendMessage(message, images, listener);
+    }
+
+    @Override
+    public void sendMessage(Message message, Uri file, CompleteListener listener) {
+        iMessageSender.sendMessage(message, file, listener);
     }
 
     @Override

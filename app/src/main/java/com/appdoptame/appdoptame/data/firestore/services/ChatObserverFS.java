@@ -63,19 +63,7 @@ public class ChatObserverFS implements IChatObserver {
                     Message                   lastMessage     = ParseMessage.parse(lastMessageDoc);
 
                     ChatObserver.notifyChatEdited(chat);
-
-                    if(lastMessageDoc.get("TYPE") != null){
-                        switch ((String) lastMessageDoc.get("TYPE")){
-                            case MessageConstants.NORMAL:
-                                MessageObserver.notifyNewMessage(lastMessage);
-                                break;
-                            case MessageConstants.ADOPT:
-                                MessageObserver.notifyNewAdoptMessage(lastMessage);
-                                break;
-                        }
-                    } else {
-                        MessageObserver.notifyNewMessage(lastMessage);
-                    }
+                    MessageObserver.notifyNewMessage(lastMessage);
 
                     break;
             }

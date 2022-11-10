@@ -208,7 +208,7 @@ public class DialogEditPet extends BottomSheetDialogFragment implements PickImag
                 petImages.add(URLToByteArray.getByteImageFromURL(url));
             }
 
-            pickImagesAdapter = new PickImageAdapter(requireContext(), this, petImages);
+            pickImagesAdapter = new PickImageAdapter(requireContext(), this, petImages, true);
 
             Handler handler = new Handler(Looper.getMainLooper());
             handler.post(() -> {
@@ -297,6 +297,11 @@ public class DialogEditPet extends BottomSheetDialogFragment implements PickImag
     @Override
     public void onImageDeleted(int imagesCount) {
         updateImagesCount(imagesCount);
+    }
+
+    @Override
+    public void onImagesDeleted() {
+        updateImagesCount(0);
     }
 
     @Override

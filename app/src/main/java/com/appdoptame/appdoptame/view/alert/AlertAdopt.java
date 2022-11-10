@@ -19,8 +19,11 @@ import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.model.Chat;
 import com.appdoptame.appdoptame.model.Message;
 import com.appdoptame.appdoptame.model.User;
+import com.appdoptame.appdoptame.model.message.MessageAdopt;
 import com.appdoptame.appdoptame.util.MessageConstants;
 import com.bumptech.glide.Glide;
+
+import java.util.UUID;
 
 public class AlertAdopt {
     private AlertDialog     dialog;
@@ -46,12 +49,12 @@ public class AlertAdopt {
 
         adoptNo.setOnClickListener(v -> {
             User userSession  = UserRepositoryFS.getInstance().getUserSession();
-            Message noMessage = new Message(
+            MessageAdopt noMessage = new MessageAdopt(
                     chat.getID(),
                     userSession.getID(),
                     MessageConstants.ADOPT_NO);
 
-            ChatRepositoryFS.getInstance().sendAdoptMessage(noMessage, new CompleteListener() {
+            ChatRepositoryFS.getInstance().sendMessage(noMessage, new CompleteListener() {
                 @Override
                 public void onSuccess() {
 
@@ -68,12 +71,12 @@ public class AlertAdopt {
 
         adoptYes.setOnClickListener(v -> {
             User userSession  = UserRepositoryFS.getInstance().getUserSession();
-            Message yesMessage = new Message(
+            MessageAdopt yesMessage = new MessageAdopt(
                     chat.getID(),
                     userSession.getID(),
                     MessageConstants.ADOPT_YES);
 
-            ChatRepositoryFS.getInstance().sendAdoptMessage(yesMessage, new CompleteListener() {
+            ChatRepositoryFS.getInstance().sendMessage(yesMessage, new CompleteListener() {
                 @Override
                 public void onSuccess() {
                     PetRepositoryFS.getInstance().changeState(chat.getPet(), new CompleteListener() {
@@ -103,6 +106,10 @@ public class AlertAdopt {
 
         dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    public void dismiss(){
+        dialog.dismiss();
     }
 
     public void show(){

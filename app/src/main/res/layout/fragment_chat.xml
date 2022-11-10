@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/colorOnPrimary"
@@ -127,6 +128,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -142,8 +144,8 @@
             app:endIconTint="?attr/subtitleTextColor"
             app:hintTextColor="@color/blue"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/chat_send"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/chat_send_image"
+            app:layout_constraintStart_toEndOf="@+id/chat_send_file"
             app:layout_constraintTop_toTopOf="parent"
             app:startIconTint="?attr/subtitleTextColor">
 
@@ -162,7 +164,7 @@
 
         <ImageButton
             android:id="@+id/chat_send"
-            android:layout_width="?actionBarSize"
+            android:layout_width="45dp"
             android:layout_height="0dp"
             android:background="?selectableItemBackgroundBorderless"
             android:src="@drawable/ic_send"
@@ -172,6 +174,68 @@
             app:layout_constraintTop_toTopOf="parent">
 
         </ImageButton>
+
+        <ImageButton
+            android:id="@+id/chat_send_file"
+            android:layout_width="45dp"
+            android:layout_height="0dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_upload"
+            android:tint="?attr/colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/chat_send_image"
+            android:layout_width="35dp"
+            android:layout_height="0dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_image"
+            android:tint="?attr/colorOnPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/chat_send"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </ImageButton>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chat_image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F1E6E6"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/chat_image_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/send_images"
+            android:textColor="?attr/titleTextColor"
+            android:theme="@style/FontLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_image_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/chat_image_text">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -180,7 +244,7 @@
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+        app:layout_constraintBottom_toTopOf="@+id/chat_image_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />

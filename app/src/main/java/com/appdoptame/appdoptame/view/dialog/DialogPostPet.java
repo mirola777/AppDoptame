@@ -106,7 +106,7 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
         pickImagesList          = requireView().findViewById(R.id.create_pet_pick_images_list);
         petTypeText             = requireView().findViewById(R.id.create_pet_type);
         petTypeImage            = requireView().findViewById(R.id.create_pet_type_image);
-        pickImagesAdapter       = new PickImageAdapter(requireContext(), this);
+        pickImagesAdapter       = new PickImageAdapter(requireContext(), this, true);
 
         loadHeader();
         loadPickImages();
@@ -256,6 +256,11 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
     @Override
     public void onImageDeleted(int imagesCount) {
         updateImagesCount(imagesCount);
+    }
+
+    @Override
+    public void onImagesDeleted() {
+        updateImagesCount(0);
     }
 
     @Override

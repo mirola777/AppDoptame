@@ -3,6 +3,8 @@ package com.appdoptame.appdoptame.view.alert;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.TextView;
 
@@ -48,6 +50,16 @@ public class AlertAdoptWaiting {
             dialog.setCancelable(true);
             waitingText.setText(R.string.waiting_adopt_failure);
 
+        }
+    }
+
+    public void setTimeout(){
+        if(dialog.isShowing()){
+            animationView.setAnimation(R.raw.sad);
+            animationView.loop(true);
+            animationView.playAnimation();
+            dialog.setCancelable(true);
+            waitingText.setText(R.string.waiting_adopt_timeout);
         }
     }
 

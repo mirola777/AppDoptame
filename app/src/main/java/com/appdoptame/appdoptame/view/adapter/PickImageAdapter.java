@@ -26,21 +26,34 @@ public class PickImageAdapter extends RecyclerView.Adapter<PickImageAdapter.View
     private final LayoutInflater inflater;
     private final Context        context;
     private PickImageAdapterListener listener;
+    private boolean addButton;
 
-    public PickImageAdapter(Context context, PickImageAdapterListener listener) {
-        this(context, listener, new ArrayList<>());
+    public PickImageAdapter(Context context, PickImageAdapterListener listener, boolean addButton) {
+        this(context, listener, new ArrayList<>(), addButton);
     }
 
-    public PickImageAdapter(Context context, PickImageAdapterListener listener, List<byte[]> images){
-        this.context  = context;
-        this.inflater = LayoutInflater.from(context);
-        this.images   = images;
-        this.listener = listener;
-        images.add(0, null);
+    public PickImageAdapter(Context context, PickImageAdapterListener listener, List<byte[]> images, boolean addButton){
+        this.context   = context;
+        this.inflater  = LayoutInflater.from(context);
+        this.images    = images;
+        this.listener  = listener;
+        this.addButton = addButton;
+
+        if(addButton) {
+            images.add(0, null);
+        }
     }
 
     public List<byte[]> getImages(){
+        if (!addButton) return images;
         return images.subList(1, images.size());
+    }
+
+    public void deleteImages(){
+        images.clear();
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(this::notifyDataSetChanged);
+        listener.onImagesDeleted();
     }
 
     public void addImage(byte[] image){
@@ -75,20 +88,20 @@ public class PickImageAdapter extends RecyclerView.Adapter<PickImageAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(position == 0){
+        byte[] imageUri = images.get(position);
+
+        if(position == 0 && imageUri == null){
             holder.add.setVisibility(View.VISIBLE);
             holder.delete.setVisibility(View.GONE);
         } else {
             holder.add.setVisibility(View.GONE);
             holder.delete.setVisibility(View.VISIBLE);
 
-            byte[] imageUri = images.get(position);
             Glide.with(AppDoptameApp.getContext())
                     .load(imageUri)
                     .placeholder(R.drawable.image_placeholder)
                     .into(holder.image);
         }
-
     }
 
     @Override

@@ -138,11 +138,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
     }
 
     @Override
-    public void onNewAdoptMessage(Message message) {
-
-    }
-
-    @Override
     public void onEdited(Chat chat) {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
