@@ -9,4 +9,5 @@ public class MessageConstants {
     public static final String ADOPT_NO      = "NO";
     public static final String ADOPT_TIMEOUT = "TIMEOUT";
     public static final String ADOPT_START   = "START";
+    public static final String ADOPT_CANCEL  = "CANCEL";
 }

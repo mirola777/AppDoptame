@@ -39,6 +39,7 @@ import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentComment;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentProfile;
 import com.bumptech.glide.Glide;
 import com.google.common.collect.Iterables;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -195,6 +196,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
         ViewPager2       imageView;
         ImageButton      optionsButton;
         PostImageAdapter imageAdapter;
+        DotsIndicator    indicator;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -216,6 +218,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
             petAge        = itemView.findViewById(R.id.post_item_pet_age);
             petBreed      = itemView.findViewById(R.id.post_item_pet_breed);
             optionsButton = itemView.findViewById(R.id.post_item_options);
+            indicator     = itemView.findViewById(R.id.post_item_indicator);
 
             optionsButton.setOnClickListener(v -> {
                 Post post = posts.get(getAdapterPosition());
@@ -225,6 +228,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> im
 
             imageAdapter = new PostImageAdapter(context);
             imageView.setAdapter(imageAdapter);
+            indicator.setViewPager2(imageView);
 
             adoptButton.setOnClickListener(v -> {
                 DialogCreateChat dialog = new DialogCreateChat(posts.get(getAdapterPosition()));

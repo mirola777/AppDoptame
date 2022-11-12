@@ -41,15 +41,43 @@
                 android:id="@+id/adopt_waiting_animation"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/adopt_waiting_cancel_card"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/adopt_waiting_text"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
+                app:lottie_repeatMode="restart"
                 app:lottie_rawRes="@raw/loading_cat">
 
             </com.airbnb.lottie.LottieAnimationView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/adopt_waiting_cancel_card"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                app:cardBackgroundColor="?attr/colorSecondary"
+                app:cardCornerRadius="?attr/cardCornerRadius"
+                app:cardElevation="?attr/cardElevation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:id="@+id/adopt_waiting_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:foreground="?android:selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/cancel"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="20sp"
+                    android:theme="@style/FontExtraBold" />
+            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

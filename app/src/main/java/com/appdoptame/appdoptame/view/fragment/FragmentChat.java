@@ -113,7 +113,7 @@ public class FragmentChat extends Fragment implements MessageInserterListener, C
         imagesList    = requireView().findViewById(R.id.chat_image_list);
         imagesText    = requireView().findViewById(R.id.chat_image_text);
         imagesAdapter = new PickImageAdapter(requireContext(), this, false);
-        dialogWaiting = new AlertAdoptWaiting(requireActivity());
+        dialogWaiting = new AlertAdoptWaiting(requireActivity(), chat);
         alertAdopt    = new AlertAdopt(requireActivity(), chat);
 
         addToolbarFunction();
@@ -298,7 +298,7 @@ public class FragmentChat extends Fragment implements MessageInserterListener, C
             ChatRepositoryFS.getInstance().sendMessage(message, new CompleteListener() {
                 @Override
                 public void onSuccess() {
-                    dialogWaiting = new AlertAdoptWaiting(requireActivity());
+                    dialogWaiting = new AlertAdoptWaiting(requireActivity(), chat);
                     dialogWaiting.show();
                     timerHandler.removeCallbacks(timerRunnable);
                     timerHandler.postDelayed(timerRunnable, 10000);

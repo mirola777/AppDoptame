@@ -56,20 +56,39 @@
                 </ImageButton>
             </androidx.cardview.widget.CardView>
 
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/adapter_post_grid_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:dotsColor="?attr/subtitleTextColor"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="5dp"
+                app:dotsSpacing="2dp"
+                app:dotsWidthFactor="1.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView"
+                app:progressMode="false"
+                app:dotsClickable="true"
+                app:selectedDotColor="?attr/colorPrimaryVariant" />
+
             <TextView
                 android:id="@+id/adapter_post_grid_pet_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:theme="@style/FontBold"
+                android:text="@string/adopt"
                 android:textColor="?attr/titleTextColor"
                 android:textSize="15sp"
-                android:text="@string/adopt"
+                android:theme="@style/FontBold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView">
+                app:layout_constraintTop_toBottomOf="@+id/adapter_post_grid_indicator">
 
             </TextView>
 

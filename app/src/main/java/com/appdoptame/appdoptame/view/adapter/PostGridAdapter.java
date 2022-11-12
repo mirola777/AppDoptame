@@ -24,6 +24,7 @@ import com.appdoptame.appdoptame.util.PetAgeGetter;
 import com.appdoptame.appdoptame.view.dialog.DialogPostSettings;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
 import com.google.common.collect.Iterables;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,6 +134,7 @@ public class PostGridAdapter extends RecyclerView.Adapter<PostGridAdapter.ViewHo
         ViewPager2       imageView;
         ImageButton      optionsButton;
         PostImageAdapter imageAdapter;
+        DotsIndicator    indicator;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -142,6 +144,7 @@ public class PostGridAdapter extends RecyclerView.Adapter<PostGridAdapter.ViewHo
             petAge        = itemView.findViewById(R.id.adapter_post_grid_pet_age);
             petBreed      = itemView.findViewById(R.id.adapter_post_grid_pet_breed);
             optionsButton = itemView.findViewById(R.id.adapter_post_grid_options);
+            indicator     = itemView.findViewById(R.id.adapter_post_grid_indicator);
 
             optionsButton.setOnClickListener(v -> {
                 Post post = posts.get(getAdapterPosition());
@@ -151,6 +154,7 @@ public class PostGridAdapter extends RecyclerView.Adapter<PostGridAdapter.ViewHo
 
             imageAdapter = new PostImageAdapter(context);
             imageView.setAdapter(imageAdapter);
+            indicator.setViewPager2(imageView);
         }
     }
 }

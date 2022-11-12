@@ -26,6 +26,10 @@ import com.appdoptame.appdoptame.model.Chat;
 import com.appdoptame.appdoptame.model.Message;
 import com.appdoptame.appdoptame.model.Pet;
 import com.appdoptame.appdoptame.model.User;
+import com.appdoptame.appdoptame.model.message.MessageAdopt;
+import com.appdoptame.appdoptame.model.message.MessageFile;
+import com.appdoptame.appdoptame.model.message.MessageImage;
+import com.appdoptame.appdoptame.util.MessageConstants;
 import com.appdoptame.appdoptame.util.UserNameGetter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentChat;
 import com.bumptech.glide.Glide;
@@ -89,12 +93,38 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.ViewHo
             holder.nameText.setText("[" + pet.getName() + "] " + UserNameGetter.get(owner));
         }
 
+        String lastMessageText = lastMessage.getMessage();
+        if(lastMessage instanceof MessageImage) {
+            lastMessageText = AppDoptameApp.getStringById(R.string.sent_a_image);
+        } else if(lastMessage instanceof MessageFile) {
+            lastMessageText = AppDoptameApp.getStringById(R.string.sent_a_file);
+        } else if(lastMessage instanceof MessageAdopt) {
+            switch (lastMessage.getMessage()) {
+                case MessageConstants.ADOPT_YES:
+                    lastMessageText = AppDoptameApp.getStringById(R.string.adopt_yes);
+                    break;
+                case MessageConstants.ADOPT_NO:
+                    lastMessageText = AppDoptameApp.getStringById(R.string.adopt_no);
+                    break;
+                case MessageConstants.ADOPT_TIMEOUT:
+                    lastMessageText = AppDoptameApp.getStringById(R.string.adopt_timeout);
+                    break;
+                case MessageConstants.ADOPT_CANCEL:
+                    lastMessageText = AppDoptameApp.getStringById(R.string.adopt_cancel);
+                    break;
+                case MessageConstants.ADOPT_START:
+                default:
+                    lastMessageText = AppDoptameApp.getStringById(R.string.adopt_start);
+                    break;
+            }
+        }
+
         if(lastMessage.getWriterID().equals(userSession.getID())){
-            holder.messageText.setText(AppDoptameApp.getStringById(R.string.you) + ": " + lastMessage.getMessage());
+            holder.messageText.setText(AppDoptameApp.getStringById(R.string.you) + ": " + lastMessageText);
         } else if(lastMessage.getWriterID().equals(owner.getID())) {
-            holder.messageText.setText(owner.getName() + ": " + lastMessage.getMessage());
+            holder.messageText.setText(owner.getName() + ": " + lastMessageText);
         } else if(lastMessage.getWriterID().equals(adopter.getID())){
-            holder.messageText.setText(adopter.getName() + ": " + lastMessage.getMessage());
+            holder.messageText.setText(adopter.getName() + ": " + lastMessageText);
         }
     }
 

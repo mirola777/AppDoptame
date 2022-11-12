@@ -80,6 +80,7 @@
     <string name="notification_new_post_1">acaba de publicar a</string>
     <string name="notification_new_post_2">. ¡Dale un vistazo!</string>
     <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
     <string name="type_a_comment">Escribe un comentario...</string>
     <string name="post_comments">Comentarios de la publicación</string>
     <string name="why_adopt">¿Por qué deberías adoptar a la mascota?</string>
@@ -87,4 +88,7 @@
     <string name="adopt_no">Se ha rechazado el proceso de adopción</string>
     <string name="adopt_timeout">Se ha excedido el tiempo de espera</string>
     <string name="adopt_yes">Se ha aceptado el proceso de adopción :)</string>
+    <string name="adopt_cancel">Se ha cancelado la solicitud</string>
+    <string name="sent_a_file">Ha enviado un archivo</string>
+    <string name="sent_a_image">Ha enviado una imagen</string>
 </resources>

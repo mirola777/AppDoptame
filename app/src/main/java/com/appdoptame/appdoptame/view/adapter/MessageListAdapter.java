@@ -159,6 +159,9 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
                 case MessageConstants.ADOPT_TIMEOUT:
                     holder.largeText.setText(R.string.adopt_timeout);
                     break;
+                case MessageConstants.ADOPT_CANCEL:
+                    holder.largeText.setText(R.string.adopt_cancel);
+                    break;
                 case MessageConstants.ADOPT_START:
                 default:
                     holder.largeText.setText(R.string.adopt_start);
