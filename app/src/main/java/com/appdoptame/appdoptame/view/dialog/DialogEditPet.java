@@ -36,6 +36,7 @@ import com.appdoptame.appdoptame.util.PetTypeConstants;
 import com.appdoptame.appdoptame.util.URLToByteArray;
 import com.appdoptame.appdoptame.util.UriToByteArray;
 import com.appdoptame.appdoptame.view.adapter.PickImageAdapter;
+import com.appdoptame.appdoptame.view.alert.AlertLoading;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -270,16 +271,21 @@ public class DialogEditPet extends BottomSheetDialogFragment implements PickImag
                 post.getPet().setSize(size);
                 post.getPet().setWeight(weight);
 
+                AlertLoading alert = new AlertLoading(requireActivity());
+                alert.show();
+
                 PostRepositoryFS.getInstance().updatePost(post, pickImagesAdapter.getImages(), new CompleteListener() {
                     @Override
                     public void onSuccess() {
                         PostObserver.notifyPostEdited(post);
+                        alert.setSuccessfully();
                         Toast.makeText(getApplicationContext(), "Mascota editada", Toast.LENGTH_LONG).show();
                         DialogEditPet.this.dismiss();
                     }
 
                     @Override
                     public void onFailure() {
+                        alert.setFailure();
                         Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_LONG).show();
                     }
                 });

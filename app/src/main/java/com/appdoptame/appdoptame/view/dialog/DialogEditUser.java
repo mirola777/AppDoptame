@@ -24,6 +24,7 @@ import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
 import com.appdoptame.appdoptame.util.URLToByteArray;
 import com.appdoptame.appdoptame.util.UriToByteArray;
+import com.appdoptame.appdoptame.view.alert.AlertLoading;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
@@ -147,16 +148,20 @@ public class DialogEditUser extends BottomSheetDialogFragment {
                 user.setCity(city);
                 user.setDepartment(department);
 
+                AlertLoading alert = new AlertLoading(requireActivity());
+                alert.show();
+
                 // Se crea el usuario y se envía a la base de datos
                 UserRepositoryFS.getInstance().editUser(user, userImage, new CompleteListener() {
                     @Override
                     public void onSuccess() {
+                        alert.setSuccessfully();
                         DialogEditUser.this.dismiss();
                     }
 
                     @Override
                     public void onFailure() {
-
+                        alert.setFailure();
                     }
                 });
             } catch (Exception e){
