@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:splitMotionEvents="false"
     android:background="?attr/backgroundColor"
     android:layout_height="match_parent">
@@ -96,32 +96,33 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/create_pet_breed_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="@string/breed"
                     android:textColorHint="?attr/subtitleTextColor"
-                    app:hintTextColor="@color/orange"
-                    app:boxCornerRadiusTopStart="15dp"
-                    app:boxCornerRadiusTopEnd="15dp"
-                    app:boxCornerRadiusBottomStart="15dp"
-                    android:layout_marginTop="10dp"
                     app:boxCornerRadiusBottomEnd="15dp"
+                    app:boxCornerRadiusBottomStart="15dp"
+                    app:boxCornerRadiusTopEnd="15dp"
+                    android:layout_marginEnd="10dp"
+                    app:boxCornerRadiusTopStart="15dp"
                     app:boxStrokeColor="@color/orange"
                     app:boxStrokeWidth="2dp"
-                    app:startIconTint="?attr/subtitleTextColor"
                     app:endIconMode="clear_text"
+                    app:hintTextColor="@color/orange"
                     app:startIconDrawable="@drawable/ic_paw"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    app:startIconTint="?attr/subtitleTextColor">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/create_pet_breed_field"
                         android:layout_width="match_parent"
-                        android:theme="@style/FontLight"
-                        android:textSize="15sp"
+                        android:layout_height="wrap_content"
                         android:inputType="textPersonName"
                         android:textColor="?attr/titleTextColor"
                         android:textColorHint="?attr/subtitleTextColor"
-                        android:layout_height="wrap_content">
+                        android:textSize="15sp"
+                        android:theme="@style/FontLight">
 
                     </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
@@ -347,6 +348,91 @@
                     android:scrollbarStyle="outsideInset"
                     android:scrollbars="vertical" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/create_pet_predict_dog_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/breed"
+                        android:textColorHint="?attr/subtitleTextColor"
+                        app:boxCornerRadiusBottomEnd="15dp"
+                        app:boxCornerRadiusBottomStart="15dp"
+                        app:boxCornerRadiusTopEnd="15dp"
+                        android:layout_marginEnd="10dp"
+                        app:boxCornerRadiusTopStart="15dp"
+                        app:boxStrokeColor="@color/orange"
+                        app:boxStrokeWidth="2dp"
+                        app:endIconMode="clear_text"
+                        app:hintTextColor="@color/orange"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/create_pet_predict_dog"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:startIconDrawable="@drawable/ic_paw"
+                        app:startIconTint="?attr/subtitleTextColor">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/create_pet_breed_dog_field"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:textColor="?attr/titleTextColor"
+                            android:textColorHint="?attr/subtitleTextColor"
+                            android:textSize="15sp"
+                            android:theme="@style/FontLight">
+
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/create_pet_predict_dog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        app:cardCornerRadius="?attr/cardCornerRadius"
+                        app:cardElevation="?attr/cardElevation"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:id="@+id/create_pet_predict_dog_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/light_blue"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:selectableItemBackgroundBorderless"
+                            android:orientation="horizontal"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:contentDescription="TODO"
+                                android:padding="6dp"
+                                android:src="@drawable/ic_paw"
+                                android:tint="?attr/colorOnPrimary" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:theme="@style/FontBold"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text="@string/predict_race"
+                                android:textColor="?attr/colorOnPrimary"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -373,6 +459,8 @@
                         android:textSize="15sp"
                         android:theme="@style/FontNormal" />
                 </androidx.cardview.widget.CardView>
+
+
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

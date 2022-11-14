@@ -23,6 +23,7 @@
     <string name="comment">Comentar</string>
     <string name="share">Compartir</string>
     <string name="adopt">Adoptar</string>
+    <string name="predict_race">Predecir raza</string>
     <string name="or_login_with">O ingresa con</string>
     <string name="days_ago">%s days ago</string>
     <string name="hours_ago">%s hours ago</string>

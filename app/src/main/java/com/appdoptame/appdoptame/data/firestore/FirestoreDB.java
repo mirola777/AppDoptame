@@ -13,6 +13,7 @@ public class FirestoreDB {
     private static StorageReference    storagePet;
     private static StorageReference    storageChat;
     private static StorageReference    storageUser;
+    private static StorageReference    storageTemporal;
 
     private FirestoreDB(){
         FirebaseFirestore database = FirebaseFirestore.getInstance();
@@ -24,6 +25,13 @@ public class FirestoreDB {
         storagePet                 = storage.getReference().child("pet/");
         storageUser                = storage.getReference().child("user/");
         storageChat                = storage.getReference().child("chat/");
+        storageTemporal            = storage.getReference().child("temporal/");
+    }
+
+    public static StorageReference getStorageTemporal(){
+        if(storageTemporal == null) new FirestoreDB();
+
+        return storageTemporal;
     }
 
     public static StorageReference getStorageChat(){

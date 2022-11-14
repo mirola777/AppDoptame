@@ -71,4 +71,9 @@ dependencies {
 
     // Viewpager indicator
     implementation 'com.tbuonomo:dotsindicator:4.2'
+
+    // HTTP Help
+    implementation 'com.eclipsesource.minimal-json:minimal-json:0.9.5'
+    implementation 'cz.msebera.android:httpclient:4.5.8'
+    implementation 'org.apache.commons:commons-lang3:3.6'
 }

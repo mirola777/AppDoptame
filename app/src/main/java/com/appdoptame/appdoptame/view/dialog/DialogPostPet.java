@@ -11,12 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.appdoptame.appdoptame.R;
 import com.appdoptame.appdoptame.data.firestore.PetRepositoryFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
+import com.appdoptame.appdoptame.data.listener.PetPredictorListener;
 import com.appdoptame.appdoptame.data.listener.PickImageAdapterListener;
 import com.appdoptame.appdoptame.model.Pet;
 import com.appdoptame.appdoptame.util.EditTextExtractor;
@@ -34,12 +37,11 @@ import com.appdoptame.appdoptame.view.adapter.PickImageAdapter;
 import com.appdoptame.appdoptame.view.alert.AlertLoading;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class DialogPostPet extends BottomSheetDialogFragment implements PickImageAdapterListener {
     private EditText          nameField;
@@ -50,6 +52,8 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
     private boolean           sterilizedField;
     private String            sexField;
     private TextInputEditText breedField;
+    private TextInputLayout   breedLayout;
+    private TextInputEditText breedDogField;
     private TextInputEditText ageField;
     private TextInputEditText sizeField;
     private TextInputEditText weightField;
@@ -60,6 +64,8 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
     private TextView          petTypeText;
     private ImageView         petTypeImage;
     private PickImageAdapter  pickImagesAdapter;
+    private ConstraintLayout  predictDogLayout;
+    private LinearLayout      predictDogButton;
 
     private static final int PICK_CODE       = 1;
 
@@ -93,6 +99,8 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
     private void loadComponents(){
         nameField               = requireView().findViewById(R.id.create_pet_name_field);
         breedField              = requireView().findViewById(R.id.create_pet_breed_field);
+        breedLayout             = requireView().findViewById(R.id.create_pet_breed_layout);
+        breedDogField           = requireView().findViewById(R.id.create_pet_breed_dog_field);
         ageField                = requireView().findViewById(R.id.create_pet_age_field);
         sexMaleField            = requireView().findViewById(R.id.select_pet_male_field);
         sexFemaleField          = requireView().findViewById(R.id.select_pet_female_field);
@@ -106,11 +114,42 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
         pickImagesList          = requireView().findViewById(R.id.create_pet_pick_images_list);
         petTypeText             = requireView().findViewById(R.id.create_pet_type);
         petTypeImage            = requireView().findViewById(R.id.create_pet_type_image);
+        predictDogLayout        = requireView().findViewById(R.id.create_pet_predict_dog_layout);
+        predictDogButton        = requireView().findViewById(R.id.create_pet_predict_dog_button);
         pickImagesAdapter       = new PickImageAdapter(requireContext(), this, true);
 
         loadHeader();
+        loadBreed();
         loadPickImages();
         loadRegisterButton();
+    }
+
+    private void loadBreed(){
+        predictDogButton.setOnClickListener(v -> {
+            if(pickImagesAdapter.getImages().size() > 0){
+                byte[] image = pickImagesAdapter.getImages().get(0);
+
+                PetRepositoryFS.getInstance().predictRace(image, new PetPredictorListener() {
+                    @Override
+                    public void onSuccess(String prediction) {
+                        breedDogField.setText(prediction);
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        Toast.makeText(requireContext(), "Hubo un error cargando la imagen", Toast.LENGTH_LONG).show();
+                    }
+                });
+            } else {
+                Toast.makeText(requireContext(), "Carga al menos una imagen", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        if(petType.equals(PetTypeConstants.DOG)){
+            breedLayout.setVisibility(View.GONE);
+        } else {
+            predictDogLayout.setVisibility(View.GONE);
+        }
     }
 
     private void loadHeader(){
@@ -214,6 +253,7 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
                 String city             = "Medellin";  // Temporalmente mientras añadimos mas ciudades
                 String department       = "Antioquia"; // Temporalmente mientras añadimos mas departamentos
                 String breed            = EditTextExtractor.get(breedField);
+                if(petType.equals(PetTypeConstants.DOG)) breed = EditTextExtractor.get(breedDogField);
                 boolean stray           = false;
                 boolean sterilized      = sterilizedField;
                 boolean adopted         = false;
