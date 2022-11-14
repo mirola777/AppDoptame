@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:background="?attr/colorPrimary"
         app:menu="@menu/main_toolbar"
-        app:title="@string/home"
+        android:theme="@style/FontExtraBold"
         app:titleTextColor="?attr/colorOnPrimary"
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
@@ -19,6 +19,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="TODO"
+                android:src="@drawable/logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_marginStart="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/home"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="20sp"
+                android:theme="@style/FontExtraBold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.MaterialToolbar>
 

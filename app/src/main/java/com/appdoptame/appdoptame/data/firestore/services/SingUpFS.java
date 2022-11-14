@@ -24,6 +24,7 @@ public class SingUpFS implements ISingUp {
                 }
             });
         }else{
+            listener.onFailure();
             Toast.makeText(getApplicationContext(), "Ingrese todos los valores", Toast.LENGTH_SHORT).show();
         }
     }

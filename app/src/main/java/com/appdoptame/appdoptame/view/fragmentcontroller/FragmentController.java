@@ -13,9 +13,9 @@ import com.appdoptame.appdoptame.view.MainActivity;
 import com.appdoptame.appdoptame.view.fragment.FragmentFeed;
 import com.appdoptame.appdoptame.view.fragment.FragmentMain;
 import com.appdoptame.appdoptame.view.fragment.FragmentMessages;
-import com.appdoptame.appdoptame.view.fragment.FragmentNotifications;
 import com.appdoptame.appdoptame.view.fragment.FragmentPostPet;
 import com.appdoptame.appdoptame.view.fragment.FragmentProfile;
+import com.appdoptame.appdoptame.view.fragment.FragmentRecommendations;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.transition.MaterialSharedAxis;
 
@@ -138,11 +138,11 @@ public class FragmentController {
 
     public static boolean isFragmentMainOnBottom(){
         Fragment bottomFragment = getBottomFragment();
-        return  bottomFragment instanceof FragmentMain          ||
-                bottomFragment instanceof FragmentFeed          ||
-                bottomFragment instanceof FragmentMessages      ||
-                bottomFragment instanceof FragmentNotifications ||
-                bottomFragment instanceof FragmentProfile       ||
+        return  bottomFragment instanceof FragmentMain            ||
+                bottomFragment instanceof FragmentFeed            ||
+                bottomFragment instanceof FragmentMessages        ||
+                bottomFragment instanceof FragmentRecommendations ||
+                bottomFragment instanceof FragmentProfile         ||
                 bottomFragment instanceof FragmentPostPet;
     }
 }

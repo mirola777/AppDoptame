@@ -118,16 +118,23 @@ public class DialogCreateChat extends BottomSheetDialogFragment {
                Chat    newChat    = new Chat(owner, adopter, pet);
                Message newMessage = new Message(adopter.getID(), message);
 
+               createChatButton.setClickable(false);
+               createChatButton.setAlpha(0.5F);
+
                ChatRepositoryFS.getInstance().createChat(newChat, newMessage, new ChatCreatorListener() {
                    @Override
                    public void onChatCreated(Chat chat) {
+                       createChatButton.setClickable(true);
+                       createChatButton.setAlpha(1F);
+
                        DialogCreateChat.this.dismiss();
                        SetFragmentChat.set(chat);
                    }
 
                    @Override
                    public void onFailure() {
-
+                       createChatButton.setClickable(true);
+                       createChatButton.setAlpha(1F);
                    }
                });
            }

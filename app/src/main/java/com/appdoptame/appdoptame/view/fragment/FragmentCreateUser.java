@@ -121,21 +121,29 @@ public class FragmentCreateUser extends Fragment {
                         city, department, null, age
                 );
 
+                registerButton.setClickable(false);
+                registerButton.setAlpha(0.5F);
+
                 // Se crea el usuario y se envía a la base de datos
                 UserRepositoryFS.getInstance().createUser(newUser, userImage, new CompleteListener() {
                     @Override
                     public void onSuccess() {
+                        registerButton.setClickable(true);
+                        registerButton.setAlpha(1F);
+
                         FragmentController.removeAllFragments();
                         SetFragmentMain.set();
                     }
 
                     @Override
                     public void onFailure() {
-
+                        registerButton.setClickable(true);
+                        registerButton.setAlpha(1F);
                     }
                 });
             } catch (Exception e){
-
+                registerButton.setClickable(true);
+                registerButton.setAlpha(1F);
             }
         });
     }

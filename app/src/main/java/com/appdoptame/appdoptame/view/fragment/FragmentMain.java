@@ -28,18 +28,18 @@ import java.util.concurrent.TimeUnit;
 
 public class FragmentMain extends Fragment {
     // Fragments
-    private FragmentFeed          fragmentFeed;
-    private FragmentMessages      fragmentMessages;
-    private FragmentPostPet       fragmentPostPet;
-    private FragmentNotifications fragmentNotifications;
-    private FragmentProfile       fragmentProfile;
+    private FragmentFeed            fragmentFeed;
+    private FragmentMessages        fragmentMessages;
+    private FragmentPostPet         fragmentPostPet;
+    private FragmentRecommendations fragmentRecommendations;
+    private FragmentProfile         fragmentProfile;
 
     // Consonants
-    private static final int FEED          = 0;
-    private static final int MESSAGES      = 1;
-    private static final int POST_PET      = 2;
-    private static final int NOTIFICATIONS = 3;
-    private static final int PROFILE       = 4;
+    private static final int FEED            = 0;
+    private static final int MESSAGES        = 1;
+    private static final int POST_PET        = 2;
+    private static final int RECOMMENDATIONS = 3;
+    private static final int PROFILE         = 4;
 
     // Components
     private ViewPager2           mainViewPager;
@@ -113,8 +113,8 @@ public class FragmentMain extends Fragment {
                     case POST_PET:
                         bottomNavigation.setSelectedItemId(R.id.menu_post_pet);
                         break;
-                    case NOTIFICATIONS:
-                        bottomNavigation.setSelectedItemId(R.id.menu_notifications);
+                    case RECOMMENDATIONS:
+                        bottomNavigation.setSelectedItemId(R.id.menu_recommendation);
                         break;
                     case PROFILE:
                         bottomNavigation.setSelectedItemId(R.id.menu_profile);
@@ -147,8 +147,8 @@ public class FragmentMain extends Fragment {
                 case R.id.menu_post_pet:
                     mainViewPager.setCurrentItem(POST_PET);
                     break;
-                case R.id.menu_notifications:
-                    mainViewPager.setCurrentItem(NOTIFICATIONS);
+                case R.id.menu_recommendation:
+                    mainViewPager.setCurrentItem(RECOMMENDATIONS);
                     break;
                 case R.id.menu_profile:
                     mainViewPager.setCurrentItem(PROFILE);
@@ -159,11 +159,11 @@ public class FragmentMain extends Fragment {
     }
 
     private void loadComponents(){
-        fragmentFeed          = new FragmentFeed();
-        fragmentMessages      = new FragmentMessages();
-        fragmentPostPet       = new FragmentPostPet();
-        fragmentNotifications = new FragmentNotifications();
-        fragmentProfile       = new FragmentProfile(UserRepositoryFS.getInstance().getUserSession());
+        fragmentFeed            = new FragmentFeed();
+        fragmentMessages        = new FragmentMessages();
+        fragmentPostPet         = new FragmentPostPet();
+        fragmentRecommendations = new FragmentRecommendations();
+        fragmentProfile         = new FragmentProfile(UserRepositoryFS.getInstance().getUserSession());
 
         loadToolbar();
         bottomNavigationViewFunction();
@@ -183,10 +183,6 @@ public class FragmentMain extends Fragment {
             switch (item.getItemId()) {
                 case R.id.action_main_settings:
                     SetFragmentSettings.set();
-                    return true;
-
-                case R.id.action_main_search:
-                    //System.out.println("eee");
                     return true;
             }
             return false;
@@ -212,8 +208,8 @@ public class FragmentMain extends Fragment {
                     return  fragmentMessages;
                 case POST_PET:
                     return  fragmentPostPet;
-                case NOTIFICATIONS:
-                    return  fragmentNotifications;
+                case RECOMMENDATIONS:
+                    return  fragmentRecommendations;
                 case PROFILE:
                     return  fragmentProfile;
             }

@@ -459,8 +459,6 @@
                         android:textSize="15sp"
                         android:theme="@style/FontNormal" />
                 </androidx.cardview.widget.CardView>
-
-
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

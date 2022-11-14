@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="?attr/colorPrimaryVariant"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:textColor="?attr/colorOnPrimary"
+                android:theme="@style/FontExtraBold"
+                android:text="@string/recommendations_title"
+                android:textSize="25sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <TextView
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:textColor="?attr/colorOnPrimary"
+                android:theme="@style/FontLight"
+                android:text="@string/recommendations_explanation"
+                android:textSize="15sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_margin="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/recommendations_animation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/loading_cat"
+                    app:lottie_repeatMode="reverse">
+
+                </com.airbnb.lottie.LottieAnimationView>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/recommendations_pet_image"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </de.hdodenhof.circleimageview.CircleImageView>
+
+                <TextView
+                    android:id="@+id/recommendations_pet_name"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="20sp"
+                    android:theme="@style/FontExtraBold"
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toBottomOf="@+id/recommendations_pet_image" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/recommendations_adopt_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardBackgroundColor="?attr/colorOnPrimary"
+                    app:cardCornerRadius="?attr/cardCornerRadius"
+                    app:cardElevation="?attr/cardElevation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recommendations_pet_name">
+
+                    <TextView
+                        android:id="@+id/recommendations_adopt_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:foreground="?android:selectableItemBackgroundBorderless"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/adopt"
+                        android:textColor="?attr/colorPrimaryVariant"
+                        android:textSize="15sp"
+                        android:theme="@style/FontNormal" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/recommendations_button_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardBackgroundColor="?attr/colorOnPrimary"
+                    app:cardCornerRadius="?attr/cardCornerRadius"
+                    app:cardElevation="?attr/cardElevation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/recommendations_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:foreground="?android:selectableItemBackgroundBorderless"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="@string/find_pet"
+                        android:textColor="?attr/colorPrimaryVariant"
+                        android:textSize="20sp"
+                        android:theme="@style/FontNormal" />
+                </androidx.cardview.widget.CardView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

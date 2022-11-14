@@ -24,6 +24,7 @@ import com.appdoptame.appdoptame.model.User;
 import com.appdoptame.appdoptame.util.Selectable;
 import com.appdoptame.appdoptame.view.adapter.SelectableAdapter;
 import com.appdoptame.appdoptame.view.fragmentcontroller.FragmentController;
+import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentComment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
@@ -109,6 +110,7 @@ public class DialogPostSettings extends BottomSheetDialogFragment  {
             selectables.add(new Selectable(R.drawable.ic_comment, R.string.comment) {
                 @Override
                 public void onClick() {
+                    SetFragmentComment.set(post);
                     DialogPostSettings.this.dismiss();
                 }
             });

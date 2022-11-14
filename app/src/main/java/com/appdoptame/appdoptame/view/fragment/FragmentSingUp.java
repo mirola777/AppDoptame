@@ -1,13 +1,10 @@
 package com.appdoptame.appdoptame.view.fragment;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +24,8 @@ import com.appdoptame.appdoptame.view.fragmentcontroller.SetFragmentCreateUser;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.concurrent.TimeUnit;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class FragmentSingUp extends Fragment {
     private ConstraintLayout  statusBar;
@@ -69,15 +68,24 @@ public class FragmentSingUp extends Fragment {
             String password        = EditTextExtractor.get(passwordField);
             String confirmPassword = EditTextExtractor.get(passwordConfirmField);
 
+            registerButton.setClickable(false);
+            registerButton.setAlpha(0.5F);
+
             UserRepositoryFS.getInstance().singUp(email, password, confirmPassword, null, new CompleteListener() {
                 @Override
                 public void onSuccess() {
+                    registerButton.setClickable(true);
+                    registerButton.setAlpha(1F);
+
                     FragmentController.removeAllFragments();
                     SetFragmentCreateUser.set();
                 }
 
                 @Override
                 public void onFailure() {
+                    registerButton.setClickable(true);
+                    registerButton.setAlpha(1F);
+
                     Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_SHORT).show();
                 }
             });

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,20 +82,32 @@ public class FragmentLogin extends Fragment {
             String email    = EditTextExtractor.get(emailField);
             String password = EditTextExtractor.get(passwordField);
 
+            loginButton.setClickable(false);
+            loginButton.setAlpha(0.5F);
+
             UserRepositoryFS.getInstance().login(email, password, new LoginListener() {
                 @Override
                 public void onSuccess() {
+                    loginButton.setClickable(true);
+                    loginButton.setAlpha(1F);
+
                     FragmentController.removeFragment(FragmentLogin.this);
                     SetFragmentMain.set();
                 }
 
                 @Override
                 public void onNewAccount() {
+                    loginButton.setClickable(true);
+                    loginButton.setAlpha(1F);
+
                     SetFragmentCreateUser.set();
                 }
 
                 @Override
                 public void onFailure() {
+                    loginButton.setClickable(true);
+                    loginButton.setAlpha(1F);
+
                     Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -115,20 +126,32 @@ public class FragmentLogin extends Fragment {
 
     private void loadFacebookButton(){
         facebookButton.setOnClickListener(v -> {
+            facebookButton.setClickable(false);
+            facebookButton.setAlpha(0.5F);
+
             UserRepositoryFS.getInstance().loginFacebook(this, callbackManager, new LoginListener() {
                 @Override
                 public void onSuccess() {
+                    facebookButton.setClickable(true);
+                    facebookButton.setAlpha(1F);
+
                     FragmentController.removeFragment(FragmentLogin.this);
                     SetFragmentMain.set();
                 }
 
                 @Override
                 public void onNewAccount() {
+                    facebookButton.setClickable(true);
+                    facebookButton.setAlpha(1F);
+
                     SetFragmentCreateUser.set();
                 }
 
                 @Override
                 public void onFailure() {
+                    facebookButton.setClickable(true);
+                    facebookButton.setAlpha(1F);
+
                     Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -139,27 +162,36 @@ public class FragmentLogin extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case GOOGLE:
-                UserRepositoryFS.getInstance().loginGoogleResult(data, new LoginListener() {
-                    @Override
-                    public void onSuccess() {
-                        FragmentController.removeFragment(FragmentLogin.this);
-                        SetFragmentMain.set();
-                    }
+        if (requestCode == GOOGLE) {
+            googleButton.setClickable(false);
+            googleButton.setAlpha(0.5F);
 
-                    @Override
-                    public void onNewAccount() {
-                        SetFragmentCreateUser.set();
-                    }
+            UserRepositoryFS.getInstance().loginGoogleResult(data, new LoginListener() {
+                @Override
+                public void onSuccess() {
+                    googleButton.setClickable(true);
+                    googleButton.setAlpha(1F);
 
-                    @Override
-                    public void onFailure() {
-                        Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_SHORT).show();
+                    FragmentController.removeFragment(FragmentLogin.this);
+                    SetFragmentMain.set();
+                }
 
-                    }
-                });
-                break;
+                @Override
+                public void onNewAccount() {
+                    googleButton.setClickable(true);
+                    googleButton.setAlpha(1F);
+
+                    SetFragmentCreateUser.set();
+                }
+
+                @Override
+                public void onFailure() {
+                    googleButton.setClickable(true);
+                    googleButton.setAlpha(1F);
+
+                    Toast.makeText(getApplicationContext(), "Algo salio mal, intentalo  nuevo", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

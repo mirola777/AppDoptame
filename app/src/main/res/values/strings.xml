@@ -33,6 +33,7 @@
     <string name="dont_you_have_an_account">¿No tienes una cuenta?</string>
     <string name="profile">Perfil</string>
     <string name="notifications">Notificaciones</string>
+    <string name="recommendations">Recomendaciones</string>
     <string name="post_pet">Publicar mascota</string>
     <string name="messages">Mensajes</string>
     <string name="home">Inicio</string>
@@ -46,6 +47,7 @@
     <string name="sterilized">¿Está esterilizado?</string>
     <string name="pet_weight">Peso de la mascota</string>
     <string name="create_pet">Crear mascota</string>
+    <string name="find_pet">Encontrar mascota</string>
     <string name="select_image">Seleccionar imagenes</string>
     <string name="select">Seleccionar</string>
     <string name="settings">Configuraciones</string>
@@ -56,6 +58,8 @@
     <string name="edit_user">Editar usuario</string>
     <string name="save_pet">Guardar mascota</string>
     <string name="kind_pet">¿Qué tipo de mascota deseas publicar?</string>
+    <string name="recommendations_title">¡Encuentra a tu mascota ideal aquí!</string>
+    <string name="recommendations_explanation">El modelo de recomendación de mascotas se alimenta en base a los likes que otorgas en la aplicación. El modelo toma dichas interacciones y define un perfil de usuario en específico. Con esto obtiene una mascota entre todas las que se encuentran en la base de datos que mejor se adapta a dicho perfil, obteniendo así tu mascota ideal.</string>
     <string name="post_dog">Publicar un perro</string>
     <string name="post_cat">Publicar un gato</string>
     <string name="post_hamster">Publicar un hamster</string>

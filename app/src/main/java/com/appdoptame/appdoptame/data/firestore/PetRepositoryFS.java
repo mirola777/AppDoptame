@@ -5,16 +5,19 @@ import com.appdoptame.appdoptame.data.firestore.services.PetDeleterFS;
 import com.appdoptame.appdoptame.data.firestore.services.PetEditorFS;
 import com.appdoptame.appdoptame.data.firestore.services.PetGetterFS;
 import com.appdoptame.appdoptame.data.firestore.services.PetPredictorFS;
+import com.appdoptame.appdoptame.data.firestore.services.PetRecommendFS;
 import com.appdoptame.appdoptame.data.listener.CompleteListener;
 import com.appdoptame.appdoptame.data.listener.PetListLoaderListener;
 import com.appdoptame.appdoptame.data.listener.PetLoaderListener;
 import com.appdoptame.appdoptame.data.listener.PetPredictorListener;
+import com.appdoptame.appdoptame.data.listener.PostLoaderListener;
 import com.appdoptame.appdoptame.data.repository.PetRepository;
 import com.appdoptame.appdoptame.data.service.IPetCreator;
 import com.appdoptame.appdoptame.data.service.IPetDeleter;
 import com.appdoptame.appdoptame.data.service.IPetEditor;
 import com.appdoptame.appdoptame.data.service.IPetGetter;
 import com.appdoptame.appdoptame.data.service.IPetPredictor;
+import com.appdoptame.appdoptame.data.service.IPetRecommend;
 import com.appdoptame.appdoptame.model.Pet;
 
 import java.util.List;
@@ -26,6 +29,7 @@ public class PetRepositoryFS implements PetRepository {
     private final IPetEditor    iPetEditor;
     private final IPetDeleter   iPetDeleter;
     private final IPetPredictor iPetPredictor;
+    private final IPetRecommend iPetRecommend;
 
     private PetRepositoryFS() {
         this.iPetGetter    = new PetGetterFS();
@@ -33,6 +37,7 @@ public class PetRepositoryFS implements PetRepository {
         this.iPetEditor    = new PetEditorFS();
         this.iPetDeleter   = new PetDeleterFS();
         this.iPetPredictor = new PetPredictorFS();
+        this.iPetRecommend = new PetRecommendFS();
     }
 
     public static PetRepositoryFS getInstance(){
@@ -76,5 +81,10 @@ public class PetRepositoryFS implements PetRepository {
     @Override
     public void predictRace(byte[] image, PetPredictorListener listener) {
         iPetPredictor.predictRace(image, listener);
+    }
+
+    @Override
+    public void recommend(PostLoaderListener listener) {
+        iPetRecommend.recommend(listener);
     }
 }

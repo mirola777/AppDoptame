@@ -128,15 +128,20 @@ public class DialogPostPet extends BottomSheetDialogFragment implements PickImag
         predictDogButton.setOnClickListener(v -> {
             if(pickImagesAdapter.getImages().size() > 0){
                 byte[] image = pickImagesAdapter.getImages().get(0);
-
+                predictDogButton.setClickable(false);
+                predictDogLayout.setAlpha(0.5F);
                 PetRepositoryFS.getInstance().predictRace(image, new PetPredictorListener() {
                     @Override
                     public void onSuccess(String prediction) {
+                        predictDogButton.setClickable(true);
+                        predictDogLayout.setAlpha(1F);
                         breedDogField.setText(prediction);
                     }
 
                     @Override
                     public void onFailure() {
+                        predictDogButton.setClickable(true);
+                        predictDogLayout.setAlpha(1F);
                         Toast.makeText(requireContext(), "Hubo un error cargando la imagen", Toast.LENGTH_LONG).show();
                     }
                 });

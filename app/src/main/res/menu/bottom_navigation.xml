@@ -16,9 +16,9 @@
         android:title="@string/post_pet"
         />
     <item
-        android:id="@+id/menu_notifications"
-        android:icon="@drawable/navigation_notifications_icon"
-        android:title="@string/notifications"
+        android:id="@+id/menu_recommendation"
+        android:icon="@drawable/navigation_recommendations_icon"
+        android:title="@string/recommendations"
         />
     <item
         android:id="@+id/menu_profile"
