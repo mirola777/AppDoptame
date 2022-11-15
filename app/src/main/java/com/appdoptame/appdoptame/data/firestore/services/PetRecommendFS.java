@@ -35,7 +35,7 @@ public class PetRecommendFS implements IPetRecommend {
     private final static String userAgent                 = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36";
     private final static String userAgentKey              = "User-Agent";
     private final static String UrlApi                    = "http://www.appdoptame.tk";
-    private final static String IPApi                     = "http://34.136.55.35";
+    private final static String IPApi                     = "http://34.134.244.86";
     private final static String UrlRecommend              = "/recommendation";
     private final static String UrlUserIDParam            = "?user_id=";
 
@@ -51,7 +51,7 @@ public class PetRecommendFS implements IPetRecommend {
 
             String recommendResponse = null;
             User user = UserRepositoryFS.getInstance().getUserSession();
-            recommendResponse = get(UrlApi + UrlRecommend + UrlUserIDParam + user.getID(), Arrays.asList(browserHeaders));
+            recommendResponse = get(IPApi + UrlRecommend + UrlUserIDParam + user.getID(), Arrays.asList(browserHeaders));
             if(recommendResponse != null){
                 collectionPost.whereEqualTo("PET.BREED", recommendResponse).get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
