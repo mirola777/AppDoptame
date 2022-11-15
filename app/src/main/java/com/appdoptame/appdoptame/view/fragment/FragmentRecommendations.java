@@ -79,6 +79,7 @@ public class FragmentRecommendations extends Fragment {
             animation.setVisibility(View.VISIBLE);
 
             PetRepositoryFS.getInstance().recommend(new PostLoaderListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onSuccess(Post post) {
                     Glide.with(AppDoptameApp.getContext())
@@ -87,7 +88,8 @@ public class FragmentRecommendations extends Fragment {
                             .error(R.drawable.user_icon_orange)
                             .into(petImage);
 
-                    petName.setText(post.getPet().getName());
+                    animation.setVisibility(View.INVISIBLE);
+                    petName.setText(post.getPet().getName() + " (" + post.getPet().getBreed() + ")");
                     petImage.setVisibility(View.VISIBLE);
                     petName.setVisibility(View.VISIBLE);
                     adoptButton.setOnClickListener(v -> {

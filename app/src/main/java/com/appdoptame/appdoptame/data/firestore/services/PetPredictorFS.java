@@ -38,9 +38,12 @@ public class PetPredictorFS implements IPetPredictor {
     private final static String userAgent                 = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36";
     private final static String userAgentKey              = "User-Agent";
     private final static String UrlApi                    = "http://www.appdoptame.tk";
+    private final static String IPApi                     = "http://34.136.55.35";
     private final static String UrlPredictRace            = "/dograce";
     private final static String UrlUrlParam               = "?url=";
+
     private final static StorageReference storageTemporal = FirestoreDB.getStorageTemporal();
+
     private static HttpClient httpClient;
 
     @Override
